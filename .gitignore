@@ -8,4 +8,4 @@
 /tmp/
 /.idea/
 /Gemfile.lock
-/ruby-technical-analysis-0.1.0.gem
+/ruby-technical-analysis-*.gem
