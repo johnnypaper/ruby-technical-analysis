@@ -32,10 +32,11 @@ module MovingAverages
     if period == 1
       last
     else
-      if period == 12
+      case period
+      when 12
         last_obs_pct = 0.846154
         ma_pct = 0.153846
-      elsif period == 26
+      when 26
         last_obs_pct = 0.925926
         ma_pct = 0.074074
       else

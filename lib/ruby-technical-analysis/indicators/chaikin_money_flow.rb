@@ -4,7 +4,6 @@
 # Returns a current singular value
 module ChaikinMoneyFlow
   def chaikin_money_flow(period)
-
     highs = []
     lows = []
     closes = []

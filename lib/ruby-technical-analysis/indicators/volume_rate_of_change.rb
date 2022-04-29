@@ -12,7 +12,7 @@ module VolumeRateOfChange
     delta_volume = []
     vol_shifted = []
 
-    (0..(length - period - 1)).each do |i|
+    (0..(length - period - 1)).each do
       vol_shifted << at(length - period - 1)
       delta_volume << at(-1) - vol_shifted[-1]
     end

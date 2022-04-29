@@ -52,7 +52,6 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     end
     assert_equal case_one.ema(5).round(3), 24.698
     assert_equal case_two.ema(5).round(3), 24.657
-
   end
 
   def test_wma
@@ -134,7 +133,6 @@ class TestRubyTechnicalAnalysis < Minitest::Test
   end
 
   def test_macd
-
     case_two = [166.23, 164.51, 162.41, 161.62, 159.78, 159.69, 159.22, 170.33,
                 174.78, 174.61, 175.84, 172.90, 172.39, 171.66, 174.83, 176.28,
                 172.12, 168.64, 168.88, 172.79, 172.55, 168.88, 167.30, 164.32,
@@ -142,7 +140,6 @@ class TestRubyTechnicalAnalysis < Minitest::Test
                 159.30, 157.44, 162.95]
 
     assert_equal case_two.macd(12, 26, 9), [-1.934, -1.664, -0.27]
-
   end
 
   def test_mass_index
@@ -244,5 +241,4 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     assert_equal case_one.williams_percent_r(5), 0.00
     assert_equal case_two.williams_percent_r(5), -1.68
   end
-
 end

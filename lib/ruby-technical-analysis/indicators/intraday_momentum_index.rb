@@ -4,7 +4,6 @@
 # Returns a singular current value
 module IntradayMomentumIndex
   def intraday_momentum_index(period)
-
     opens = []
     closes = []
 

@@ -4,7 +4,6 @@
 # Returns a single value
 module WilliamsPercentR
   def williams_percent_r(period)
-
     highs = []
     lows = []
     closes = []

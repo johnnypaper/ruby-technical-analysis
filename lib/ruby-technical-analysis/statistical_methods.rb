@@ -3,7 +3,6 @@
 # Statistical methods used in calculations
 module StatisticalMethods
   def standard_deviation
-
     if size <= 1
       raise ArgumentError,
             "Array must contain at least 2 numbers for standard deviation."

@@ -59,7 +59,8 @@ module MassIndex
 
     mi = 0.0
     (0..2).each do |i|
-      ema_period_two_div_ema_period << ((hml_ema_arr[(period * 2) + i - 2]) / (hml_ema_ema_arr[period + i - 1])).round(4)
+      ema_period_two_div_ema_period <<
+        ((hml_ema_arr[(period * 2) + i - 2]) / (hml_ema_ema_arr[period + i - 1])).round(4)
       mi += ((hml_ema_arr[(period * 2) + i - 2]) / (hml_ema_ema_arr[period + i - 1])).round(4)
     end
 

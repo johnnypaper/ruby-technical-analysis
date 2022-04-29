@@ -5,7 +5,6 @@ require_relative "../../ruby-technical-analysis/moving_averages"
 # Moving Average Convergence Divergence (MACD) indicator
 # Returns an array of current macd value and signal value
 module Macd
-
   def macd(fast_period, slow_period, signal_period)
     if size < (slow_period + signal_period)
       raise ArgumentError,
@@ -40,7 +39,6 @@ module Macd
     signal = ((sig_arr[-1] * sig_pct) + ((sig_arr[-2]) * (1 - sig_pct))).round(3)
 
     [(fast_arr[-1] - slow_arr[-1]).round(4), signal, (fast_arr[-1] - slow_arr[-1]).round(4) - signal]
-
   end
 end
 
