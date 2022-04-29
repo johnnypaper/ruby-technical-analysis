@@ -4,45 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a0f0d9ef-ad14-4ae2-baee-b466afc8e88d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.github/workflows/main.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.rubocop.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CODE_OF_CONDUCT.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gemfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Rakefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/console" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/setup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/bollinger_bands.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/chaikin_money_flow.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/chande_momentum_oscillator.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/commodity_channel_index.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/envelopes_ema.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/intraday_momentum_index.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/macd.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/mass_index.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/pivot_points.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/price_channel.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/qstick.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/rate_of_change.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/relative_momentum_index.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/relative_strength_index.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/stochastic_oscillator.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/volume_oscillator.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/volume_rate_of_change.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/wilders_smoothing.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/indicators/williams_percent_r.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/moving_averages.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/statistical_methods.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ruby-technical-analysis/version.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruby-technical-analysis.gemspec" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sig/ruby-technical-analysis.rbs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/test_helper.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/test_ruby-technical-analysis.rb" afterDir="false" />
+    <list default="true" id="a0f0d9ef-ad14-4ae2-baee-b466afc8e88d" name="Changes" comment="Initial commit">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,8 +114,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1651247960224</updated>
-      <workItem from="1651247961545" duration="3286000" />
+      <workItem from="1651247961545" duration="3966000" />
     </task>
+    <task id="LOCAL-00001" summary="Initial commit">
+      <created>1651251384557</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1651251384557</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Initial commit">
+      <created>1651251585201</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1651251585201</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -168,7 +147,11 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ruby_technical_analysis@test_ruby_technical_analysis_rb.rcov" NAME="test_ruby-technical-analysis.rb Coverage Results" MODIFIED="1651250940545" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="ruby-technical-analysis" />
+    <SUITE FILE_PATH="coverage/ruby_technical_analysis@test_ruby_technical_analysis_rb.rcov" NAME="test_ruby-technical-analysis.rb Coverage Results" MODIFIED="1651251350539" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="ruby-technical-analysis" />
   </component>
 </project>
