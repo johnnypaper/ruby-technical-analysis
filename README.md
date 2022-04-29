@@ -2,6 +2,8 @@
 
 Lightweight and easy technical analysis toolkit for Ruby.
 
+Codebase derived from Steven B. Achelis' *Technical Analysis from A to Z* (2nd Edition)
+
 [Homepage](https://rubytechnicalanalysis.com), [Chart Demo](https://rubytechnicalanalysis/chart), [Docs](https://rubytechnicalanalysis.com/docs)
 
 ## Installation
