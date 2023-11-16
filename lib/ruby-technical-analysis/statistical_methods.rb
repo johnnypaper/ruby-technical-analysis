@@ -1,24 +1,32 @@
 # frozen_string_literal: true
 
-# Statistical methods used in calculations
-module StatisticalMethods
-  def standard_deviation
-    if size <= 1
-      raise ArgumentError,
-            "Array must contain at least 2 numbers for standard deviation."
+module RTA
+  # Statistical methods used in calculations
+  class StatisticalMethods
+    attr_accessor :price_series
+
+    def initialize(price_series)
+      @price_series = price_series
     end
 
-    mean = reduce(:+).to_f / size
-    sq_dist = 0
-
-    each do |n|
-      sq_dist += (n - mean).abs2
+    def mean
+      @price_series.reduce(:+) / @price_series.length.to_f
     end
 
-    Math.sqrt(sq_dist.to_f / size)
+    def standard_deviation
+      return 0 if @price_series.uniq.length == 1
+
+      Math.sqrt(variance)
+    end
+
+    def variance
+      squared_differences.reduce(:+) / @price_series.length.to_f
+    end
+
+    private
+
+    def squared_differences
+      @price_series.map { |n| (n - mean)**2 }
+    end
   end
-end
-
-class Array
-  include StatisticalMethods
 end
