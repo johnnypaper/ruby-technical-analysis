@@ -160,8 +160,9 @@ class TestRubyTechnicalAnalysis < Minitest::Test
   def test_q_stick
     case_one = [[62.5625, 64.5625], [64.6250, 64.1250], [63.5625, 64.3125], [63.9375, 64.8750]]
     case_two = [[62.5625, 64.5625], [64.6250, 64.1250], [63.5625, 64.3125], [63.9375, 64.8750], [64.5000, 65.1875]]
-    assert_equal case_one.qstick(4), 0.7969
-    assert_equal case_two.qstick(4), 0.4688
+
+    assert_equal RTA::QStick.new(case_one, 4).call, 0.7969
+    assert_equal RTA::QStick.new(case_two, 4).call, 0.4688
   end
 
   def test_rate_of_change
