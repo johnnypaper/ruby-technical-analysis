@@ -68,8 +68,8 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     case_two = [[8.6250, 8.3125, 8.6250, 4494], [8.6250, 8.4375, 8.5000, 2090], [8.6250, 8.4375, 8.6250, 1306],
                 [8.7500, 8.6250, 8.7500, 4242], [8.7500, 8.4375, 8.5000, 2874], [8.5625, 8.5000, 8.5000, 598]]
 
-    assert_equal case_one.chaikin_money_flow(5).truncate(5), 0.50786
-    assert_equal case_two.chaikin_money_flow(5).truncate(5), 0.22763
+    assert_equal RTA::ChaikinMoneyFlow.new(case_one, 5).call.truncate(5), 0.50786
+    assert_equal RTA::ChaikinMoneyFlow.new(case_two, 5).call.truncate(5), 0.22763
   end
 
   def test_chande_momentum_oscillator
