@@ -1,24 +1,31 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require_relative "test_helper"
 
 class TestRubyTechnicalAnalysis < Minitest::Test
   def test_has_version_number
     refute_nil ::RubyTechnicalAnalysis::VERSION
   end
 
-  def test_standard_deviation
-    case_one = [0, 1, 2, 3]
-    case_two = [-1, 1, 2, -2]
-    case_three = [0, 0]
-    case_four = [0]
+  def test_mean
+    assert_equal RTA::StatisticalMethods.new([0, 1, 2, 3]).mean, 1.5
+    assert_equal RTA::StatisticalMethods.new([-1, 1, 2, -2]).mean, 0
+    assert_equal RTA::StatisticalMethods.new([0, 0]).mean, 0
+    assert_equal RTA::StatisticalMethods.new([0]).mean, 0
+  end
 
-    assert_equal case_one.standard_deviation.truncate(5), 1.11803
-    assert_equal case_two.standard_deviation.truncate(5), 1.58113
-    assert_equal case_three.standard_deviation.truncate(5), 0.0
-    assert_raises ArgumentError do
-      case_four.standard_deviation
-    end
+  def test_variance
+    assert_equal RTA::StatisticalMethods.new([0, 1, 2, 3]).variance, 1.25
+    assert_equal RTA::StatisticalMethods.new([-1, 1, 2, -2]).variance, 2.5
+    assert_equal RTA::StatisticalMethods.new([0, 0]).variance, 0
+    assert_equal RTA::StatisticalMethods.new([0]).variance, 0
+  end
+
+  def test_standard_deviation
+    assert_equal RTA::StatisticalMethods.new([0, 1, 2, 3]).standard_deviation.truncate(5), 1.11803
+    assert_equal RTA::StatisticalMethods.new([-1, 1, 2, -2]).standard_deviation.truncate(5), 1.58113
+    assert_equal RTA::StatisticalMethods.new([0, 0]).standard_deviation.truncate(5), 0
+    assert_equal RTA::StatisticalMethods.new([0]).standard_deviation.truncate(5), 0
   end
 
   def test_sma

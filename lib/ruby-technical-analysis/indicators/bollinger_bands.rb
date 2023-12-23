@@ -13,7 +13,7 @@ module BollingerBands
     end
     closes = last(period)
     middle = closes.sma(period)
-    twice_sd = (2 * closes.standard_deviation).truncate(4)
+    twice_sd = (2 * RTA::StatisticalMethods.new(closes).standard_deviation).truncate(4)
     upper = twice_sd + middle
     lower = middle - twice_sd
     [upper, middle, lower]
