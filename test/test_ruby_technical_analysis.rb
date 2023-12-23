@@ -78,10 +78,10 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     case_three = [51.0625, 50.1250, 52.3125, 52.1875, 53.1875, 53.0625, 54.0625, 53.5000]
     case_four = [51.0625, 50.1250, 52.3125, 52.1875, 53.1875, 53.0625, 54.0625, 53.5000, 51.5625]
 
-    assert_equal case_one.chande_momentum_oscillator(5).truncate(4), 45.7143
-    assert_equal case_two.chande_momentum_oscillator(5).truncate(4), 88.7324
-    assert_equal case_three.chande_momentum_oscillator(5).truncate(4), 42.2222
-    assert_equal case_four.chande_momentum_oscillator(5).truncate(4), -13.5135
+    assert_equal RTA::ChandeMomentumOscillator.new(case_one, 5).call.truncate(4), 45.7143
+    assert_equal RTA::ChandeMomentumOscillator.new(case_two, 5).call.truncate(4), 88.7324
+    assert_equal RTA::ChandeMomentumOscillator.new(case_three, 5).call.truncate(4), 42.2222
+    assert_equal RTA::ChandeMomentumOscillator.new(case_four, 5).call.truncate(4), -13.5135
   end
 
   def test_commodity_channel_index
