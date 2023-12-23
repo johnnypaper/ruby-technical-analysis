@@ -168,8 +168,9 @@ class TestRubyTechnicalAnalysis < Minitest::Test
   def test_rate_of_change
     case_one = [5.5625, 5.3750, 5.3750, 5.0625]
     case_two = [5.5625, 5.3750, 5.3750, 5.0625, 5.1094]
-    assert_equal case_one.rate_of_change(3), -8.99
-    assert_equal case_two.rate_of_change(3), -4.94
+
+    assert_equal RTA::RateOfChange.new(case_one, 3).call, -8.99
+    assert_equal RTA::RateOfChange.new(case_two, 3).call, -4.94
   end
 
   def test_relative_momentum_index
