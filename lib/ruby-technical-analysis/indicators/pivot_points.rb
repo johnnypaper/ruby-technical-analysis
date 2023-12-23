@@ -1,23 +1,57 @@
 # frozen_string_literal: true
 
-# Pivot Points indicator
-# Returns an array of the current pivot points for the provided H, L, C array
-module PivotPoints
-  def pivot_points
-    h = at(0)
-    l = at(1)
-    c = at(2)
-    pp = ((h + l + c) / 3.0).round(2)
-    r1 = ((pp * 2) - l).round(2)
-    s1 = ((pp * 2) - h).round(2)
-    r2 = (pp + (h - l)).round(2)
-    s2 = (pp - (h - l)).round(2)
-    r3 = (h + (2 * (pp - l))).round(2)
-    s3 = (l - (2 * (h - pp))).round(2)
-    [s3, s2, s1, pp, r1, r2, r3]
-  end
-end
+module RTA
+  # Pivot Points indicator
+  # Returns an array of the current pivot points for the provided H, L, C array
+  class PivotPoints
+    attr_reader :high, :low, :close
 
-class Array
-  include PivotPoints
+    def initialize(hlc_array)
+      @high = hlc_array[0]
+      @low = hlc_array[1]
+      @close = hlc_array[2]
+    end
+
+    def call
+      [
+        support_3,
+        support_2,
+        support_1,
+        _pivot,
+        resistance_1,
+        resistance_2,
+        resistance_3
+      ]
+    end
+
+    private
+
+    def _pivot
+      @_pivot ||= ((high + low + close) / 3.0).round(2)
+    end
+
+    def support_1
+      ((2 * _pivot) - high).round(2)
+    end
+
+    def support_2
+      (_pivot - (high - low)).round(2)
+    end
+
+    def support_3
+      (low - (2 * (high - _pivot))).round(2)
+    end
+
+    def resistance_1
+      ((2 * _pivot) - low).round(2)
+    end
+
+    def resistance_2
+      (_pivot + (high - low)).round(2)
+    end
+
+    def resistance_3
+      (high + (2 * (_pivot - low))).round(2)
+    end
+  end
 end

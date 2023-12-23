@@ -144,7 +144,7 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     # Used Aapl monthly data from Feb 2022 to confirm pivots for March 2022
     case_one = [176.65, 152.00, 165.12]
 
-    assert_equal case_one.pivot_points, [127.88, 139.94, 152.53, 164.59, 177.18, 189.24, 201.83]
+    assert_equal RTA::PivotPoints.new(case_one).call, [127.88, 139.94, 152.53, 164.59, 177.18, 189.24, 201.83]
   end
 
   def test_price_channel
