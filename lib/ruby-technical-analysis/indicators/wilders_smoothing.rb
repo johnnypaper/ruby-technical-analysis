@@ -2,26 +2,36 @@
 
 require_relative "../../ruby-technical-analysis/moving_averages"
 
-# Wilders Smoothing indicator
-# Returns a singular current value
-module WildersSmoothing
-  def wilders_smoothing(period)
-    if size < period
-      raise ArgumentError,
-            "Closes array passed to Wilders Smoothing cannot be less than the period argument."
+module RTA
+  # Wilders Smoothing indicator
+  # Returns a singular current value
+  class WildersSmoothing
+    attr_reader :price_series, :period
+
+    def initialize(price_series, period)
+      @price_series = price_series
+      @period = period
     end
 
-    ws = []
-    ws << RTA::MovingAverages.new(first(period)).sma(period)
+    def call
+      ws = _sma_first_period
 
-    (0..(size - period - 1)).each do |i|
-      ws << ((at(i + period) - ws[i]) * (1.0 / period)) + ws[i]
+      (0..smoothing_length).each do |i|
+        ws << ((price_series.at(i + period) - ws.at(i)) * (1.0 / period)) + ws.at(i)
+      end
+
+      ws.last
     end
 
-    ws[-1]
+    private
+
+    def _sma_first_period
+      @_sma_first_period ||=
+        Array(RTA::MovingAverages.new(price_series.first(period)).sma(period))
+    end
+
+    def smoothing_length
+      (price_series.size - period - 1)
+    end
   end
-end
-
-class Array
-  include WildersSmoothing
 end

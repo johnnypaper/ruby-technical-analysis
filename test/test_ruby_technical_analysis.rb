@@ -176,6 +176,7 @@ class TestRubyTechnicalAnalysis < Minitest::Test
   def test_relative_momentum_index
     case_one = [6.8750, 6.9375, 6.8125, 6.6095, 6.7345, 6.6720, 6.6250, 6.6875, 6.5470, 6.6563, 6.6720, 6.6563]
     case_two = [6.8750, 6.9375, 6.8125, 6.6095, 6.7345, 6.6720, 6.6250, 6.6875, 6.5470, 6.6563, 6.6720, 6.6563, 6.5938]
+
     assert_equal case_one.relative_momentum_index(4, 8), 13.1179
     assert_equal case_two.relative_momentum_index(4, 8), 17.7112
   end
@@ -216,8 +217,9 @@ class TestRubyTechnicalAnalysis < Minitest::Test
   def test_wilders_smoothing
     case_one = [62.1250, 61.1250, 62.3438, 65.3125, 63.9688, 63.4375]
     case_two = [62.1250, 61.1250, 62.3438, 65.3125, 63.9688, 63.4375, 63.0000]
-    assert_equal case_one.wilders_smoothing(5).truncate(4), 63.0675
-    assert_equal case_two.wilders_smoothing(5).truncate(4), 63.0540
+
+    assert_equal RTA::WildersSmoothing.new(case_one, 5).call.truncate(4), 63.0675
+    assert_equal RTA::WildersSmoothing.new(case_two, 5).call.truncate(4), 63.0540
   end
 
   def test_williams_percent_r
