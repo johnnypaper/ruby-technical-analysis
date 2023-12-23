@@ -2,23 +2,25 @@
 
 require_relative "../../ruby-technical-analysis/moving_averages"
 
-# Envelopes EMA indicator
-# Returns an array of current high, middle and low eema values
-module EnvelopesEma
-  def envelopes_ema(period, percent)
-    if size < period
-      raise ArgumentError,
-            "Close array passed to Envelopes EMA cannot be less than the period argument."
+module RTA
+  # Envelopes EMA indicator
+  # Returns an array of current high, middle and low eema values
+  class EnvelopesEma
+    attr_accessor :price_series, :period, :percent
+
+    def initialize(price_series, period, percent)
+      @price_series = price_series
+      @period = period
+      @percent = percent
     end
 
-    eema = RTA::MovingAverages.new(last(period)).ema(period)
-    eema_up = (eema.round(3) * ((100 + percent))) / 100
-    eema_down = (eema.round(3) * ((100 - percent))) / 100
+    def call
+      eema = RTA::MovingAverages.new(price_series.last(period)).ema(period)
 
-    [eema_up.truncate(3), eema.truncate(3), eema_down.truncate(3)]
+      eema_up = (eema * (100 + percent)) / 100
+      eema_down = (eema * (100 - percent)) / 100
+
+      [eema_up, eema, eema_down].map { |val| val.truncate(3) }
+    end
   end
-end
-
-class Array
-  include EnvelopesEma
 end

@@ -101,8 +101,8 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     case_one = [25.000, 24.875, 24.781, 24.594, 24.5]
     case_two = [25.000, 24.875, 24.781, 24.594, 24.5, 24.625]
 
-    assert_equal case_one.envelopes_ema(5, 20), [29.637, 24.698, 19.758]
-    assert_equal case_two.envelopes_ema(5, 20), [29.588, 24.657, 19.725]
+    assert_equal RTA::EnvelopesEma.new(case_one, 5, 20).call, [29.637, 24.698, 19.758]
+    assert_equal RTA::EnvelopesEma.new(case_two, 5, 20).call, [29.588, 24.657, 19.725]
   end
 
   def test_intraday_momentum_index
