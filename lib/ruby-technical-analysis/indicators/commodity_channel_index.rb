@@ -46,7 +46,7 @@ module CommodityChannelIndex
     end
 
     (0..(period - 1)).each do |i|
-      tp_sma << typical_prices[i..(i + period - 1)].sma(period)
+      tp_sma << RTA::MovingAverages.new(typical_prices[i..(i + period - 1)]).sma(period)
     end
 
     typical_prices.last(period).each do |tp|

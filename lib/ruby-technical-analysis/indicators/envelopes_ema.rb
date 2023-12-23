@@ -11,7 +11,7 @@ module EnvelopesEma
             "Close array passed to Envelopes EMA cannot be less than the period argument."
     end
 
-    eema = last(period).ema(period)
+    eema = RTA::MovingAverages.new(last(period)).ema(period)
     eema_up = (eema.round(3) * ((100 + percent))) / 100
     eema_down = (eema.round(3) * ((100 - percent))) / 100
 
