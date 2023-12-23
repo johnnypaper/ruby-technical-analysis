@@ -12,7 +12,7 @@ module WildersSmoothing
     end
 
     ws = []
-    ws << first(period).sma(period)
+    ws << RTA::MovingAverages.new(first(period)).sma(period)
 
     (0..(size - period - 1)).each do |i|
       ws << ((at(i + period) - ws[i]) * (1.0 / period)) + ws[i]

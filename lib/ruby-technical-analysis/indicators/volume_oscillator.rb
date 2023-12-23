@@ -20,11 +20,11 @@ module VolumeOscillator
     long_ma_a = []
 
     (0..(length - short_ma)).each do |i|
-      short_ma_a << self[i..(i + short_ma - 1)].sma(short_ma)
+      short_ma_a << RTA::MovingAverages.new(self[i..(i + short_ma - 1)]).sma(short_ma)
     end
 
     (0..(length - long_ma)).each do |i|
-      long_ma_a << self[i..(i + long_ma - 1)].sma(long_ma)
+      long_ma_a << RTA::MovingAverages.new(self[i..(i + long_ma - 1)]).sma(long_ma)
     end
 
     sml = (short_ma_a.last - long_ma_a.last).round(2)

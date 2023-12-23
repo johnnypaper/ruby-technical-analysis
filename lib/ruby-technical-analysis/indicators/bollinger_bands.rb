@@ -12,7 +12,7 @@ module BollingerBands
             "Array passed to Bollinger Bands cannot be less than the period argument."
     end
     closes = last(period)
-    middle = closes.sma(period)
+    middle = RTA::MovingAverages.new(closes).sma(period)
     twice_sd = (2 * RTA::StatisticalMethods.new(closes).standard_deviation).truncate(4)
     upper = twice_sd + middle
     lower = middle - twice_sd

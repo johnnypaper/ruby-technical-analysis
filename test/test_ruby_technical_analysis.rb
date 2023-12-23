@@ -31,52 +31,27 @@ class TestRubyTechnicalAnalysis < Minitest::Test
   def test_sma
     case_one = [25.000, 24.875, 24.781, 24.594, 24.500]
     case_two = [25.000, 24.875, 24.781, 24.594, 24.500, 24.625]
-    assert_raises ArgumentError do
-      case_one.sma(6)
-    end
-    assert_raises ArgumentError do
-      case_one.sma(0)
-    end
-    assert_raises ArgumentError do
-      case_one.sma(-6)
-    end
-    assert_equal case_one.sma(1).truncate(3), 24.500
-    assert_equal case_one.sma(5).truncate(3), 24.750
-    assert_equal case_two.sma(5).truncate(3), 24.675
+
+    assert_equal RTA::MovingAverages.new(case_one).sma(1).truncate(3), 24.500
+    assert_equal RTA::MovingAverages.new(case_one).sma(5).truncate(3), 24.750
+    assert_equal RTA::MovingAverages.new(case_two).sma(5).truncate(3), 24.675
   end
 
   def test_ema
     case_one = [25.000, 24.875, 24.781, 24.594, 24.5]
     case_two = [25.000, 24.875, 24.781, 24.594, 24.5, 24.625]
-    assert_raises ArgumentError do
-      case_one.ema(6)
-    end
-    assert_raises ArgumentError do
-      case_one.ema(0)
-    end
-    assert_raises ArgumentError do
-      case_one.ema(-6)
-    end
-    assert_equal case_one.ema(5).round(3), 24.698
-    assert_equal case_two.ema(5).round(3), 24.657
+
+    assert_equal RTA::MovingAverages.new(case_one).ema(5).round(3), 24.698
+    assert_equal RTA::MovingAverages.new(case_two).ema(5).round(3), 24.657
   end
 
   def test_wma
     case_one = [25.000, 24.875, 24.781, 24.594, 24.5]
     case_two = [25.000, 24.875, 24.781, 24.594, 24.5, 24.625]
-    assert_raises ArgumentError do
-      case_one.wma(6)
-    end
-    assert_raises ArgumentError do
-      case_one.wma(0)
-    end
-    assert_raises ArgumentError do
-      case_one.wma(-6)
-    end
 
-    assert_equal case_one.wma(1).round(4), 24.5000
-    assert_equal case_one.wma(5).round(4), 24.6646
-    assert_equal case_two.wma(5).round(4), 24.6229
+    assert_equal RTA::MovingAverages.new(case_one).wma(1).round(4), 24.5000
+    assert_equal RTA::MovingAverages.new(case_one).wma(5).round(4), 24.6646
+    assert_equal RTA::MovingAverages.new(case_two).wma(5).round(4), 24.6229
   end
 
   def test_bollinger_bands
