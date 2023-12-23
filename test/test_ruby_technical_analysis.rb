@@ -58,8 +58,8 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     case_one = [31.8750, 32.1250, 32.3125, 32.1250, 31.8750]
     case_two = [31.8750, 32.1250, 32.3125, 32.1250, 31.8750, 32.3125]
 
-    assert_equal case_one.bollinger_bands(5), [32.3979, 32.0625, 31.7271]
-    assert_equal case_two.bollinger_bands(5), [32.4721, 32.15, 31.8279]
+    assert_equal RTA::BollingerBands.new(case_one, 5).call, [32.397, 32.062, 31.727]
+    assert_equal RTA::BollingerBands.new(case_two, 5).call, [32.508, 32.15, 31.791]
   end
 
   def test_chaikin_money_flow
