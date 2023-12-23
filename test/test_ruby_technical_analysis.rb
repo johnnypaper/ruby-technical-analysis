@@ -111,8 +111,8 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     case_two = [[18.4833, 18.5000], [18.5417, 18.4167], [18.4167, 18.1667], [18.1667, 18.1250], [18.1667, 17.9583],
                 [18.0417, 18.0000], [18.0000, 17.9583], [17.9167, 17.8333], [17.7917, 17.9583], [18.0417, 18.5417]]
 
-    assert_equal case_one.intraday_momentum_index(7), 19.9880
-    assert_equal case_two.intraday_momentum_index(7), 61.5228
+    assert_equal RTA::IntradayMomentumIndex.new(case_one, 7).call, 19.9880
+    assert_equal RTA::IntradayMomentumIndex.new(case_two, 7).call, 61.5228
   end
 
   def test_macd

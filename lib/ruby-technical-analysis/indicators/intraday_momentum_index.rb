@@ -1,48 +1,40 @@
 # frozen_string_literal: true
 
-# Intraday Momentum Index indicator
-# Returns a singular current value
-module IntradayMomentumIndex
-  def intraday_momentum_index(period)
-    opens = []
-    closes = []
+module RTA
+  # Intraday Momentum Index indicator
+  # Returns a singular current value
+  class IntradayMomentumIndex
+    attr_accessor :price_series, :period
 
-    each do |o, c|
-      opens << o
-      closes << c
+    def initialize(price_series, period)
+      @price_series = price_series
+      @period = period
     end
 
-    if opens.size < period
-      raise ArgumentError,
-            "Opens array passed to Intraday Momentum Index cannot be less than the period argument."
+    def call
+      gsum, lsum = calculate_gsum_lsum
+
+      imi = calculate_imi(gsum, lsum)
+      imi.round(4)
     end
 
-    if closes.size < period
-      raise ArgumentError,
-            "Closes array passed to Intraday Momentum Index cannot be less than the period argument."
-    end
+    private
 
-    closes = closes.last(period)
-    opens = opens.last(period)
+    def calculate_gsum_lsum
+      gsum = 0.0
+      lsum = 0.0
 
-    gsum = 0.0
-    lsum = 0.0
-
-    (0..(period - 1)).each do |i|
-      cmo = (closes[i] - opens[i]).abs
-      if closes[i] > opens[i]
-        gsum += cmo
-      else
-        lsum += cmo
+      price_series.last(period).each do |open, close|
+        cmo = (close - open).abs
+        close > open ? gsum += cmo : lsum += cmo
       end
+
+      [gsum, lsum]
     end
 
-    gsum_plus_lsum = gsum + lsum
-
-    ((gsum.to_f / gsum_plus_lsum) * 100).round(4)
+    def calculate_imi(gsum, lsum)
+      gsum_plus_lsum = gsum + lsum
+      gsum_plus_lsum.zero? ? 0 : (gsum / gsum_plus_lsum) * 100
+    end
   end
-end
-
-class Array
-  include IntradayMomentumIndex
 end
