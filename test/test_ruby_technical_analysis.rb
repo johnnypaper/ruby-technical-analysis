@@ -135,8 +135,9 @@ class TestRubyTechnicalAnalysis < Minitest::Test
                 [38.1250, 37.5000], [37.7500, 37.7500], [37.6250, 37.4375], [37.6875, 37.3750], [37.7500, 37.3750],
                 [37.5625, 37.3750], [37.6250, 36.8125], [36.6875, 36.3125], [36.8750, 36.2500], [36.9375, 36.5000],
                 [36.5000, 36.2500], [36.9375, 36.3125], [37.0000, 36.6250], [36.8750, 36.5625], [36.8125, 36.3750]]
-    assert_equal case_one.mass_index(9), 3.2236
-    assert_equal case_two.mass_index(9), 3.1387
+
+    assert_equal RTA::MassIndex.new(case_one, 9).call, 3.2236
+    assert_equal RTA::MassIndex.new(case_two, 9).call, 3.1387
   end
 
   def test_pivot_points
