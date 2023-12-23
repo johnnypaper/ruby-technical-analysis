@@ -92,8 +92,9 @@ class TestRubyTechnicalAnalysis < Minitest::Test
                 [14.6900, 14.4600, 14.6000], [14.7967, 14.5483, 14.6983], [14.7940, 13.9347, 13.9460],
                 [14.0930, 13.8223, 13.9827], [14.7000, 14.0200, 14.4500], [14.5255, 14.2652, 14.3452],
                 [14.6579, 14.3773, 14.4197]]
-    assert_equal case_one.commodity_channel_index(5).truncate(4), 18.0890
-    assert_equal case_two.commodity_channel_index(5).truncate(4), 84.4605
+
+    assert_equal RTA::CommodityChannelIndex.new(case_one, 5).call.truncate(4), 18.0890
+    assert_equal RTA::CommodityChannelIndex.new(case_two, 5).call.truncate(4), 84.4605
   end
 
   def test_envelopes_ema
