@@ -231,7 +231,8 @@ class TestRubyTechnicalAnalysis < Minitest::Test
                 [630.89, 622.20, 630.80], [632.85, 630.21, 632.85]]
     case_two = [[631.34, 624.81, 626.01], [627.11, 623.59, 626.44], [628.49, 621.33, 622.20],
                 [630.89, 622.20, 630.80], [632.85, 630.21, 632.85], [633.26, 629.64, 633.06]]
-    assert_equal case_one.williams_percent_r(5), 0.00
-    assert_equal case_two.williams_percent_r(5), -1.68
+
+    assert_equal RTA::WilliamsPercentR.new(case_one, 5).call, 0
+    assert_equal RTA::WilliamsPercentR.new(case_two, 5).call, -1.68
   end
 end
