@@ -58,8 +58,8 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     series_one = [31.8750, 32.1250, 32.3125, 32.1250, 31.8750]
     series_two = [31.8750, 32.1250, 32.3125, 32.1250, 31.8750, 32.3125]
 
-    assert_equal RTA::BollingerBands.new(series_one, 5).call, [32.397, 32.062, 31.727]
-    assert_equal RTA::BollingerBands.new(series_two, 5).call, [32.508, 32.15, 31.791]
+    assert_equal RTA::BollingerBands.call(series_one, 5), [32.397, 32.062, 31.727]
+    assert_equal RTA::BollingerBands.call(series_two, 5), [32.508, 32.15, 31.791]
   end
 
   def test_chaikin_money_flow
@@ -78,10 +78,10 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     series_three = [51.0625, 50.1250, 52.3125, 52.1875, 53.1875, 53.0625, 54.0625, 53.5000]
     series_four = [51.0625, 50.1250, 52.3125, 52.1875, 53.1875, 53.0625, 54.0625, 53.5000, 51.5625]
 
-    assert_equal RTA::ChandeMomentumOscillator.new(series_one, 5).call.truncate(4), 45.7143
-    assert_equal RTA::ChandeMomentumOscillator.new(series_two, 5).call.truncate(4), 88.7324
-    assert_equal RTA::ChandeMomentumOscillator.new(series_three, 5).call.truncate(4), 42.2222
-    assert_equal RTA::ChandeMomentumOscillator.new(series_four, 5).call.truncate(4), -13.5135
+    assert_equal RTA::ChandeMomentumOscillator.call(series_one, 5).truncate(4), 45.7143
+    assert_equal RTA::ChandeMomentumOscillator.call(series_two, 5).truncate(4), 88.7324
+    assert_equal RTA::ChandeMomentumOscillator.call(series_three, 5).truncate(4), 42.2222
+    assert_equal RTA::ChandeMomentumOscillator.call(series_four, 5).truncate(4), -13.5135
   end
 
   def test_commodity_channel_index
