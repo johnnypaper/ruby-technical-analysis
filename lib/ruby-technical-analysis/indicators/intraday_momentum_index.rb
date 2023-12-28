@@ -1,40 +1,41 @@
 # frozen_string_literal: true
 
+require_relative "indicator"
+
 module RTA
   # Intraday Momentum Index indicator
   # Returns a singular current value
-  class IntradayMomentumIndex
-    attr_accessor :price_series, :period
+  class IntradayMomentumIndex < Indicator
+    attr_accessor :gsum, :lsum
+    attr_reader :period
 
     def initialize(price_series, period)
-      @price_series = price_series
       @period = period
+      @gsum = 0
+      @lsum = 0
+
+      super(price_series)
     end
 
     def call
-      gsum, lsum = calculate_gsum_lsum
-
-      imi = calculate_imi(gsum, lsum)
-      imi.round(4)
+      calculate_imi
     end
 
     private
 
-    def calculate_gsum_lsum
-      gsum = 0.0
-      lsum = 0.0
-
+    def calculate_gsum_plus_lsum
       price_series.last(period).each do |open, close|
         cmo = (close - open).abs
-        close > open ? gsum += cmo : lsum += cmo
+        close > open ? self.gsum += cmo : self.lsum += cmo
       end
 
-      [gsum, lsum]
+      gsum + lsum
     end
 
-    def calculate_imi(gsum, lsum)
-      gsum_plus_lsum = gsum + lsum
-      gsum_plus_lsum.zero? ? 0 : (gsum / gsum_plus_lsum) * 100
+    def calculate_imi
+      gsum_plus_lsum = calculate_gsum_plus_lsum
+
+      (gsum_plus_lsum.zero? ? 0 : (gsum / gsum_plus_lsum) * 100).round(4)
     end
   end
 end

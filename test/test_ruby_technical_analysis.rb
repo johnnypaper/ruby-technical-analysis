@@ -93,8 +93,8 @@ class TestRubyTechnicalAnalysis < Minitest::Test
                       [14.0930, 13.8223, 13.9827], [14.7000, 14.0200, 14.4500], [14.5255, 14.2652, 14.3452],
                       [14.6579, 14.3773, 14.4197]]
 
-    assert_equal RTA::CommodityChannelIndex.new(hlc_series_one, 5).call.truncate(4), 18.0890
-    assert_equal RTA::CommodityChannelIndex.new(hlc_series_two, 5).call.truncate(4), 84.4605
+    assert_equal RTA::CommodityChannelIndex.call(hlc_series_one, 5).truncate(4), 18.0890
+    assert_equal RTA::CommodityChannelIndex.call(hlc_series_two, 5).truncate(4), 84.4605
   end
 
   def test_envelopes_ema
@@ -111,8 +111,8 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     oc_series_two = [[18.4833, 18.5000], [18.5417, 18.4167], [18.4167, 18.1667], [18.1667, 18.1250], [18.1667, 17.9583],
                      [18.0417, 18.0000], [18.0000, 17.9583], [17.9167, 17.8333], [17.7917, 17.9583], [18.0417, 18.5417]]
 
-    assert_equal RTA::IntradayMomentumIndex.new(oc_series_one, 7).call, 19.9880
-    assert_equal RTA::IntradayMomentumIndex.new(oc_series_two, 7).call, 61.5228
+    assert_equal RTA::IntradayMomentumIndex.call(oc_series_one, 7), 19.9880
+    assert_equal RTA::IntradayMomentumIndex.call(oc_series_two, 7), 61.5228
   end
 
   def test_macd
