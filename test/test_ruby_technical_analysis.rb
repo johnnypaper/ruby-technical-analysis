@@ -205,8 +205,9 @@ class TestRubyTechnicalAnalysis < Minitest::Test
   def test_volume_oscillator
     case_one = [17_604, 18_918, 21_030, 13_854, 10_866]
     case_two = [17_604, 18_918, 21_030, 13_854, 10_866, 14_580]
-    assert_equal case_one.volume_oscillator(2, 5), -24.88
-    assert_equal case_two.volume_oscillator(2, 5), -19.73
+
+    assert_equal RTA::VolumeOscillator.new(case_one, 2, 5).call, -24.88
+    assert_equal RTA::VolumeOscillator.new(case_two, 2, 5).call, -19.73
   end
 
   def test_volume_rate_of_change
