@@ -22,5 +22,13 @@ module RTA
 
       [highs, lows, closes, volumes]
     end
+
+    def moving_averages
+      RTA::MovingAverages.new(price_series)
+    end
+
+    def statistical_methods
+      RTA::StatisticalMethods.new(price_series)
+    end
   end
 end

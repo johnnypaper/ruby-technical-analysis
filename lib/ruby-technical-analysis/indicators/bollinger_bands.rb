@@ -21,17 +21,8 @@ module RTA
       twice_sd = 2 * statistical_methods.standard_deviation
       upper = (middle + twice_sd)
       lower = (middle - twice_sd)
+
       [upper, middle, lower].map { |n| n.truncate(3) }
-    end
-
-    private
-
-    def moving_averages
-      RTA::MovingAverages.new(price_series)
-    end
-
-    def statistical_methods
-      RTA::StatisticalMethods.new(price_series)
     end
   end
 end
