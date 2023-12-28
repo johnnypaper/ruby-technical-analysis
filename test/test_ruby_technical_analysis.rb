@@ -197,8 +197,9 @@ class TestRubyTechnicalAnalysis < Minitest::Test
                 [33.8281, 33.2500, 33.6406], [33.4375, 33.0000, 33.0156], [33.4688, 32.9375, 33.0469],
                 [34.3750, 33.2500, 34.2969], [34.7188, 34.0469, 34.1406], [34.6250, 33.9375, 34.5469],
                 [34.9219, 34.0625, 34.3281]]
-    assert_equal case_one.stochastic_oscillator(5, 3, 3), 55.4100
-    assert_equal case_two.stochastic_oscillator(5, 3, 3), 70.7715
+
+    assert_equal RTA::StochasticOscillator.new(case_one, 5, 3, 3).call, 55.4100
+    assert_equal RTA::StochasticOscillator.new(case_two, 5, 3, 3).call, 70.7715
   end
 
   def test_volume_oscillator
