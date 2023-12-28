@@ -31,6 +31,10 @@ module RTA
       [highs, lows, closes]
     end
 
+    def extract_series(period = nil)
+      period ? price_series.last(period) : price_series
+    end
+
     def moving_averages(period = nil)
       series = period ? price_series.last(period) : price_series
 

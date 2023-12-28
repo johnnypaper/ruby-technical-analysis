@@ -18,23 +18,35 @@ module RTA
     end
 
     def call
-      closes = price_series.last(period + 1)
-
-      (1..period).each do |i|
-        price_diff = closes.at(i) - closes.at(i - 1)
-        self.up_change_sum += price_diff if price_diff.positive?
-        self.down_change_sum -= price_diff if price_diff.negative?
-      end
-
-      up_sum_plus_down_sum = up_change_sum + down_change_sum
-
-      up_sum_plus_down_sum.zero? ? 0 : calculate_oscillator_value(up_sum_plus_down_sum).round(4)
+      calculate_cmo
     end
 
     private
 
-    def calculate_oscillator_value(up_sum_plus_down_sum)
-      (up_change_sum - down_change_sum).to_f / up_sum_plus_down_sum * 100
+    def _closes
+      @_closes ||= extract_series(period + 1)
+    end
+
+    def calculate_change_sums
+      (1..period).each do |i|
+        price_diff = _closes.at(i) - _closes.at(i - 1)
+        self.up_change_sum += price_diff if price_diff.positive?
+        self.down_change_sum -= price_diff if price_diff.negative?
+      end
+
+      up_change_sum + down_change_sum
+    end
+
+    def _up_sum_plus_down_sum
+      @_up_sum_plus_down_sum ||= calculate_change_sums
+    end
+
+    def calculate_oscillator_value
+      (up_change_sum - down_change_sum).to_f / _up_sum_plus_down_sum * 100
+    end
+
+    def calculate_cmo
+      _up_sum_plus_down_sum.zero? ? 0 : calculate_oscillator_value.round(4)
     end
   end
 end
