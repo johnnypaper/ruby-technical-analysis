@@ -18,6 +18,12 @@ module RTA
     end
 
     def call
+      calculate_cmf
+    end
+
+    private
+
+    def calculate_cmf_sum
       highs, lows, closes, volumes = extract_highs_lows_closes_volumes(period)
 
       period.times do |i|
@@ -29,6 +35,10 @@ module RTA
 
         self.cmf_sum += ((close_minus_low - high_minus_close).to_f / high_minus_low) * volumes.at(i)
       end
+    end
+
+    def calculate_cmf
+      calculate_cmf_sum
 
       (vol_sum.zero? ? 0 : cmf_sum.to_f / vol_sum).round(5)
     end
