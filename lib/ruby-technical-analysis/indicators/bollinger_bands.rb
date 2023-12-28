@@ -17,12 +17,29 @@ module RTA
     end
 
     def call
-      middle = moving_averages.sma(period)
-      twice_sd = 2 * statistical_methods.standard_deviation
-      upper = (middle + twice_sd)
-      lower = (middle - twice_sd)
+      calculate_bollinger_bands
+    end
 
-      [upper, middle, lower].map { |n| n.truncate(3) }
+    private
+
+    def _middle_price
+      @_middle_price ||= moving_averages.sma(period)
+    end
+
+    def _twice_sd
+      @_twice_sd ||= 2 * statistical_methods.standard_deviation
+    end
+
+    def upper_band
+      _middle_price + _twice_sd
+    end
+
+    def lower_band
+      _middle_price - _twice_sd
+    end
+
+    def calculate_bollinger_bands
+      [upper_band, _middle_price, lower_band].map { |n| n.truncate(3) }
     end
   end
 end
