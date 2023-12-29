@@ -168,8 +168,8 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     series_one = [5.5625, 5.3750, 5.3750, 5.0625]
     series_two = [5.5625, 5.3750, 5.3750, 5.0625, 5.1094]
 
-    assert_equal RTA::RateOfChange.new(series_one, 3).call, -8.99
-    assert_equal RTA::RateOfChange.new(series_two, 3).call, -4.94
+    assert_equal RTA::RateOfChange.call(series_one, 3), -8.99
+    assert_equal RTA::RateOfChange.call(series_two, 3), -4.94
   end
 
   def test_relative_momentum_index

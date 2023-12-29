@@ -1,18 +1,27 @@
 # frozen_string_literal: true
 
+require_relative "indicator"
+
 module RTA
   # RateOfChange indicator
   # Returns a single value
-  class RateOfChange
-    attr_reader :price_series, :period
+  class RateOfChange < Indicator
+    attr_reader :period
 
     def initialize(price_series, period)
-      @price_series = price_series
       @period = period
+
+      super(price_series)
     end
 
     def call
-      (((price_series[-1] - price_series.last(period + 1)[0]).to_f / price_series.last(period + 1)[0]) * 100).round(2)
+      calculate_roc
+    end
+
+    private
+
+    def calculate_roc
+      (((price_series.last - price_series.last(period + 1).first).to_f / price_series.last(period + 1).first) * 100).round(2) # rubocop:disable Layout/LineLength
     end
   end
 end
