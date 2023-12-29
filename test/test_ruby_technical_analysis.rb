@@ -210,8 +210,8 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     series_one = [17_604, 18_918, 21_030, 13_854, 10_866]
     series_two = [17_604, 18_918, 21_030, 13_854, 10_866, 14_580]
 
-    assert_equal RTA::VolumeOscillator.new(series_one, 2, 5).call, -24.88
-    assert_equal RTA::VolumeOscillator.new(series_two, 2, 5).call, -19.73
+    assert_equal RTA::VolumeOscillator.call(series_one, 2, 5), -24.88
+    assert_equal RTA::VolumeOscillator.call(series_two, 2, 5), -19.73
   end
 
   def test_volume_rate_of_change
