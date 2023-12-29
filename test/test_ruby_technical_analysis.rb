@@ -150,7 +150,7 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     assert_equal RubyTechnicalAnalysis::PriceChannel.call(hl_series_two, 5), [3.0730, 2.8127]
   end
 
-  def test_q_stick
+  def test_qstick
     oc_series_one = [[62.5625, 64.5625], [64.6250, 64.1250], [63.5625, 64.3125], [63.9375, 64.8750]]
     oc_series_two = [[62.5625, 64.5625], [64.6250, 64.1250], [63.5625, 64.3125], [63.9375, 64.8750], [64.5000, 65.1875]]
 
