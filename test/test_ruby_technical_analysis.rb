@@ -143,7 +143,7 @@ class TestRubyTechnicalAnalysis < Minitest::Test
   def test_pivot_points
     series_one = [176.65, 152.00, 165.12]
 
-    assert_equal RTA::PivotPoints.new(series_one).call, [127.88, 139.94, 152.53, 164.59, 177.18, 189.24, 201.83]
+    assert_equal RTA::PivotPoints.call(series_one), [127.88, 139.94, 152.53, 164.59, 177.18, 189.24, 201.83]
   end
 
   def test_price_channel

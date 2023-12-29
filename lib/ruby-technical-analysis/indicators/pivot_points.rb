@@ -1,18 +1,58 @@
 # frozen_string_literal: true
 
+require_relative "indicator"
+
 module RTA
   # Pivot Points indicator
   # Returns an array of the current pivot points for the provided H, L, C array
-  class PivotPoints
-    attr_reader :high, :low, :close
-
-    def initialize(hlc_array)
-      @high = hlc_array[0]
-      @low = hlc_array[1]
-      @close = hlc_array[2]
+  class PivotPoints < Indicator
+    def call
+      calculate_pivot_points
     end
 
-    def call
+    private
+
+    def _high
+      @_high ||= price_series.first
+    end
+
+    def _low
+      @_low ||= price_series.at(1)
+    end
+
+    def _close
+      @_close ||= price_series.last
+    end
+
+    def _pivot
+      @_pivot ||= ((_high + _low + _close) / 3.0).round(2)
+    end
+
+    def support_1
+      ((2 * _pivot) - _high).round(2)
+    end
+
+    def support_2
+      (_pivot - (_high - _low)).round(2)
+    end
+
+    def support_3
+      (_low - (2 * (_high - _pivot))).round(2)
+    end
+
+    def resistance_1
+      ((2 * _pivot) - _low).round(2)
+    end
+
+    def resistance_2
+      (_pivot + (_high - _low)).round(2)
+    end
+
+    def resistance_3
+      (_high + (2 * (_pivot - _low))).round(2)
+    end
+
+    def calculate_pivot_points
       [
         support_3,
         support_2,
@@ -22,36 +62,6 @@ module RTA
         resistance_2,
         resistance_3
       ]
-    end
-
-    private
-
-    def _pivot
-      @_pivot ||= ((high + low + close) / 3.0).round(2)
-    end
-
-    def support_1
-      ((2 * _pivot) - high).round(2)
-    end
-
-    def support_2
-      (_pivot - (high - low)).round(2)
-    end
-
-    def support_3
-      (low - (2 * (high - _pivot))).round(2)
-    end
-
-    def resistance_1
-      ((2 * _pivot) - low).round(2)
-    end
-
-    def resistance_2
-      (_pivot + (high - low)).round(2)
-    end
-
-    def resistance_3
-      (high + (2 * (_pivot - low))).round(2)
     end
   end
 end
