@@ -21,11 +21,11 @@ module RTA
     private
 
     def _highs
-      @_highs ||= price_series.map { |i| i[0] }.last(period + 1)
+      @_highs ||= price_series.last(period + 1).map { |i| i.at(0) }
     end
 
     def _lows
-      @_lows ||= price_series.map { |i| i[1] }.last(period + 1)
+      @_lows ||= price_series.last(period + 1).map { |i| i.at(1) }
     end
 
     def upper_price_channel
