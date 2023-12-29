@@ -1,32 +1,39 @@
 # frozen_string_literal: true
 
+require_relative "indicator"
+
 module RTA
   # Qstick indicator
   # Returns a single value
-  class QStick
-    attr_reader :price_series, :period
+  class QStick < Indicator
+    attr_reader :period
 
     def initialize(price_series, period)
-      @price_series = price_series
       @period = period
+
+      super(price_series)
     end
 
     def call
-      (cmo_sum.to_f / period).round(4)
+      calculate_qstick
     end
 
     private
 
     def _opens
-      @_opens ||= price_series.map { |i| i[0] }.last(period)
+      @_opens ||= price_series.last(period).map { |i| i.at(0) }
     end
 
     def _closes
-      @_closes ||= price_series.map { |i| i[1] }.last(period)
+      @_closes ||= price_series.last(period).map { |i| i.at(1) }
     end
 
     def cmo_sum
-      _closes.first(period).zip(_opens.first(period)).sum { |close, open| close - open }
+      _closes.zip(_opens).sum { |close, open| close - open }
+    end
+
+    def calculate_qstick
+      (cmo_sum.to_f / period).round(4)
     end
   end
 end
