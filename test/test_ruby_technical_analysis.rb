@@ -173,8 +173,13 @@ class TestRubyTechnicalAnalysis < Minitest::Test
   end
 
   def test_relative_momentum_index
-    series_one = [6.8750, 6.9375, 6.8125, 6.6095, 6.7345, 6.6720, 6.6250, 6.6875, 6.5470, 6.6563, 6.6720, 6.6563]
-    series_two = [6.8750, 6.9375, 6.8125, 6.6095, 6.7345, 6.6720, 6.6250, 6.6875, 6.5470, 6.6563, 6.6720, 6.6563, 6.5938]
+    series_one = [
+      6.8750, 6.9375, 6.8125, 6.6095, 6.7345, 6.6720, 6.6250, 6.6875, 6.5470, 6.6563, 6.6720, 6.6563
+    ]
+
+    series_two = [
+      6.8750, 6.9375, 6.8125, 6.6095, 6.7345, 6.6720, 6.6250, 6.6875, 6.5470, 6.6563, 6.6720, 6.6563, 6.5938
+    ]
 
     assert_equal RTA::RelativeMomentumIndex.new(series_one, 4, 8).call, 13.1179
     assert_equal RTA::RelativeMomentumIndex.new(series_two, 4, 8).call, 17.7112
