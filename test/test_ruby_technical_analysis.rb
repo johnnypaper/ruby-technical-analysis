@@ -218,8 +218,8 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     series_one = [9_996, 12_940, 37_524, 21_032, 14_880, 21_304]
     series_two = [9_996, 12_940, 37_524, 21_032, 14_880, 21_304, 15_776]
 
-    assert_equal RTA::VolumeRateOfChange.new(series_one, 5).call, 113.1253
-    assert_equal RTA::VolumeRateOfChange.new(series_two, 5).call, 21.9165
+    assert_equal RTA::VolumeRateOfChange.call(series_one, 5), 113.1253
+    assert_equal RTA::VolumeRateOfChange.call(series_two, 5), 21.9165
   end
 
   def test_wilders_smoothing

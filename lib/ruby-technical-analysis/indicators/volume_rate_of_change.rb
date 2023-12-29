@@ -1,36 +1,43 @@
 # frozen_string_literal: true
 
+require_relative "indicator"
+
 module RTA
   # Volume Rate of Change indicator
   # Returns a single value
-  class VolumeRateOfChange
-    attr_accessor :delta_volume, :vol_shifted
-    attr_reader :price_series, :period
+  class VolumeRateOfChange < Indicator
+    attr_reader :period
 
     def initialize(price_series, period)
-      @price_series = price_series
       @period = period
-      @delta_volume = []
-      @vol_shifted = []
+
+      super(price_series)
     end
 
     def call
-      _iterations.times do
-        calculate_vol_shifted
-        delta_volume << price_series.last - vol_shifted.last
-      end
-
-      ((delta_volume.last.to_f / vol_shifted.last) * 100).round(4)
+      calculate_volume_rate_of_change
     end
 
     private
 
-    def _iterations
-      @_iterations ||= price_series.length - period
+    def _calculable_series_length
+      @_calculable_series_length ||= price_series.length - period
     end
 
-    def calculate_vol_shifted
-      vol_shifted << price_series.at(_iterations - 1)
+    def _vol_shifted
+      @_vol_shifted ||= _calculable_series_length.times.map do
+        price_series.at(_calculable_series_length - 1)
+      end
+    end
+
+    def delta_volume
+      _calculable_series_length.times.map do
+        price_series.last - _vol_shifted.last
+      end
+    end
+
+    def calculate_volume_rate_of_change
+      ((delta_volume.last.to_f / _vol_shifted.last) * 100).round(4)
     end
   end
 end
