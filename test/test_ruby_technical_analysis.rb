@@ -189,8 +189,8 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     series_one = [37.8750, 39.5000, 38.7500, 39.8125, 40.0000, 39.8750]
     series_two = [37.8750, 39.5000, 38.7500, 39.8125, 40.0000, 39.8750, 40.1875]
 
-    assert_equal RTA::RelativeStrengthIndex.new(series_one, 5).call, 76.6667
-    assert_equal RTA::RelativeStrengthIndex.new(series_two, 5).call, 78.8679
+    assert_equal RTA::RelativeStrengthIndex.call(series_one, 5), 76.6667
+    assert_equal RTA::RelativeStrengthIndex.call(series_two, 5), 78.8679
   end
 
   def test_stochastic_oscillator

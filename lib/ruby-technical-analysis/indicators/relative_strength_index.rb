@@ -1,33 +1,27 @@
 # frozen_string_literal: true
 
+require_relative "indicator"
 require_relative "wilders_smoothing"
 
 module RTA
   # Relative Momentum Index indicator
   # Returns a single value
-  class RelativeStrengthIndex
+  class RelativeStrengthIndex < Indicator
     attr_accessor :wilders_is_set, :rsi, :smooth_up, :smooth_down
-    attr_reader :price_series, :period
+    attr_reader :period
 
     def initialize(price_series, period)
-      @price_series = price_series
       @period = period
       @rsi = []
       @smooth_up = []
       @smooth_down = []
       @wilders_is_set = false
+
+      super(price_series)
     end
 
     def call
-      (0..(price_series.size - period - 1)).each do |k|
-        cla = price_series[k..k + period]
-        up_ch, down_ch = calculate_channels(cla)
-
-        calculate_smoothing(up_ch, down_ch)
-        calculate_rsi
-      end
-
-      rsi.last
+      calculate_rsi
     end
 
     private
@@ -41,10 +35,8 @@ module RTA
     end
 
     def calculate_channels(cla)
-      period.times.map do |rmi|
-        cur_close = cla[rmi]
-        prev_close = cla[1 + rmi]
-        diff = (cur_close - prev_close).round(4)
+      period.times.map do |i|
+        diff = (cla.at(i) - cla.at(i + 1)).round(4)
 
         [diff.negative? ? diff.abs : 0, diff.positive? ? diff : 0]
       end.transpose
@@ -67,7 +59,13 @@ module RTA
     end
 
     def calculate_rsi
-      rsi << (100.00 - (100.00 / ((smooth_up.last.to_f / smooth_down.last) + 1))).round(4)
+      (0..(price_series.size - period - 1)).flat_map do |k|
+        cla = price_series[k..k + period]
+        up_ch, down_ch = calculate_channels(cla)
+
+        calculate_smoothing(up_ch, down_ch)
+        rsi << (100.00 - (100.00 / ((smooth_up.last.to_f / smooth_down.last) + 1))).round(4)
+      end.last
     end
   end
 end
