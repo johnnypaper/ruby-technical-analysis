@@ -1,8 +1,25 @@
-# frozen_string_literal: true
+# Base class
+require "ruby_technical_analysis/indicator"
 
-Dir[File.join(__dir__, "ruby-technical-analysis/**/", "*.rb")].sort.each { |f| require f }
-
-# module for Ruby Technical Analysis
-module RubyTechnicalAnalysis
-  class Error < StandardError; end
-end
+# Indicators
+require "ruby_technical_analysis/bollinger_bands"
+require "ruby_technical_analysis/chaikin_money_flow"
+require "ruby_technical_analysis/chande_momentum_oscillator"
+require "ruby_technical_analysis/commodity_channel_index"
+require "ruby_technical_analysis/envelopes_ema"
+require "ruby_technical_analysis/intraday_momentum_index"
+require "ruby_technical_analysis/macd"
+require "ruby_technical_analysis/mass_index"
+require "ruby_technical_analysis/moving_averages"
+require "ruby_technical_analysis/pivot_points"
+require "ruby_technical_analysis/price_channel"
+require "ruby_technical_analysis/qstick"
+require "ruby_technical_analysis/rate_of_change"
+require "ruby_technical_analysis/relative_momentum_index"
+require "ruby_technical_analysis/relative_strength_index"
+require "ruby_technical_analysis/statistical_methods"
+require "ruby_technical_analysis/stochastic_oscillator"
+require "ruby_technical_analysis/volume_oscillator"
+require "ruby_technical_analysis/volume_rate_of_change"
+require "ruby_technical_analysis/wilders_smoothing"
+require "ruby_technical_analysis/williams_percent_r"

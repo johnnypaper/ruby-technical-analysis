@@ -1,9 +1,4 @@
-# frozen_string_literal: true
-
-require_relative "indicator"
-require_relative "../../ruby-technical-analysis/moving_averages"
-
-module RTA
+module RubyTechnicalAnalysis
   # Wilders Smoothing indicator
   # Returns a singular current value
   class WildersSmoothing < Indicator
@@ -23,7 +18,7 @@ module RTA
 
     def _sma_first_period
       @_sma_first_period ||=
-        Array(RTA::MovingAverages.new(price_series.first(period)).sma(period))
+        Array(RubyTechnicalAnalysis::MovingAverages.new(price_series.first(period)).sma(period))
     end
 
     def smoothing_length

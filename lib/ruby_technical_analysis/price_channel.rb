@@ -1,8 +1,4 @@
-# frozen_string_literal: true
-
-require_relative "indicator"
-
-module RTA
+module RubyTechnicalAnalysis
   # Price Channel indicator
   # Returns an array containing the current upper and lower values of the series
   class PriceChannel < Indicator

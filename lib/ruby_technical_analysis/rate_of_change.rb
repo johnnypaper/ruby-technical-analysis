@@ -1,8 +1,4 @@
-# frozen_string_literal: true
-
-require_relative "indicator"
-
-module RTA
+module RubyTechnicalAnalysis
   # RateOfChange indicator
   # Returns a single value
   class RateOfChange < Indicator

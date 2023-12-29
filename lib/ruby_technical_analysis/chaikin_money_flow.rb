@@ -1,8 +1,4 @@
-# frozen_string_literal: true
-
-require_relative "indicator"
-
-module RTA
+module RubyTechnicalAnalysis
   # Chaikin Money Flow indicator
   # Returns a current singular value
   class ChaikinMoneyFlow < Indicator

@@ -1,8 +1,4 @@
-# frozen_string_literal: true
-
-require_relative "indicator"
-
-module RTA
+module RubyTechnicalAnalysis
   # Intraday Momentum Index indicator
   # Returns a singular current value
   class IntradayMomentumIndex < Indicator
