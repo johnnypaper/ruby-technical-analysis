@@ -16,6 +16,7 @@ Gem::Specification.new do |spec|
   spec.metadata["changelog_uri"]      = "https://github.com/johnnypaper/ruby-technical-analysis/blob/master/CHANGELOG.md"
   spec.metadata["allowed_push_host"]  = "https://rubygems.org"
 
+  spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "minitest", "~> 5.0"
 end
