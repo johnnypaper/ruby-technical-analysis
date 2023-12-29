@@ -122,8 +122,8 @@ class TestRubyTechnicalAnalysis < Minitest::Test
                   160.07, 162.74, 164.85, 165.12, 163.20, 166.56, 166.23, 163.17,
                   159.30, 157.44, 162.95]
 
-    assert_equal RTA::Macd.new(series_one).call, [-1.934, -1.664, -0.27]
-    assert_equal RTA::Macd.new(series_one, 12, 26, 9).call, [-1.934, -1.664, -0.27]
+    assert_equal RTA::Macd.call(series_one), [-1.934, -1.664, -0.27]
+    assert_equal RTA::Macd.call(series_one, 12, 26, 9), [-1.934, -1.664, -0.27]
   end
 
   def test_mass_index
