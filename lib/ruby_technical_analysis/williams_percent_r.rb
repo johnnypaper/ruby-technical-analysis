@@ -1,8 +1,4 @@
-# frozen_string_literal: true
-
-require_relative "indicator"
-
-module RTA
+module RubyTechnicalAnalysis
   # Williams Percent R indicator
   # Returns a single value
   class WilliamsPercentR < Indicator

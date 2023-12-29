@@ -1,9 +1,4 @@
-# frozen_string_literal: true
-
-require_relative "indicator"
-require_relative "wilders_smoothing"
-
-module RTA
+module RubyTechnicalAnalysis
   # Relative Momentum Index indicator
   # Returns a single value
   class RelativeMomentumIndex < Indicator
@@ -49,8 +44,8 @@ module RTA
     end
 
     def calculate_initial_smoothing(up_ch, down_ch)
-      smooth_up << RTA::WildersSmoothing.new(up_ch, period_rmi).call
-      smooth_down << RTA::WildersSmoothing.new(down_ch, period_rmi).call
+      smooth_up << RubyTechnicalAnalysis::WildersSmoothing.new(up_ch, period_rmi).call
+      smooth_down << RubyTechnicalAnalysis::WildersSmoothing.new(down_ch, period_rmi).call
       self.wilders_is_set = true
     end
 

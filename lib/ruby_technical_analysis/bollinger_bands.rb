@@ -1,10 +1,4 @@
-# frozen_string_literal: true
-
-require_relative "indicator"
-require_relative "../../ruby-technical-analysis/moving_averages"
-require_relative "../../ruby-technical-analysis/statistical_methods"
-
-module RTA
+module RubyTechnicalAnalysis
   # Bollinger Bands indicator
   # Returns an array containing the current upper, middle, and lower bands of the series
   class BollingerBands < Indicator

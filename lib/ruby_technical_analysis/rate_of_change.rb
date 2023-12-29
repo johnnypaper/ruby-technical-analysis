@@ -1,8 +1,4 @@
-# frozen_string_literal: true
-
-require_relative "indicator"
-
-module RTA
+module RubyTechnicalAnalysis
   # RateOfChange indicator
   # Returns a single value
   class RateOfChange < Indicator
@@ -21,7 +17,7 @@ module RTA
     private
 
     def calculate_roc
-      (((price_series.last - price_series.last(period + 1).first).to_f / price_series.last(period + 1).first) * 100).round(2) # rubocop:disable Layout/LineLength
+      (((price_series.last - price_series.last(period + 1).first).to_f / price_series.last(period + 1).first) * 100).round(2)
     end
   end
 end

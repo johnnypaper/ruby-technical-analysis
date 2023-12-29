@@ -1,6 +1,4 @@
-# Frozen_string_literal: true
-
-module RTA
+module RubyTechnicalAnalysis
   # Base class for indicators
   class Indicator
     attr_reader :price_series
@@ -38,11 +36,11 @@ module RTA
     def moving_averages(period = nil)
       series = period ? price_series.last(period) : price_series
 
-      RTA::MovingAverages.new(series)
+      RubyTechnicalAnalysis::MovingAverages.new(series)
     end
 
     def statistical_methods
-      RTA::StatisticalMethods.new(price_series)
+      RubyTechnicalAnalysis::StatisticalMethods.new(price_series)
     end
   end
 end

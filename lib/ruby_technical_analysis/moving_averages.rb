@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-module RTA
+module RubyTechnicalAnalysis
   # Common moving averages used independently or in combination with other indicators
   class MovingAverages
     attr_accessor :price_series

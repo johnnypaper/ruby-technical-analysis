@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-module RTA
+module RubyTechnicalAnalysis
   # Statistical methods used in calculations
   class StatisticalMethods
     attr_accessor :price_series

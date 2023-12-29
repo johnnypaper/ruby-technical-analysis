@@ -1,9 +1,4 @@
-# frozen_string_literal: true
-
-require_relative "indicator"
-require_relative "../../ruby-technical-analysis/moving_averages"
-
-module RTA
+module RubyTechnicalAnalysis
   # Commodity Channel Index indicator
   # Returns a current singular value
   class CommodityChannelIndex < Indicator
@@ -38,7 +33,7 @@ module RTA
     def _typical_prices_sma
       @_typical_prices_sma ||=
         _typical_prices.each_cons(period).map do |tp|
-          RTA::MovingAverages.new(tp).sma(period)
+          RubyTechnicalAnalysis::MovingAverages.new(tp).sma(period)
         end
     end
 

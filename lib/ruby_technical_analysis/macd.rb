@@ -1,9 +1,4 @@
-# frozen_string_literal: true
-
-require_relative "indicator"
-require_relative "../../ruby-technical-analysis/moving_averages"
-
-module RTA
+module RubyTechnicalAnalysis
   # Moving Average Convergence Divergence (MACD) indicator
   # Returns an array of current macd value and signal value
   class Macd < Indicator

@@ -1,9 +1,4 @@
-# frozen_string_literal: true
-
-require_relative "indicator"
-require_relative "../../ruby-technical-analysis/moving_averages"
-
-module RTA
+module RubyTechnicalAnalysis
   # Volume Oscillator indicator
   # Returns a single value
   class VolumeOscillator < Indicator
@@ -24,13 +19,13 @@ module RTA
 
     def short_ma_a
       (0..(price_series.length - short_ma)).map do |i|
-        RTA::MovingAverages.new(price_series[i..(i + short_ma - 1)]).sma(short_ma)
+        RubyTechnicalAnalysis::MovingAverages.new(price_series[i..(i + short_ma - 1)]).sma(short_ma)
       end
     end
 
     def _long_ma_a
       @_long_ma_a ||= (0..(price_series.length - long_ma)).map do |i|
-        RTA::MovingAverages.new(price_series[i..(i + long_ma - 1)]).sma(long_ma)
+        RubyTechnicalAnalysis::MovingAverages.new(price_series[i..(i + long_ma - 1)]).sma(long_ma)
       end
     end
 

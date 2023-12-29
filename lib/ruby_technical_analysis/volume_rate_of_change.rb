@@ -1,8 +1,4 @@
-# frozen_string_literal: true
-
-require_relative "indicator"
-
-module RTA
+module RubyTechnicalAnalysis
   # Volume Rate of Change indicator
   # Returns a single value
   class VolumeRateOfChange < Indicator

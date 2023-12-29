@@ -1,9 +1,4 @@
-# frozen_string_literal: true
-
-require_relative "indicator"
-require_relative "../../ruby-technical-analysis/moving_averages"
-
-module RTA
+module RubyTechnicalAnalysis
   # Envelopes EMA indicator
   # Returns an array of current high, middle and low eema values
   class EnvelopesEma < Indicator

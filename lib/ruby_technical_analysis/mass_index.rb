@@ -1,9 +1,4 @@
-# frozen_string_literal: true
-
-require_relative "indicator"
-require_relative "../../ruby-technical-analysis/moving_averages"
-
-module RTA
+module RubyTechnicalAnalysis
   # Mass Index indicator
   # Returns a singular current value
   class MassIndex < Indicator
@@ -53,7 +48,7 @@ module RTA
 
     def high_minus_low_ema_ema_array
       [*0..period + 1].each.reduce([]) do |arr, i|
-        arr << (i.zero? ? _high_minus_low_ema_array.at(period - i - 1) : ((_high_minus_low_ema_array.at(period + i - 1) * 0.2) + (arr.last * 0.8)).round(4)) # rubocop:disable Layout/LineLength
+        arr << (i.zero? ? _high_minus_low_ema_array.at(period - i - 1) : ((_high_minus_low_ema_array.at(period + i - 1) * 0.2) + (arr.last * 0.8)).round(4))
       end
     end
 

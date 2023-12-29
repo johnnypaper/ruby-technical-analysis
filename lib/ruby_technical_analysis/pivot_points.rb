@@ -1,8 +1,4 @@
-# frozen_string_literal: true
-
-require_relative "indicator"
-
-module RTA
+module RubyTechnicalAnalysis
   # Pivot Points indicator
   # Returns an array of the current pivot points for the provided H, L, C array
   class PivotPoints < Indicator
