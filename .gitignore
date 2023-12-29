@@ -1,8 +1,2 @@
 *.gem
-/.yardoc
-/_yardoc/
-
-/coverage/
-/pkg/
-/tmp/
 /bin/
