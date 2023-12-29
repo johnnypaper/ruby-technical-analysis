@@ -226,8 +226,8 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     series_one = [62.1250, 61.1250, 62.3438, 65.3125, 63.9688, 63.4375]
     series_two = [62.1250, 61.1250, 62.3438, 65.3125, 63.9688, 63.4375, 63.0000]
 
-    assert_equal RTA::WildersSmoothing.new(series_one, 5).call.truncate(4), 63.0675
-    assert_equal RTA::WildersSmoothing.new(series_two, 5).call.truncate(4), 63.0540
+    assert_equal RTA::WildersSmoothing.call(series_one, 5).truncate(4), 63.0675
+    assert_equal RTA::WildersSmoothing.call(series_two, 5).truncate(4), 63.0540
   end
 
   def test_williams_percent_r
