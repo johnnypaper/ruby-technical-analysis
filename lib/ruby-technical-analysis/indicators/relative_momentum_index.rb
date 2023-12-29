@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
+require_relative "indicator"
 require_relative "wilders_smoothing"
 
 module RTA
   # Relative Momentum Index indicator
   # Returns a single value
-  class RelativeMomentumIndex
+  class RelativeMomentumIndex < Indicator
     attr_accessor :wilders_is_set, :rmi, :rmi_intermediate, :smooth_up, :smooth_down
-    attr_reader :price_series, :period_mom, :period_rmi
+    attr_reader :period_mom, :period_rmi
 
     def initialize(price_series, period_mom, period_rmi)
-      @price_series = price_series
       @period_mom = period_mom
       @period_rmi = period_rmi
       @rmi = []
@@ -18,20 +18,12 @@ module RTA
       @smooth_up = []
       @smooth_down = []
       @wilders_is_set = false
+
+      super(price_series)
     end
 
     def call
-      (0..(price_series.size - _pmpr)).each do |i|
-        cla = price_series[i..(i + _pmpr - 1)]
-        up_ch, down_ch = calculate_channels(cla)
-
-        calculate_smoothing(up_ch, down_ch)
-
-        rmi_intermediate << (smooth_up.last.to_f / smooth_down.last)
-        rmi << ((rmi_intermediate.last.to_f / (1 + rmi_intermediate.last)) * 100).round(4)
-      end
-
-      rmi.last
+      calculate_rmi
     end
 
     private
@@ -49,10 +41,8 @@ module RTA
     end
 
     def calculate_channels(cla)
-      period_rmi.times.map do |rmi|
-        cur_close = cla[rmi]
-        prev_close = cla[period_mom + rmi]
-        diff = (cur_close - prev_close).round(4)
+      period_rmi.times.map do |i|
+        diff = (cla.at(i) - cla.at(period_mom + i)).round(4)
 
         [diff.negative? ? diff.abs : 0, diff.positive? ? diff : 0]
       end.transpose
@@ -71,6 +61,18 @@ module RTA
 
     def calculate_smoothing(up_ch, down_ch)
       wilders_is_set ? calculate_subsequent_smoothing(up_ch, down_ch) : calculate_initial_smoothing(up_ch, down_ch)
+    end
+
+    def calculate_rmi
+      (0..(price_series.size - _pmpr)).flat_map do |i|
+        cla = price_series[i..(i + _pmpr - 1)]
+        up_ch, down_ch = calculate_channels(cla)
+
+        calculate_smoothing(up_ch, down_ch)
+
+        rmi_intermediate << (smooth_up.last.to_f / smooth_down.last)
+        rmi << ((rmi_intermediate.last.to_f / (1 + rmi_intermediate.last)) * 100).round(4)
+      end.last
     end
   end
 end
