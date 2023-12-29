@@ -1,18 +1,21 @@
 # frozen_string_literal: true
 
+require_relative "indicator"
+
 module RTA
   # Price Channel indicator
   # Returns an array containing the current upper and lower values of the series
-  class PriceChannel
-    attr_reader :price_series, :period
+  class PriceChannel < Indicator
+    attr_reader :period
 
     def initialize(price_series, period)
-      @price_series = price_series
       @period = period
+
+      super(price_series)
     end
 
     def call
-      [upper_price_channel, lower_price_channel]
+      calculate_price_channel
     end
 
     private
@@ -31,6 +34,10 @@ module RTA
 
     def lower_price_channel
       _lows[0..period - 1].min
+    end
+
+    def calculate_price_channel
+      [upper_price_channel, lower_price_channel]
     end
   end
 end

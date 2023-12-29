@@ -152,8 +152,8 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     hl_series_two = [[2.8097, 2.8437], [2.9063, 2.8543], [2.8750, 2.8333], [2.8543, 2.8127], [2.9740, 2.8647],
                      [3.0730, 2.9793], [3.1563, 3.0937]]
 
-    assert_equal RTA::PriceChannel.new(hl_series_one, 5).call, [2.9740, 2.8127]
-    assert_equal RTA::PriceChannel.new(hl_series_two, 5).call, [3.0730, 2.8127]
+    assert_equal RTA::PriceChannel.call(hl_series_one, 5), [2.9740, 2.8127]
+    assert_equal RTA::PriceChannel.call(hl_series_two, 5), [3.0730, 2.8127]
   end
 
   def test_q_stick
