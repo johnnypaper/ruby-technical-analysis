@@ -1,52 +1,67 @@
 # frozen_string_literal: true
 
-# Williams Percent R indicator
-# Returns a single value
-module WilliamsPercentR
-  def williams_percent_r(period)
-    highs = []
-    lows = []
-    closes = []
+require_relative "indicator"
 
-    each do |i|
-      highs << i[0]
-      lows << i[1]
-      closes << i[2]
+module RTA
+  # Williams Percent R indicator
+  # Returns a single value
+  class WilliamsPercentR < Indicator
+    attr_accessor :highest_highs, :lowest_lows, :highest_highs_minus_close,
+                  :highest_highs_minus_lowest_lows, :pct_r
+
+    attr_reader :period
+
+    def initialize(price_series, period)
+      @period = period
+      @highest_highs = []
+      @lowest_lows = []
+      @highest_highs_minus_close = []
+      @highest_highs_minus_lowest_lows = []
+      @pct_r = []
+
+      super(price_series)
     end
 
-    if highs.size < period
-      raise ArgumentError,
-            "High array passed to Williams Percent R cannot be less than the period argument."
+    def call
+      calculate_williams_percent_r
     end
 
-    if lows.size < period
-      raise ArgumentError,
-            "Low array passed to Williams Percent R cannot be less than the period argument."
+    private
+
+    def calculate_lowest_lows(lows, window_start)
+      lowest_lows << lows[window_start..(period - 1 + window_start)].min
     end
 
-    if closes.size < period
-      raise ArgumentError,
-            "Close array passed to Williams Percent R cannot be less than the period argument."
+    def calculate_highest_highs(highs, window_start)
+      highest_highs << highs[window_start..(period - 1 + window_start)].max
     end
 
-    highest_highs = []
-    lowest_lows = []
-    hh_min_close = []
-    hh_min_ll = []
-    pct_r = []
-
-    (0..highs.length - period).each do |i|
-      highest_highs << highs[i..period - 1 + i].max
-      lowest_lows << lows[i..period - 1 + i].min
-      hh_min_close << (highest_highs[-1] - closes[period - 1 + i]).round(2)
-      hh_min_ll << (highest_highs[-1] - lowest_lows[-1]).round(2)
-      pct_r << ((hh_min_close[-1].to_f / hh_min_ll[-1]) * -100).round(2)
+    def calculate_highest_highs_minus_close(closes, window_start)
+      highest_highs_minus_close <<
+        (highest_highs.last - closes.at(period - 1 + window_start)).round(2)
     end
 
-    pct_r[-1]
+    def calculate_highest_highs_minus_lowest_lows
+      highest_highs_minus_lowest_lows << (highest_highs.last - lowest_lows.last).round(4)
+    end
+
+    def calculate_pct_r
+      pct_r <<
+        ((highest_highs_minus_close.last.to_f / highest_highs_minus_lowest_lows.last) * -100).round(2)
+    end
+
+    def calculate_williams_percent_r
+      highs, lows, closes = extract_highs_lows_closes
+
+      (0..highs.length - period).each do |i|
+        calculate_highest_highs(highs, i)
+        calculate_lowest_lows(lows, i)
+        calculate_highest_highs_minus_close(closes, i)
+        calculate_highest_highs_minus_lowest_lows
+        calculate_pct_r
+      end
+
+      pct_r.last
+    end
   end
-end
-
-class Array
-  include WilliamsPercentR
 end

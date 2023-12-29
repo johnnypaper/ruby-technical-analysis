@@ -1,18 +1,27 @@
 # frozen_string_literal: true
 
-# RateOfChange indicator
-# Returns a single value
-module RateOfChange
-  def rate_of_change(period)
-    if size < (period + 1)
-      raise ArgumentError,
-            "Closes array passed to RateOfChange cannot be less than the period argument + 1."
+require_relative "indicator"
+
+module RTA
+  # RateOfChange indicator
+  # Returns a single value
+  class RateOfChange < Indicator
+    attr_reader :period
+
+    def initialize(price_series, period)
+      @period = period
+
+      super(price_series)
     end
 
-    (((self[-1] - last(period + 1)[0]).to_f / last(period + 1)[0]) * 100).round(2)
-  end
-end
+    def call
+      calculate_roc
+    end
 
-class Array
-  include RateOfChange
+    private
+
+    def calculate_roc
+      (((price_series.last - price_series.last(period + 1).first).to_f / price_series.last(period + 1).first) * 100).round(2) # rubocop:disable Layout/LineLength
+    end
+  end
 end

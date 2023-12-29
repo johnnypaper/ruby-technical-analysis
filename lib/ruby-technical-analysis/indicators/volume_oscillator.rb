@@ -1,38 +1,45 @@
 # frozen_string_literal: true
 
+require_relative "indicator"
 require_relative "../../ruby-technical-analysis/moving_averages"
 
-# Volume Oscillator indicator
-# Returns a single value
-module VolumeOscillator
-  def volume_oscillator(short_ma, long_ma)
-    if size < long_ma
-      raise ArgumentError,
-            "Volumes array passed to Volume Oscillator cannot be less than the Long Moving Average argument."
+module RTA
+  # Volume Oscillator indicator
+  # Returns a single value
+  class VolumeOscillator < Indicator
+    attr_reader :short_ma, :long_ma
+
+    def initialize(price_series, short_ma, long_ma)
+      @short_ma = short_ma
+      @long_ma = long_ma
+
+      super(price_series)
     end
 
-    if long_ma <= short_ma
-      raise ArgumentError,
-            "Long Moving Average parameter must be greater than Short Moving Average parameter in Volume Oscillator."
+    def call
+      calculate_volume_oscillator
     end
 
-    short_ma_a = []
-    long_ma_a = []
+    private
 
-    (0..(length - short_ma)).each do |i|
-      short_ma_a << RTA::MovingAverages.new(self[i..(i + short_ma - 1)]).sma(short_ma)
+    def short_ma_a
+      (0..(price_series.length - short_ma)).map do |i|
+        RTA::MovingAverages.new(price_series[i..(i + short_ma - 1)]).sma(short_ma)
+      end
     end
 
-    (0..(length - long_ma)).each do |i|
-      long_ma_a << RTA::MovingAverages.new(self[i..(i + long_ma - 1)]).sma(long_ma)
+    def _long_ma_a
+      @_long_ma_a ||= (0..(price_series.length - long_ma)).map do |i|
+        RTA::MovingAverages.new(price_series[i..(i + long_ma - 1)]).sma(long_ma)
+      end
     end
 
-    sml = (short_ma_a.last - long_ma_a.last).round(2)
+    def short_minus_long_ma_a
+      (short_ma_a.last - _long_ma_a.last).round(2)
+    end
 
-    ((sml.to_f / long_ma_a.last) * 100).round(2)
+    def calculate_volume_oscillator
+      ((short_minus_long_ma_a.to_f / _long_ma_a.last) * 100).round(2)
+    end
   end
-end
-
-class Array
-  include VolumeOscillator
 end

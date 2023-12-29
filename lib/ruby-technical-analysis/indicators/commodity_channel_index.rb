@@ -1,64 +1,66 @@
 # frozen_string_literal: true
 
+require_relative "indicator"
 require_relative "../../ruby-technical-analysis/moving_averages"
 
-# Commodity Channel Index indicator
-# Returns a current singular value
-module CommodityChannelIndex
-  def commodity_channel_index(period)
-    min_size = ((period * 2) - 1)
+module RTA
+  # Commodity Channel Index indicator
+  # Returns a current singular value
+  class CommodityChannelIndex < Indicator
+    attr_reader :period
 
-    highs = []
-    lows = []
-    closes = []
+    def initialize(price_series, period)
+      @period = period
 
-    each do |h, l, c|
-      highs << h
-      lows << l
-      closes << c
+      super(price_series)
     end
 
-    if highs.size < period
-      raise ArgumentError,
-            "High array passed to Chaikin Money Flow cannot be less than the period argument."
+    def call
+      calculate_cci
     end
 
-    if lows.size < period
-      raise ArgumentError,
-            "Low array passed to Chaikin Money Flow cannot be less than the period argument."
+    private
+
+    def min_size
+      (period * 2 - 1)
     end
 
-    if closes.size < period
-      raise ArgumentError,
-            "Close array passed to Chaikin Money Flow cannot be less than the period argument."
+    def calculate_typical_prices
+      highs, lows, closes = extract_highs_lows_closes(min_size)
+
+      highs.zip(closes, lows).map { |h, c, l| (h + c + l) / 3 }
     end
 
-    highs = highs.last(min_size)
-    lows = lows.last(min_size)
-    closes = closes.last(min_size)
-
-    typical_prices = []
-    tp_sma = []
-    period_sum = 0
-
-    (0..(min_size - 1)).each do |i|
-      typical_prices << (highs[i] + closes[i] + lows[i]) / 3
+    def _typical_prices
+      @_typical_prices ||= calculate_typical_prices
     end
 
-    (0..(period - 1)).each do |i|
-      tp_sma << RTA::MovingAverages.new(typical_prices[i..(i + period - 1)]).sma(period)
+    def _typical_prices_sma
+      @_typical_prices_sma ||=
+        _typical_prices.each_cons(period).map do |tp|
+          RTA::MovingAverages.new(tp).sma(period)
+        end
     end
 
-    typical_prices.last(period).each do |tp|
-      period_sum += (tp_sma[-1] - tp).abs
+    def _period_sum
+      @_period_sum ||=
+        _typical_prices.last(period).sum do |tp|
+          (_typical_prices_sma.last - tp).abs
+        end
     end
 
-    ps_next = (period_sum.to_f / period) * 0.015
-    tp_sma_min_tp = typical_prices[-1] - tp_sma[-1]
-    (tp_sma_min_tp.to_f / ps_next)
+    def _period_sum_next_period
+      @_period_sum_next_period ||=
+        (_period_sum.to_f / period) * 0.015
+    end
+
+    def _typical_prices_sma_minus_typical_prices
+      @_typical_prices_sma_minus_typical_prices ||=
+        _typical_prices.last(period).last - _typical_prices_sma.last
+    end
+
+    def calculate_cci
+      (_typical_prices_sma_minus_typical_prices.to_f / _period_sum_next_period)
+    end
   end
-end
-
-class Array
-  include CommodityChannelIndex
 end

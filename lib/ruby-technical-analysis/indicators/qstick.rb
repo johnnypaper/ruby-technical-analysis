@@ -1,40 +1,39 @@
 # frozen_string_literal: true
 
-# Qstick indicator
-# Returns a single value
-module Qstick
-  def qstick(period)
-    opens = []
-    closes = []
+require_relative "indicator"
 
-    each do |i|
-      opens << i[0]
-      closes << i[1]
+module RTA
+  # Qstick indicator
+  # Returns a single value
+  class QStick < Indicator
+    attr_reader :period
+
+    def initialize(price_series, period)
+      @period = period
+
+      super(price_series)
     end
 
-    if opens.size < period
-      raise ArgumentError,
-            "Opens array passed to Qstick cannot be less than the period argument."
+    def call
+      calculate_qstick
     end
 
-    if closes.size < period
-      raise ArgumentError,
-            "Closes array passed to Qstick cannot be less than the period argument."
+    private
+
+    def _opens
+      @_opens ||= price_series.last(period).map { |i| i.at(0) }
     end
 
-    opens = opens.last(period)
-    closes = closes.last(period)
-
-    cmo_sum = 0.0
-
-    (0..(period - 1)).each do |i|
-      cmo_sum += closes[i] - opens[i]
+    def _closes
+      @_closes ||= price_series.last(period).map { |i| i.at(1) }
     end
 
-    (cmo_sum.to_f / period).round(4)
+    def cmo_sum
+      _closes.zip(_opens).sum { |close, open| close - open }
+    end
+
+    def calculate_qstick
+      (cmo_sum.to_f / period).round(4)
+    end
   end
-end
-
-class Array
-  include Qstick
 end

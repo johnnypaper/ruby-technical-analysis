@@ -1,34 +1,52 @@
 # frozen_string_literal: true
 
-# Chaikin Money Flow indicator
-# Returns a current singular value
-module ChandeMomentumOscillator
-  def chande_momentum_oscillator(period)
-    if size < period + 1
-      raise ArgumentError,
-            "Array size is less than the minimum size of the period + 1 for the Chande Momentum Oscillator."
+require_relative "indicator"
+
+module RTA
+  # Chaikin Money Flow indicator
+  # Returns a current singular value
+  class ChandeMomentumOscillator < Indicator
+    attr_accessor :up_change_sum, :down_change_sum
+    attr_reader :period
+
+    def initialize(price_series, period)
+      @period = period
+      @up_change_sum = 0
+      @down_change_sum = 0
+
+      super(price_series)
     end
 
-    closes = last(period + 1)
+    def call
+      calculate_cmo
+    end
 
-    up_change_sum = 0
-    down_change_sum = 0
+    private
 
-    (1..period).each do |i|
-      if closes[i] >= closes[i - 1]
-        up_change_sum += (closes[i] - closes[i - 1])
-      else
-        down_change_sum += (closes[i - 1] - closes[i])
+    def _closes
+      @_closes ||= extract_series(period + 1)
+    end
+
+    def calculate_change_sums
+      (1..period).each do |i|
+        price_diff = _closes.at(i) - _closes.at(i - 1)
+        self.up_change_sum += price_diff if price_diff.positive?
+        self.down_change_sum -= price_diff if price_diff.negative?
       end
+
+      up_change_sum + down_change_sum
     end
 
-    up_sum_minus_down_sum = up_change_sum - down_change_sum
-    up_sum_plus_down_sum = up_change_sum + down_change_sum
+    def _up_sum_plus_down_sum
+      @_up_sum_plus_down_sum ||= calculate_change_sums
+    end
 
-    ((up_sum_minus_down_sum.to_f / up_sum_plus_down_sum) * 100).round(4)
+    def calculate_oscillator_value
+      (up_change_sum - down_change_sum).to_f / _up_sum_plus_down_sum * 100
+    end
+
+    def calculate_cmo
+      _up_sum_plus_down_sum.zero? ? 0 : calculate_oscillator_value.round(4)
+    end
   end
-end
-
-class Array
-  include ChandeMomentumOscillator
 end

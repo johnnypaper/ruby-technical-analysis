@@ -1,37 +1,43 @@
 # frozen_string_literal: true
 
-# Price Channel indicator
-# Returns an array containing the current upper and lower values of the series
-module PriceChannel
-  def price_channel(period)
-    highs = []
-    lows = []
+require_relative "indicator"
 
-    each do |i|
-      highs << i[0]
-      lows << i[1]
+module RTA
+  # Price Channel indicator
+  # Returns an array containing the current upper and lower values of the series
+  class PriceChannel < Indicator
+    attr_reader :period
+
+    def initialize(price_series, period)
+      @period = period
+
+      super(price_series)
     end
 
-    if highs.size < period + 1
-      raise ArgumentError,
-            "The highs array size is less than the period + 1 size required."
+    def call
+      calculate_price_channel
     end
 
-    if lows.size < period + 1
-      raise ArgumentError,
-            "The lows array size is less than the period + 1 size required."
+    private
+
+    def _highs
+      @_highs ||= price_series.last(period + 1).map { |i| i.at(0) }
     end
 
-    highs = highs.last(period + 1)
-    lows = lows.last(period + 1)
+    def _lows
+      @_lows ||= price_series.last(period + 1).map { |i| i.at(1) }
+    end
 
-    upper_pc = (highs[0..period - 1]).max
-    lower_pc = (lows[0..period - 1]).min
+    def upper_price_channel
+      _highs[0..period - 1].max
+    end
 
-    [upper_pc, lower_pc]
+    def lower_price_channel
+      _lows[0..period - 1].min
+    end
+
+    def calculate_price_channel
+      [upper_price_channel, lower_price_channel]
+    end
   end
-end
-
-class Array
-  include PriceChannel
 end

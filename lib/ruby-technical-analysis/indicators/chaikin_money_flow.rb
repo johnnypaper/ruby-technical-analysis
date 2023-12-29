@@ -1,70 +1,46 @@
 # frozen_string_literal: true
 
-# Chaikin Money Flow indicator
-# Returns a current singular value
-module ChaikinMoneyFlow
-  def chaikin_money_flow(period)
-    highs = []
-    lows = []
-    closes = []
-    volumes = []
+require_relative "indicator"
 
-    each do |h, l, c, v|
-      highs << h
-      lows << l
-      closes << c
-      volumes << v
+module RTA
+  # Chaikin Money Flow indicator
+  # Returns a current singular value
+  class ChaikinMoneyFlow < Indicator
+    attr_accessor :cmf_sum, :vol_sum
+    attr_reader :period
+
+    def initialize(price_series, period)
+      @period = period
+      @cmf_sum = 0
+      @vol_sum = 0
+
+      super(price_series)
     end
 
-    if highs.size < period
-      raise ArgumentError,
-            "High array passed to Chaikin Money Flow cannot be less than the period argument."
+    def call
+      calculate_cmf
     end
 
-    if lows.size < period
-      raise ArgumentError,
-            "Low array passed to Chaikin Money Flow cannot be less than the period argument."
+    private
+
+    def calculate_cmf_sum
+      highs, lows, closes, volumes = extract_highs_lows_closes_volumes(period)
+
+      period.times do |i|
+        self.vol_sum += volumes.at(i)
+
+        close_minus_low = closes.at(i) - lows.at(i)
+        high_minus_close = highs.at(i) - closes.at(i)
+        high_minus_low = highs.at(i) - lows.at(i)
+
+        self.cmf_sum += ((close_minus_low - high_minus_close).to_f / high_minus_low) * volumes.at(i)
+      end
     end
 
-    if closes.size < period
-      raise ArgumentError,
-            "Close array passed to Chaikin Money Flow cannot be less than the period argument."
+    def calculate_cmf
+      calculate_cmf_sum
+
+      (vol_sum.zero? ? 0 : cmf_sum.to_f / vol_sum).round(5)
     end
-
-    if volumes.size < period
-      raise ArgumentError,
-            "Volume array passed to Chaikin Money Flow cannot be less than the period argument."
-    end
-
-    if size < period
-      raise ArgumentError,
-            "Array passed to Bollinger Bands cannot be less than the period argument."
-    end
-
-    highs = highs.last(period)
-    lows = lows.last(period)
-    closes = closes.last(period)
-    volumes = volumes.last(period)
-
-    num_sum = 0
-    vol_sum = 0
-
-    (0..(period - 1)).each do |i|
-      vol_sum += volumes[i]
-
-      cml = closes[i] - lows[i]
-      hmc = highs[i] - closes[i]
-      hml = highs[i] - lows[i]
-
-      num_sum += ((cml - hmc).to_f / hml) * volumes[i]
-    end
-
-    cmf = num_sum.to_f / vol_sum
-
-    cmf.round(5)
   end
-end
-
-class Array
-  include ChaikinMoneyFlow
 end

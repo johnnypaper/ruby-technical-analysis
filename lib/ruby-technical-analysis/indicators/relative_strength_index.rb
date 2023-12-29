@@ -1,63 +1,71 @@
 # frozen_string_literal: true
 
+require_relative "indicator"
 require_relative "wilders_smoothing"
 
-# Relative Momentum Index indicator
-# Returns a single value
-module RelativeStrengthIndex
-  def rsi(period)
-    if size < (period + 1)
-      raise ArgumentError,
-            "Closes array passed to Relative Strength Index cannot be less than the period + 1 argument."
+module RTA
+  # Relative Momentum Index indicator
+  # Returns a single value
+  class RelativeStrengthIndex < Indicator
+    attr_accessor :wilders_is_set, :rsi, :smooth_up, :smooth_down
+    attr_reader :period
+
+    def initialize(price_series, period)
+      @period = period
+      @rsi = []
+      @smooth_up = []
+      @smooth_down = []
+      @wilders_is_set = false
+
+      super(price_series)
     end
 
-    rsi = []
-    wilders_is_set = false
-    smooth_up = []
-    smooth_down = []
-
-    smooth_coef_one = (1.0 / period).round(4)
-    smooth_coef_two = (1 - smooth_coef_one)
-
-    (0..(size - period - 1)).each do |k|
-      cla = self[k..k + period]
-
-      up_ch = []
-      down_ch = []
-
-      (1..period).each do |i|
-        cur_close = cla[i]
-        prev_close = cla[i - 1]
-        close_diff = cur_close - prev_close
-
-        if close_diff > 0.00
-          up_ch << close_diff
-          down_ch << 0.00
-        elsif close_diff < 0.00
-          up_ch << 0.00
-          down_ch << close_diff.abs
-        else
-          up_ch << 0.00
-          down_ch << 0.00
-        end
-      end
-
-      if wilders_is_set
-        smooth_up << (smooth_coef_one * up_ch[-1] + smooth_coef_two * smooth_up[-1]).round(4)
-        smooth_down << (smooth_coef_one * down_ch[-1] + smooth_coef_two * smooth_down[-1]).round(4)
-      else
-        smooth_up << up_ch.last(period).wilders_smoothing(period)
-        smooth_down << down_ch.last(period).wilders_smoothing(period)
-        wilders_is_set = true
-      end
-
-      rsi << (100.00 - (100.00 / ((smooth_up[-1].to_f / smooth_down[-1]) + 1))).round(4)
+    def call
+      calculate_rsi
     end
 
-    rsi[-1]
+    private
+
+    def _smooth_coef_one
+      @_smooth_coef_one ||= (1.0 / period).round(4)
+    end
+
+    def _smooth_coef_two
+      @_smooth_coef_two ||= (1 - _smooth_coef_one)
+    end
+
+    def calculate_channels(cla)
+      period.times.map do |i|
+        diff = (cla.at(i) - cla.at(i + 1)).round(4)
+
+        [diff.negative? ? diff.abs : 0, diff.positive? ? diff : 0]
+      end.transpose
+    end
+
+    def calculate_initial_smoothing(up_ch, down_ch)
+      smooth_up << RTA::WildersSmoothing.new(up_ch, period).call
+      smooth_down << RTA::WildersSmoothing.new(down_ch, period).call
+
+      self.wilders_is_set = true
+    end
+
+    def calculate_subsequent_smoothing(up_ch, down_ch)
+      smooth_up << (_smooth_coef_one * up_ch.last + _smooth_coef_two * smooth_up.last).round(4)
+      smooth_down << (_smooth_coef_one * down_ch.last + _smooth_coef_two * smooth_down.last).round(4)
+    end
+
+    def calculate_smoothing(up_ch, down_ch)
+      wilders_is_set ? calculate_subsequent_smoothing(up_ch, down_ch) : calculate_initial_smoothing(up_ch, down_ch)
+    end
+
+    def calculate_rsi
+      (0..(price_series.size - period - 1)).flat_map do |k|
+        cla = price_series[k..k + period]
+        up_ch, down_ch = calculate_channels(cla)
+
+        calculate_smoothing(up_ch, down_ch)
+        rsi << (100.00 - (100.00 / ((smooth_up.last.to_f / smooth_down.last) + 1))).round(4)
+      end.last
+    end
   end
-end
-
-class Array
-  include RelativeStrengthIndex
 end

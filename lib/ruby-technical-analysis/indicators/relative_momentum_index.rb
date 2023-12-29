@@ -1,66 +1,78 @@
 # frozen_string_literal: true
 
+require_relative "indicator"
 require_relative "wilders_smoothing"
 
-# Relative Momentum Index indicator
-# Returns a single value
-module RelativeMomentumIndex
-  def relative_momentum_index(period_mom, period_rmi)
-    pmpr = period_mom + period_rmi
+module RTA
+  # Relative Momentum Index indicator
+  # Returns a single value
+  class RelativeMomentumIndex < Indicator
+    attr_accessor :wilders_is_set, :rmi, :rmi_intermediate, :smooth_up, :smooth_down
+    attr_reader :period_mom, :period_rmi
 
-    if size < pmpr
-      raise ArgumentError,
-            "Closes array passed to Relative Momentum Index cannot be less than the period mom + period rmi arguments."
+    def initialize(price_series, period_mom, period_rmi)
+      @period_mom = period_mom
+      @period_rmi = period_rmi
+      @rmi = []
+      @rmi_intermediate = []
+      @smooth_up = []
+      @smooth_down = []
+      @wilders_is_set = false
+
+      super(price_series)
     end
 
-    rmi = []
-    rmi_intermediate = []
-    wilders_is_set = false
-    smooth_up = []
-    smooth_down = []
-
-    smooth_coef_one = (1.0 / period_rmi).round(4)
-    smooth_coef_two = (1 - smooth_coef_one)
-
-    (0..(size - pmpr)).each do |i|
-      cla = self[i..(i + pmpr - 1)]
-      up_ch = []
-      down_ch = []
-
-      (0..period_rmi - 1).each do |m|
-        cur_close = cla[m]
-        prev_close = cla[period_mom + m]
-        diff = (cur_close - prev_close).round(4)
-
-        if diff.negative?
-          up_ch << diff.abs
-          down_ch << 0.00
-        elsif diff.positive?
-          up_ch << 0.00
-          down_ch << diff
-        else
-          up_ch << 0.00
-          down_ch << 0.00
-        end
-      end
-
-      if wilders_is_set
-        smooth_up << (smooth_coef_one * up_ch[-1] + smooth_coef_two * smooth_up[-1]).round(4)
-        smooth_down << (smooth_coef_one * down_ch[-1] + smooth_coef_two * smooth_down[-1]).round(4)
-      else
-        smooth_up << up_ch.wilders_smoothing(period_rmi)
-        smooth_down << down_ch.wilders_smoothing(period_rmi)
-        wilders_is_set = true
-      end
-
-      rmi_intermediate << (smooth_up[-1].to_f / smooth_down[-1])
-      rmi << ((rmi_intermediate[-1].to_f / (1 + rmi_intermediate[-1])) * 100).round(4)
+    def call
+      calculate_rmi
     end
 
-    rmi[-1]
+    private
+
+    def _pmpr
+      @_pmpr ||= (period_mom + period_rmi)
+    end
+
+    def _smooth_coef_one
+      @_smooth_coef_one ||= (1.0 / period_rmi).round(4)
+    end
+
+    def _smooth_coef_two
+      @_smooth_coef_two ||= (1 - _smooth_coef_one)
+    end
+
+    def calculate_channels(cla)
+      period_rmi.times.map do |i|
+        diff = (cla.at(i) - cla.at(period_mom + i)).round(4)
+
+        [diff.negative? ? diff.abs : 0, diff.positive? ? diff : 0]
+      end.transpose
+    end
+
+    def calculate_initial_smoothing(up_ch, down_ch)
+      smooth_up << RTA::WildersSmoothing.new(up_ch, period_rmi).call
+      smooth_down << RTA::WildersSmoothing.new(down_ch, period_rmi).call
+      self.wilders_is_set = true
+    end
+
+    def calculate_subsequent_smoothing(up_ch, down_ch)
+      smooth_up << (_smooth_coef_one * up_ch.last + _smooth_coef_two * smooth_up.last).round(4)
+      smooth_down << (_smooth_coef_one * down_ch.last + _smooth_coef_two * smooth_down.last).round(4)
+    end
+
+    def calculate_smoothing(up_ch, down_ch)
+      wilders_is_set ? calculate_subsequent_smoothing(up_ch, down_ch) : calculate_initial_smoothing(up_ch, down_ch)
+    end
+
+    def calculate_rmi
+      (0..(price_series.size - _pmpr)).flat_map do |i|
+        cla = price_series[i..(i + _pmpr - 1)]
+        up_ch, down_ch = calculate_channels(cla)
+
+        calculate_smoothing(up_ch, down_ch)
+
+        rmi_intermediate << (smooth_up.last.to_f / smooth_down.last)
+        rmi << ((rmi_intermediate.last.to_f / (1 + rmi_intermediate.last)) * 100).round(4)
+      end.last
+    end
   end
-end
-
-class Array
-  include RelativeMomentumIndex
 end
