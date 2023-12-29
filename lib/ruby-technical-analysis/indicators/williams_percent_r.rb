@@ -1,45 +1,32 @@
 # frozen_string_literal: true
 
+require_relative "indicator"
+
 module RTA
   # Williams Percent R indicator
   # Returns a single value
-  class WilliamsPercentR
+  class WilliamsPercentR < Indicator
     attr_accessor :highest_highs, :lowest_lows, :highest_highs_minus_close,
                   :highest_highs_minus_lowest_lows, :pct_r
 
-    attr_reader :price_series, :period
+    attr_reader :period
 
     def initialize(price_series, period)
-      @price_series = price_series
       @period = period
       @highest_highs = []
       @lowest_lows = []
       @highest_highs_minus_close = []
       @highest_highs_minus_lowest_lows = []
       @pct_r = []
+
+      super(price_series)
     end
 
     def call
-      highs, lows, closes = extract_prices(price_series)
-
-      (0..highs.length - period).each do |i|
-        calculate_highest_highs(highs, i)
-        calculate_lowest_lows(lows, i)
-        calculate_highest_highs_minus_close(closes, i)
-        calculate_highest_highs_minus_lowest_lows
-        calculate_pct_r
-      end
-
-      pct_r.last
+      calculate_williams_percent_r
     end
 
     private
-
-    def extract_prices(price_series)
-      highs, lows, closes = price_series.transpose
-
-      [highs, lows, closes]
-    end
 
     def calculate_lowest_lows(lows, window_start)
       lowest_lows << lows[window_start..(period - 1 + window_start)].min
@@ -61,6 +48,20 @@ module RTA
     def calculate_pct_r
       pct_r <<
         ((highest_highs_minus_close.last.to_f / highest_highs_minus_lowest_lows.last) * -100).round(2)
+    end
+
+    def calculate_williams_percent_r
+      highs, lows, closes = extract_highs_lows_closes
+
+      (0..highs.length - period).each do |i|
+        calculate_highest_highs(highs, i)
+        calculate_lowest_lows(lows, i)
+        calculate_highest_highs_minus_close(closes, i)
+        calculate_highest_highs_minus_lowest_lows
+        calculate_pct_r
+      end
+
+      pct_r.last
     end
   end
 end

@@ -236,7 +236,7 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     hlc_series_two = [[631.34, 624.81, 626.01], [627.11, 623.59, 626.44], [628.49, 621.33, 622.20],
                       [630.89, 622.20, 630.80], [632.85, 630.21, 632.85], [633.26, 629.64, 633.06]]
 
-    assert_equal RTA::WilliamsPercentR.new(hlc_series_one, 5).call, 0
-    assert_equal RTA::WilliamsPercentR.new(hlc_series_two, 5).call, -1.68
+    assert_equal RTA::WilliamsPercentR.call(hlc_series_one, 5), 0
+    assert_equal RTA::WilliamsPercentR.call(hlc_series_two, 5), -1.68
   end
 end
