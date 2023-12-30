@@ -2,7 +2,6 @@ module RubyTechnicalAnalysis
   # Intraday Momentum Index indicator
   # Returns a singular current value
   class IntradayMomentumIndex < Indicator
-    attr_accessor :gsum, :lsum
     attr_reader :period
 
     def initialize(price_series, period)
@@ -22,16 +21,16 @@ module RubyTechnicalAnalysis
     def calculate_gsum_plus_lsum
       price_series.last(period).each do |open, close|
         cmo = (close - open).abs
-        close > open ? self.gsum += cmo : self.lsum += cmo
+        close > open ? @gsum += cmo : @lsum += cmo
       end
 
-      gsum + lsum
+      @gsum + @lsum
     end
 
     def calculate_imi
       gsum_plus_lsum = calculate_gsum_plus_lsum
 
-      (gsum_plus_lsum.zero? ? 0 : (gsum / gsum_plus_lsum) * 100).round(4)
+      (gsum_plus_lsum.zero? ? 0 : (@gsum / gsum_plus_lsum) * 100).round(4)
     end
   end
 end
