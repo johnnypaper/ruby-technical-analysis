@@ -2,24 +2,7 @@
 require "ruby_technical_analysis/indicator"
 
 # Indicators
-require "ruby_technical_analysis/indicators/bollinger_bands"
-require "ruby_technical_analysis/indicators/chaikin_money_flow"
-require "ruby_technical_analysis/indicators/chande_momentum_oscillator"
-require "ruby_technical_analysis/indicators/commodity_channel_index"
-require "ruby_technical_analysis/indicators/envelopes_ema"
-require "ruby_technical_analysis/indicators/intraday_momentum_index"
-require "ruby_technical_analysis/indicators/macd"
-require "ruby_technical_analysis/indicators/mass_index"
-require "ruby_technical_analysis/indicators/moving_averages"
-require "ruby_technical_analysis/indicators/pivot_points"
-require "ruby_technical_analysis/indicators/price_channel"
-require "ruby_technical_analysis/indicators/qstick"
-require "ruby_technical_analysis/indicators/rate_of_change"
-require "ruby_technical_analysis/indicators/relative_momentum_index"
-require "ruby_technical_analysis/indicators/relative_strength_index"
-require "ruby_technical_analysis/indicators/statistical_methods"
-require "ruby_technical_analysis/indicators/stochastic_oscillator"
-require "ruby_technical_analysis/indicators/volume_oscillator"
-require "ruby_technical_analysis/indicators/volume_rate_of_change"
-require "ruby_technical_analysis/indicators/wilders_smoothing"
-require "ruby_technical_analysis/indicators/williams_percent_r"
+# This will require all files in the indicators directory
+Dir.glob("**/indicators/*.rb") do |file|
+  require file.partition("lib/").last
+end
