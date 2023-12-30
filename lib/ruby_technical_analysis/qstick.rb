@@ -17,11 +17,11 @@ module RubyTechnicalAnalysis
     private
 
     def _opens
-      @_opens ||= price_series.last(period).map { |i| i.at(0) }
+      @_opens ||= price_series.last(period).map { |value| value.at(0) }
     end
 
     def _closes
-      @_closes ||= price_series.last(period).map { |i| i.at(1) }
+      @_closes ||= price_series.last(period).map { |value| value.at(1) }
     end
 
     def cmo_sum
