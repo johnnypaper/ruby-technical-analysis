@@ -12,7 +12,7 @@ module RubyTechnicalAnalysis
     end
 
     private
-    
+
     def extract_series(subset_length = nil)
       subset_length ? price_series.last(subset_length) : price_series
     end
@@ -29,8 +29,8 @@ module RubyTechnicalAnalysis
       [highs, lows, closes]
     end
 
-    def moving_averages(subset_length = nil)
-      RubyTechnicalAnalysis::MovingAverages.new(extract_series(subset_length))
+    def moving_averages(subset_length = nil, period:)
+      RubyTechnicalAnalysis::MovingAverages.new(extract_series(subset_length), period)
     end
 
     def statistical_methods(subset_length = nil)

@@ -2,11 +2,11 @@ module RubyTechnicalAnalysis
   # Volume Oscillator indicator
   # Returns a single value
   class VolumeOscillator < Indicator
-    attr_reader :short_ma, :long_ma
+    attr_reader :short_ma_period, :long_ma_period
 
-    def initialize(price_series, short_ma, long_ma)
-      @short_ma = short_ma
-      @long_ma = long_ma
+    def initialize(price_series, short_ma_period, long_ma_period)
+      @short_ma_period = short_ma_period
+      @long_ma_period = long_ma_period
 
       super(price_series)
     end
@@ -18,14 +18,14 @@ module RubyTechnicalAnalysis
     private
 
     def short_ma_a
-      (0..(price_series.length - short_ma)).map do |i|
-        RubyTechnicalAnalysis::MovingAverages.new(price_series[i..(i + short_ma - 1)]).sma(short_ma)
+      (0..(price_series.length - short_ma_period)).map do |i|
+        RubyTechnicalAnalysis::MovingAverages.new(price_series[i..(i + short_ma_period - 1)], short_ma_period).sma
       end
     end
 
     def _long_ma_a
-      @_long_ma_a ||= (0..(price_series.length - long_ma)).map do |i|
-        RubyTechnicalAnalysis::MovingAverages.new(price_series[i..(i + long_ma - 1)]).sma(long_ma)
+      @_long_ma_a ||= (0..(price_series.length - long_ma_period)).map do |i|
+        RubyTechnicalAnalysis::MovingAverages.new(price_series[i..(i + long_ma_period - 1)], long_ma_period).sma
       end
     end
 

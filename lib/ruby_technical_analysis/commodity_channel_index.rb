@@ -33,7 +33,7 @@ module RubyTechnicalAnalysis
     def _typical_prices_sma
       @_typical_prices_sma ||=
         _typical_prices.each_cons(period).map do |tp|
-          RubyTechnicalAnalysis::MovingAverages.new(tp).sma(period)
+          RubyTechnicalAnalysis::MovingAverages.new(tp, period).sma
         end
     end
 

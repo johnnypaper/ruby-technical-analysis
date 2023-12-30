@@ -17,7 +17,7 @@ module RubyTechnicalAnalysis
     private
 
     def _middle_price
-      @_middle_price ||= moving_averages.sma(period)
+      @_middle_price ||= moving_averages(period: period).sma
     end
 
     def _twice_sd

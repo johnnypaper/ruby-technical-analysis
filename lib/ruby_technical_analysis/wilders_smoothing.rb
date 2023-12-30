@@ -18,7 +18,7 @@ module RubyTechnicalAnalysis
 
     def _sma_first_period
       @_sma_first_period ||=
-        Array(RubyTechnicalAnalysis::MovingAverages.new(price_series.first(period)).sma(period))
+        Array(RubyTechnicalAnalysis::MovingAverages.new(price_series.first(period), period).sma)
     end
 
     def smoothing_length

@@ -18,7 +18,7 @@ module RubyTechnicalAnalysis
     private
 
     def _eema
-      @_eema ||= moving_averages(period).ema(period)
+      @_eema ||= moving_averages(period: period).ema
     end
 
     def eema_up
