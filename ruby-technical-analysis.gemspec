@@ -3,9 +3,9 @@ Gem::Specification.new do |spec|
   spec.version                = "1.0.0"
   spec.authors                = ["Brad Saterfiel"]
   spec.email                  = ["brad.saterfiel@gmail.com"]
-  spec.description            = %q{Ruby Technical Analysis}
-  spec.summary                = %q{Lightweight and flexible technical analysis toolkit for Ruby.}
-  spec.homepage               = "https://rubytechnicalanalysis.com"
+  spec.description            = %q{Technical analysis toolkit for stocks, commodities, and other time series written in Ruby.}
+  spec.summary                = %q{Technical analysis toolkit for stocks, commodities, and other time series written in Ruby.}
+  spec.homepage               = "https://github.com/johnnypaper/ruby-technical-analysis"
   spec.license                = "MIT"
   spec.required_ruby_version  = ">= 3.0"
   spec.files                  = Dir["{test,lib}/**/*.*"]

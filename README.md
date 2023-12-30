@@ -1,6 +1,6 @@
 # Ruby Technical Analysis
 
-Technical analysis toolkit for Ruby.
+Technical analysis toolkit for stocks, commodities, and other time series written in Ruby.
 
 Codebase derived from Steven B. Achelis' *Technical Analysis from A to Z* (2nd Edition).
 
