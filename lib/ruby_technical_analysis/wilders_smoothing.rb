@@ -28,8 +28,10 @@ module RubyTechnicalAnalysis
     def calculate_wilders_smoothing
       ws = _sma_first_period
 
-      (0..smoothing_length).each do |i|
-        ws << ((price_series.at(i + period) - ws.at(i)) * (1.0 / period)) + ws.at(i)
+      (0..smoothing_length).each do |index|
+        current_smoothing = ws.at(index)
+
+        ws << ((price_series.at(index + period) - current_smoothing) * (1.0 / period)) + current_smoothing
       end
 
       ws.last
