@@ -8,9 +8,9 @@ module RubyTechnicalAnalysis
     attr_reader :period, :percent
 
     # @param price_series [Array] An array of prices, typically closing prices
-    # @param period [Integer] The number of periods to use in the calculation, default is 5
-    # @param percent [Integer] The percent to use in the calculation, default is 20
-    def initialize(price_series, period = 5, percent = 20)
+    # @param period [Integer] The number of periods to use in the calculation
+    # @param percent [Integer] The percent to use in the calculation
+    def initialize(price_series, period = 20, percent = 5)
       @period = period
       @percent = percent
 

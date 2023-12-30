@@ -6,9 +6,9 @@ module RubyTechnicalAnalysis
     attr_reader :short_ma_period, :long_ma_period
 
     # @param price_series [Array] An array of volume values
-    # @param short_ma_period [Integer] The number of periods to use in the calculation of the short moving average, default is 2
-    # @param long_ma_period [Integer] The number of periods to use in the calculation of the long moving average, default is 5
-    def initialize(price_series, short_ma_period = 2, long_ma_period = 5)
+    # @param short_ma_period [Integer] The number of periods to use in the calculation of the short moving average
+    # @param long_ma_period [Integer] The number of periods to use in the calculation of the long moving average
+    def initialize(price_series, short_ma_period = 20, long_ma_period = 60)
       @short_ma_period = short_ma_period
       @long_ma_period = long_ma_period
 

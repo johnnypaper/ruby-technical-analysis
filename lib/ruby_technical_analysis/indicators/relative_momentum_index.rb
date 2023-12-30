@@ -4,9 +4,9 @@ module RubyTechnicalAnalysis
     attr_reader :period_mom, :period_rmi
 
     # @param price_series [Array] An array of prices, typically closing prices
-    # @param period_mom [Integer] The number of periods to use in the momentum calculation, default is 4
-    # @param period_rmi [Integer] The number of periods to use in the RMI calculation, default is 8
-    def initialize(price_series, period_mom = 4, period_rmi = 8)
+    # @param period_mom [Integer] The number of periods to use in the momentum calculation
+    # @param period_rmi [Integer] The number of periods to use in the RMI calculation
+    def initialize(price_series, period_mom = 14, period_rmi = 20)
       @period_mom = period_mom
       @period_rmi = period_rmi
       @rmi = []

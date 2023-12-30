@@ -6,8 +6,8 @@ module RubyTechnicalAnalysis
     attr_reader :period
 
     # @param price_series [Array] An array of arrays containing open, close prices, e.g. [[open, close], [open, close]]
-    # @param period [Integer] The number of periods to use in the calculation, default is 7
-    def initialize(price_series, period = 7)
+    # @param period [Integer] The number of periods to use in the calculation
+    def initialize(price_series, period = 14)
       @period = period
       @gsum = 0
       @lsum = 0

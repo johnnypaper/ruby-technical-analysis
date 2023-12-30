@@ -6,7 +6,7 @@ module RubyTechnicalAnalysis
     attr_reader :period
 
     # @param price_series [Array] An array of arrays containing high and low prices, e.g. [[high, low], [high, low]]
-    # @param period [Integer] The number of periods to use in the calculation, default is 9
+    # @param period [Integer] The number of periods to use in the calculation
     def initialize(price_series, period = 9)
       @period = period
 

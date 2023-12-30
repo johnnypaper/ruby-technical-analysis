@@ -6,9 +6,11 @@ module RubyTechnicalAnalysis
     attr_reader :period
 
     # @param price_series [Array] An array of prices, typically closing prices
-    # @param period [Integer] The number of periods to use in the calculation, default is 5
-    def initialize(price_series, period = 5)
+    # @param period [Integer] The number of periods to use in the calculation
+    # @param standard_deviations [Integer] The number of standard deviations to use in the calculation
+    def initialize(price_series, period = 20, standard_deviations = 2)
       @period = period
+      @standard_deviations = standard_deviations
 
       super(price_series)
     end
@@ -25,7 +27,7 @@ module RubyTechnicalAnalysis
     end
 
     def _twice_sd
-      @_twice_sd ||= 2 * statistical_methods.standard_deviation
+      @_twice_sd ||= @standard_deviations * statistical_methods.standard_deviation
     end
 
     def upper_band
