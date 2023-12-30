@@ -1,10 +1,13 @@
 module RubyTechnicalAnalysis
-  # Relative Momentum Index indicator
-  # Returns a single value
+  # Relative Strength Index
+  #
+  # Find more information at: https://www.fidelity.com/viewpoints/active-investor/how-to-use-RSI
   class RelativeStrengthIndex < Indicator
     attr_reader :period
 
-    def initialize(price_series, period)
+    # @param price_series [Array] An array of prices, typically closing prices
+    # @param period [Integer] The number of periods to use in the calculation
+    def initialize(price_series, period = 14)
       @period = period
       @rsi = []
       @smooth_up = []
@@ -14,6 +17,7 @@ module RubyTechnicalAnalysis
       super(price_series)
     end
 
+    # @return [Float] The current RSI value
     def call
       calculate_rsi
     end

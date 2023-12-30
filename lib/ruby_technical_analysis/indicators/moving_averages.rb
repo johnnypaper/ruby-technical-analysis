@@ -1,20 +1,32 @@
 module RubyTechnicalAnalysis
-  # Common moving averages used independently or in combination with other indicators
+  # Moving Averages
+  #
+  # Find more information at:
+  #
+  # Simple Moving Average (SMA): https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/sma
+  #
+  # Exponential Moving Average (EMA): https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/ema
+  # 
+  # Weighted Moving Average (WMA): https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/wma
   class MovingAverages < Indicator
     attr_reader :period
 
-    def initialize(price_series, period)
+    # @param price_series [Array] An array of prices, typically closing prices
+    # @param period [Integer] The number of periods to use in the calculation
+    def initialize(price_series, period = 20)
       @period = period
 
       super(price_series)
     end
 
     # Simple Moving Average
+    # @return [Float] The current SMA value
     def sma
       price_series.last(period).sum.to_f / period
     end
 
     # Exponential Moving Average
+    # @return [Float] The current EMA value
     def ema
       return price_series.last if period == 1
 
@@ -28,6 +40,7 @@ module RubyTechnicalAnalysis
     end
 
     # Weighted Moving Average
+    # @return [Float] The current WMA value
     def wma
       true_periods = (1..period).sum
 

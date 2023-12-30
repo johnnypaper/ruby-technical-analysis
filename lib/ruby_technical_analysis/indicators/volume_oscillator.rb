@@ -1,16 +1,21 @@
 module RubyTechnicalAnalysis
-  # Volume Oscillator indicator
-  # Returns a single value
+  # Volume Oscillator
+  #
+  # Find more information at: https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/volume-oscillator
   class VolumeOscillator < Indicator
     attr_reader :short_ma_period, :long_ma_period
 
-    def initialize(price_series, short_ma_period, long_ma_period)
+    # @param price_series [Array] An array of volume values
+    # @param short_ma_period [Integer] The number of periods to use in the calculation of the short moving average
+    # @param long_ma_period [Integer] The number of periods to use in the calculation of the long moving average
+    def initialize(price_series, short_ma_period = 20, long_ma_period = 60)
       @short_ma_period = short_ma_period
       @long_ma_period = long_ma_period
 
       super(price_series)
     end
 
+    # @return [Float] The current volume oscillator value
     def call
       calculate_volume_oscillator
     end

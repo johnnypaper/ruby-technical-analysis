@@ -1,15 +1,17 @@
 module RubyTechnicalAnalysis
-  # Wilders Smoothing indicator
-  # Returns a singular current value
+  # Wilders Smoothing
   class WildersSmoothing < Indicator
     attr_reader :period
 
-    def initialize(price_series, period)
+    # @param price_series [Array] An array of prices
+    # @param period [Integer] The number of periods to use in the calculation
+    def initialize(price_series, period = 5)
       @period = period
 
       super(price_series)
     end
 
+    # @return [Float] The current Wilders Smoothing value
     def call
       calculate_wilders_smoothing
     end

@@ -1,15 +1,19 @@
 module RubyTechnicalAnalysis
-  # Volume Rate of Change indicator
-  # Returns a single value
+  # Volume Rate of Change
+  #
+  # Find more information at: https://www.investopedia.com/articles/technical/02/091002.asp
   class VolumeRateOfChange < Indicator
     attr_reader :period
 
-    def initialize(price_series, period)
+    # @param price_series [Array] An array of volume values
+    # @param period [Integer] The number of periods to use in the calculation
+    def initialize(price_series, period = 25)
       @period = period
 
       super(price_series)
     end
 
+    # @return [Float] The current volume rate of change value
     def call
       calculate_volume_rate_of_change
     end

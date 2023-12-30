@@ -7,6 +7,7 @@ module RubyTechnicalAnalysis
       new(*args).call
     end
 
+    # @param price_series [Array] An array of prices
     def initialize(price_series)
       @price_series = price_series
     end

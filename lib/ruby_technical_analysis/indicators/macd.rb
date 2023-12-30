@@ -1,9 +1,14 @@
 module RubyTechnicalAnalysis
-  # Moving Average Convergence Divergence (MACD) indicator
-  # Returns an array of current macd value and signal value
+  # Moving Average Convergence Divergence (MACD)
+  #
+  # Find more information at: https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/macd
   class Macd < Indicator
     attr_reader :fast_period, :slow_period, :signal_period
 
+    # @param price_series [Array] An array of prices, typically closing prices
+    # @param fast_period [Integer] The number of periods to use in the fast calculation
+    # @param slow_period [Integer] The number of periods to use in the slow calculation
+    # @param signal_period [Integer] The number of periods to use in the signal calculation
     def initialize(price_series, fast_period = 12, slow_period = 26, signal_period = 9)
       @fast_period = fast_period
       @slow_period = slow_period
@@ -12,6 +17,7 @@ module RubyTechnicalAnalysis
       super(price_series)
     end
 
+    # @return [Array] An array containing the current MACD line, signal line, and histogram values
     def call
       calculate_macd
     end

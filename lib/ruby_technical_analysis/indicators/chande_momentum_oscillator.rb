@@ -1,10 +1,13 @@
 module RubyTechnicalAnalysis
-  # Chaikin Money Flow indicator
-  # Returns a current singular value
+  # Chande Momentum Oscillator
+  #
+  # Find more information at: https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/cmo
   class ChandeMomentumOscillator < Indicator
     attr_reader :period
 
-    def initialize(price_series, period)
+    # @param price_series [Array] An array of prices, typically closing prices
+    # @param period [Integer] The number of periods to use in the calculation
+    def initialize(price_series, period = 20)
       @period = period
       @up_change_sum = 0
       @down_change_sum = 0
@@ -12,6 +15,7 @@ module RubyTechnicalAnalysis
       super(price_series)
     end
 
+    # @return [Float] The current Chande Momentum Oscillator value
     def call
       calculate_cmo
     end

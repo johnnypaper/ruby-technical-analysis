@@ -1,10 +1,13 @@
 module RubyTechnicalAnalysis
-  # Williams Percent R indicator
-  # Returns a single value
+  # Williams %R
+  #
+  # Find more information at: https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/williams-r
   class WilliamsPercentR < Indicator
     attr_reader :period
 
-    def initialize(price_series, period)
+    # @param price_series [Array] An array of arrays containing high, low, close prices, e.g. [[high, low, close], [high, low, close]]
+    # @param period [Integer] The number of periods to use in the calculation
+    def initialize(price_series, period = 14)
       @period = period
       @highest_highs = []
       @lowest_lows = []
@@ -15,6 +18,7 @@ module RubyTechnicalAnalysis
       super(price_series)
     end
 
+    # @return [Float] The current Williams %R value
     def call
       calculate_williams_percent_r
     end

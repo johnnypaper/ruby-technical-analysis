@@ -1,15 +1,19 @@
 module RubyTechnicalAnalysis
-  # RateOfChange indicator
-  # Returns a single value
+  # Rate Of Change
+  #
+  # Find more information at: https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/roc
   class RateOfChange < Indicator
     attr_reader :period
 
-    def initialize(price_series, period)
+    # @param price_series [Array] An array of prices, typically closing prices
+    # @param period [Integer] The number of periods to use in the calculation
+    def initialize(price_series, period = 30)
       @period = period
 
       super(price_series)
     end
 
+    # @return [Float] The current ROC value
     def call
       calculate_roc
     end

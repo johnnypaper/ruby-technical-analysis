@@ -1,10 +1,13 @@
 module RubyTechnicalAnalysis
-  # Chaikin Money Flow indicator
-  # Returns a current singular value
+  # Chaikin Money Flow
+  #
+  # Find more information at: https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/cmf
   class ChaikinMoneyFlow < Indicator
     attr_reader :period
 
-    def initialize(price_series, period)
+    # @param price_series [Array] An array of arrays containing high, low, close, and volume information, e.g. [[high, low, close, volume], [high, low, close, volume]]
+    # @param period [Integer] The number of periods to use in the calculation
+    def initialize(price_series, period = 21)
       @period = period
       @cmf_sum = 0
       @vol_sum = 0
@@ -12,6 +15,7 @@ module RubyTechnicalAnalysis
       super(price_series)
     end
 
+    # @return [Float] The current Chaikin Money Flow value
     def call
       calculate_cmf
     end
