@@ -54,7 +54,9 @@ The test suite is a great place to look at usage as well as the individual class
 ```
 # Bollinger Bands
 
+# Closing prices
 series_one = [31.8750, 32.1250, 32.3125, 32.1250, 31.8750]
+
 RubyTechnicalAnalysis::BollingerBands.call(series_one, 5)
 
 # => [32.397, 32.062, 31.727]
