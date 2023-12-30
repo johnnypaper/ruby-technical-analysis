@@ -18,12 +18,12 @@ module RubyTechnicalAnalysis
     def ema
       return price_series.last if period == 1
 
-      ma_array = price_series.last(period).each_with_object([]) do |num, result|
+      price_series.last(period).each_with_object([]) do |num, result|
         result << if result.empty?
-                    num
-                  else
-                    (num * _ema_percentages.first) + (result.last * _ema_percentages.last)
-                  end
+          num
+        else
+          (num * _ema_percentages.first) + (result.last * _ema_percentages.last)
+        end
       end.last
     end
 
@@ -39,7 +39,7 @@ module RubyTechnicalAnalysis
     private
 
     def _ema_percentages
-      @_ema_percentages ||= 
+      @_ema_percentages ||=
         case period
         when 12 then [0.846154, 0.153846]
         when 26 then [0.925926, 0.074074]

@@ -60,10 +60,10 @@ module RubyTechnicalAnalysis
 
     def caculate_d_periods_sma
       @d_periods_sma << if @ks_sums_quotients_times_one_hundred.length >= d_periods
-                         (@ks_sums_quotients_times_one_hundred.last(d_periods).sum.to_f / d_periods).round(4)
-                       else
-                         -1000
-                       end
+        (@ks_sums_quotients_times_one_hundred.last(d_periods).sum.to_f / d_periods).round(4)
+      else
+        -1000
+      end
     end
 
     def calculate_stochastic_oscillator
