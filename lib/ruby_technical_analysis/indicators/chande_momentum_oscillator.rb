@@ -2,7 +2,6 @@ module RubyTechnicalAnalysis
   # Chaikin Money Flow indicator
   # Returns a current singular value
   class ChandeMomentumOscillator < Indicator
-    attr_accessor :up_change_sum, :down_change_sum
     attr_reader :period
 
     def initialize(price_series, period)
@@ -24,13 +23,13 @@ module RubyTechnicalAnalysis
     end
 
     def calculate_change_sums
-      (1..period).each do |i|
-        price_diff = _closes.at(i) - _closes.at(i - 1)
-        self.up_change_sum += price_diff if price_diff.positive?
-        self.down_change_sum -= price_diff if price_diff.negative?
+      (1..period).each do |index|
+        price_diff = _closes.at(index) - _closes.at(index - 1)
+        @up_change_sum += price_diff if price_diff.positive?
+        @down_change_sum -= price_diff if price_diff.negative?
       end
 
-      up_change_sum + down_change_sum
+      @up_change_sum + @down_change_sum
     end
 
     def _up_sum_plus_down_sum
@@ -38,7 +37,7 @@ module RubyTechnicalAnalysis
     end
 
     def calculate_oscillator_value
-      (up_change_sum - down_change_sum).to_f / _up_sum_plus_down_sum * 100
+      (@up_change_sum - @down_change_sum).to_f / _up_sum_plus_down_sum * 100
     end
 
     def calculate_cmo

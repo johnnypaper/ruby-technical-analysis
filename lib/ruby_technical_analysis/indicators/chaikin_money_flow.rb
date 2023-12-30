@@ -2,7 +2,6 @@ module RubyTechnicalAnalysis
   # Chaikin Money Flow indicator
   # Returns a current singular value
   class ChaikinMoneyFlow < Indicator
-    attr_accessor :cmf_sum, :vol_sum
     attr_reader :period
 
     def initialize(price_series, period)
@@ -22,21 +21,18 @@ module RubyTechnicalAnalysis
     def calculate_cmf_sum
       highs, lows, closes, volumes = extract_highs_lows_closes_volumes(period)
 
-      period.times do |i|
-        self.vol_sum += volumes.at(i)
+      period.times do |index|
+        high, low, close, volume = highs.at(index), lows.at(index), closes.at(index), volumes.at(index)
 
-        close_minus_low = closes.at(i) - lows.at(i)
-        high_minus_close = highs.at(i) - closes.at(i)
-        high_minus_low = highs.at(i) - lows.at(i)
-
-        self.cmf_sum += ((close_minus_low - high_minus_close).to_f / high_minus_low) * volumes.at(i)
+        @vol_sum += volume
+        @cmf_sum += (((close - low) - (high - close)).to_f / (high - low)) * volume
       end
     end
 
     def calculate_cmf
       calculate_cmf_sum
 
-      (vol_sum.zero? ? 0 : cmf_sum.to_f / vol_sum).round(5)
+      (@vol_sum.zero? ? 0 : @cmf_sum.to_f / @vol_sum).round(5)
     end
   end
 end

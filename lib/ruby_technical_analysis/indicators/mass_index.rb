@@ -2,7 +2,7 @@ module RubyTechnicalAnalysis
   # Mass Index indicator
   # Returns a singular current value
   class MassIndex < Indicator
-    attr_accessor :period
+    attr_reader :period
 
     def initialize(price_series, period)
       @period = period
@@ -37,24 +37,24 @@ module RubyTechnicalAnalysis
     end
 
     def high_minus_low_array
-      (0..(_highs.size - 1)).map { |i| _highs.at(i) - lows.at(i) }
+      (0..(_highs.size - 1)).map { |index| _highs.at(index) - lows.at(index) }
     end
 
     def _high_minus_low_ema_array
-      @_high_minus_low_ema_array ||= high_minus_low_array.each_with_index.reduce([]) do |arr, (i, index)|
-        arr << (index.zero? ? i.truncate(4) : ((i * _low_multiple) + (arr.at(index - 1) * high_multiple)).truncate(4))
+      @_high_minus_low_ema_array ||= high_minus_low_array.each_with_index.reduce([]) do |arr, (value, index)|
+        arr << (index.zero? ? value.truncate(4) : ((value * _low_multiple) + (arr.at(index - 1) * high_multiple)).truncate(4))
       end
     end
 
     def high_minus_low_ema_ema_array
-      [*0..period + 1].each.reduce([]) do |arr, i|
-        arr << (i.zero? ? _high_minus_low_ema_array.at(period - i - 1) : ((_high_minus_low_ema_array.at(period + i - 1) * 0.2) + (arr.last * 0.8)).round(4))
+      [*0..period + 1].each.reduce([]) do |arr, index|
+        arr << (index.zero? ? _high_minus_low_ema_array.at(period - index - 1) : ((_high_minus_low_ema_array.at(period + index - 1) * 0.2) + (arr.last * 0.8)).round(4))
       end
     end
 
     def calculate_mass_index
-      [*0..2].each.sum do |i|
-        (_high_minus_low_ema_array.at((period * 2) + i - 2) / high_minus_low_ema_ema_array.at(period + i - 1))
+      [*0..2].each.sum do |index|
+        (_high_minus_low_ema_array.at((period * 2) + index - 2) / high_minus_low_ema_ema_array.at(period + index - 1))
       end.round(4)
     end
   end

@@ -26,26 +26,26 @@ class TestRubyTechnicalAnalysis < Minitest::Test
     series_one = [25.000, 24.875, 24.781, 24.594, 24.500]
     series_two = [25.000, 24.875, 24.781, 24.594, 24.500, 24.625]
 
-    assert_equal RubyTechnicalAnalysis::MovingAverages.new(series_one).sma(1).truncate(3), 24.500
-    assert_equal RubyTechnicalAnalysis::MovingAverages.new(series_one).sma(5).truncate(3), 24.750
-    assert_equal RubyTechnicalAnalysis::MovingAverages.new(series_two).sma(5).truncate(3), 24.675
+    assert_equal RubyTechnicalAnalysis::MovingAverages.new(series_one, 1).sma.truncate(3), 24.500
+    assert_equal RubyTechnicalAnalysis::MovingAverages.new(series_one, 5).sma.truncate(3), 24.750
+    assert_equal RubyTechnicalAnalysis::MovingAverages.new(series_two, 5).sma.truncate(3), 24.675
   end
 
   def test_ema
     series_one = [25.000, 24.875, 24.781, 24.594, 24.5]
     series_two = [25.000, 24.875, 24.781, 24.594, 24.5, 24.625]
 
-    assert_equal RubyTechnicalAnalysis::MovingAverages.new(series_one).ema(5).round(3), 24.698
-    assert_equal RubyTechnicalAnalysis::MovingAverages.new(series_two).ema(5).round(3), 24.657
+    assert_equal RubyTechnicalAnalysis::MovingAverages.new(series_one, 5).ema.round(3), 24.698
+    assert_equal RubyTechnicalAnalysis::MovingAverages.new(series_two, 5).ema.round(3), 24.657
   end
 
   def test_wma
     series_one = [25.000, 24.875, 24.781, 24.594, 24.5]
     series_two = [25.000, 24.875, 24.781, 24.594, 24.5, 24.625]
 
-    assert_equal RubyTechnicalAnalysis::MovingAverages.new(series_one).wma(1).round(4), 24.5000
-    assert_equal RubyTechnicalAnalysis::MovingAverages.new(series_one).wma(5).round(4), 24.6646
-    assert_equal RubyTechnicalAnalysis::MovingAverages.new(series_two).wma(5).round(4), 24.6229
+    assert_equal RubyTechnicalAnalysis::MovingAverages.new(series_one, 1).wma.round(4), 24.5000
+    assert_equal RubyTechnicalAnalysis::MovingAverages.new(series_one, 5).wma.round(4), 24.6646
+    assert_equal RubyTechnicalAnalysis::MovingAverages.new(series_two, 5).wma.round(4), 24.6229
   end
 
   def test_bollinger_bands

@@ -13,34 +13,28 @@ module RubyTechnicalAnalysis
 
     private
 
-    def extract_highs_lows_closes_volumes(period = nil)
-      series = period ? price_series.last(period) : price_series
+    def extract_series(subset_length = nil)
+      subset_length ? price_series.last(subset_length) : price_series
+    end
 
-      highs, lows, closes, volumes = series.transpose
+    def extract_highs_lows_closes_volumes(subset_length = nil)
+      highs, lows, closes, volumes = extract_series(subset_length).transpose
 
       [highs, lows, closes, volumes]
     end
 
-    def extract_highs_lows_closes(period = nil)
-      series = period ? price_series.last(period) : price_series
-
-      highs, lows, closes = series.transpose
+    def extract_highs_lows_closes(subset_length = nil)
+      highs, lows, closes = extract_series(subset_length).transpose
 
       [highs, lows, closes]
     end
 
-    def extract_series(period = nil)
-      period ? price_series.last(period) : price_series
+    def moving_averages(subset_length = nil, period:)
+      RubyTechnicalAnalysis::MovingAverages.new(extract_series(subset_length), period)
     end
 
-    def moving_averages(period = nil)
-      series = period ? price_series.last(period) : price_series
-
-      RubyTechnicalAnalysis::MovingAverages.new(series)
-    end
-
-    def statistical_methods
-      RubyTechnicalAnalysis::StatisticalMethods.new(price_series)
+    def statistical_methods(subset_length = nil)
+      RubyTechnicalAnalysis::StatisticalMethods.new(extract_series(subset_length))
     end
   end
 end
