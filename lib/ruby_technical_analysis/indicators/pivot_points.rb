@@ -1,6 +1,7 @@
 module RubyTechnicalAnalysis
-  # Pivot Points indicator
-  # Returns an array of the current pivot points for the provided H, L, C array
+  # Pivot Points
+  #
+  # Find more information at: https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/pivot-points
   class PivotPoints < Indicator
     def call
       calculate_pivot_points

@@ -1,6 +1,7 @@
 module RubyTechnicalAnalysis
-  # Qstick indicator
-  # Returns a single value
+  # Qstick
+  #
+  # Find more information at: https://www.investopedia.com/terms/q/qstick.asp
   class QStick < Indicator
     attr_reader :period
 

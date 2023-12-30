@@ -1,6 +1,7 @@
 module RubyTechnicalAnalysis
-  # Intraday Momentum Index indicator
-  # Returns a singular current value
+  # Intraday Momentum Index
+  #
+  # Find more information at: https://www.investopedia.com/terms/i/intraday-momentum-index-imi.asp
   class IntradayMomentumIndex < Indicator
     attr_reader :period
 

@@ -1,6 +1,5 @@
 module RubyTechnicalAnalysis
-  # Wilders Smoothing indicator
-  # Returns a singular current value
+  # Wilders Smoothing
   class WildersSmoothing < Indicator
     attr_reader :period
 

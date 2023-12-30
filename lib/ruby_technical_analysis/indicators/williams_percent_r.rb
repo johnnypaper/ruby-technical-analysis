@@ -1,6 +1,7 @@
 module RubyTechnicalAnalysis
-  # Williams Percent R indicator
-  # Returns a single value
+  # Williams %R
+  #
+  # Find more information at: https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/williams-r
   class WilliamsPercentR < Indicator
     attr_reader :period
 

@@ -1,5 +1,13 @@
 module RubyTechnicalAnalysis
-  # Common moving averages used independently or in combination with other indicators
+  # Moving Averages
+  #
+  # Find more information at:
+  #
+  # Simple Moving Average (SMA): https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/sma
+  #
+  # Exponential Moving Average (EMA): https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/ema
+  # 
+  # Weighted Moving Average (WMA): https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/wma
   class MovingAverages < Indicator
     attr_reader :period
 

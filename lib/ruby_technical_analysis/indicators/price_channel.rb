@@ -1,6 +1,7 @@
 module RubyTechnicalAnalysis
-  # Price Channel indicator
-  # Returns an array containing the current upper and lower values of the series
+  # Price Channel
+  #
+  # Find more information at: https://www.investopedia.com/terms/p/price-channel.asp
   class PriceChannel < Indicator
     attr_reader :period
 

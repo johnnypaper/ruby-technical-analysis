@@ -1,6 +1,7 @@
 module RubyTechnicalAnalysis
-  # Relative Momentum Index indicator
-  # Returns a single value
+  # Relative Strength Index
+  #
+  # Find more information at: https://www.fidelity.com/viewpoints/active-investor/how-to-use-RSI
   class RelativeStrengthIndex < Indicator
     attr_reader :period
 

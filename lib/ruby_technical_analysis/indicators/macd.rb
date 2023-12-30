@@ -1,6 +1,7 @@
 module RubyTechnicalAnalysis
-  # Moving Average Convergence Divergence (MACD) indicator
-  # Returns an array of current macd value and signal value
+  # Moving Average Convergence Divergence (MACD)
+  #
+  # Find more information at: https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/macd
   class Macd < Indicator
     attr_reader :fast_period, :slow_period, :signal_period
 

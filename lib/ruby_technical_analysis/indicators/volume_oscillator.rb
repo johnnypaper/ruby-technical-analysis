@@ -1,6 +1,7 @@
 module RubyTechnicalAnalysis
-  # Volume Oscillator indicator
-  # Returns a single value
+  # Volume Oscillator
+  #
+  # Find more information at: https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/volume-oscillator
   class VolumeOscillator < Indicator
     attr_reader :short_ma_period, :long_ma_period
 

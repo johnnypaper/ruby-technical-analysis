@@ -1,6 +1,7 @@
 module RubyTechnicalAnalysis
-  # Mass Index indicator
-  # Returns a singular current value
+  # Mass Index
+  #
+  # Find more information at: https://www.investopedia.com/terms/m/mass-index.asp
   class MassIndex < Indicator
     attr_reader :period
 

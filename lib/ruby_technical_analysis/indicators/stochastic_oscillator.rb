@@ -1,6 +1,7 @@
 module RubyTechnicalAnalysis
-  # Stochastic Oscillator indicator
-  # Returns a single value
+  # Stochastic Oscillator
+  #
+  # Find more information at: https://www.investopedia.com/terms/s/stochasticoscillator.asp
   class StochasticOscillator < Indicator
     attr_reader :k_periods, :k_slow_periods, :d_periods
 

@@ -1,5 +1,5 @@
 module RubyTechnicalAnalysis
-  # Statistical methods used in calculations
+  # Statistical Methods
   class StatisticalMethods < Indicator
     def mean
       price_series.reduce(:+) / price_series.length.to_f

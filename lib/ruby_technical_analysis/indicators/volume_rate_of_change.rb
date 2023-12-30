@@ -1,6 +1,7 @@
 module RubyTechnicalAnalysis
-  # Volume Rate of Change indicator
-  # Returns a single value
+  # Volume Rate of Change
+  #
+  # Find more information at: https://www.investopedia.com/articles/technical/02/091002.asp
   class VolumeRateOfChange < Indicator
     attr_reader :period
 

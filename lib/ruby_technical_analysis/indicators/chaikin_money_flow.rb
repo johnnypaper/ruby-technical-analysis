@@ -1,6 +1,7 @@
 module RubyTechnicalAnalysis
-  # Chaikin Money Flow indicator
-  # Returns a current singular value
+  # Chaikin Money Flow
+  #
+  # Find more information at: https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/cmf
   class ChaikinMoneyFlow < Indicator
     attr_reader :period
 

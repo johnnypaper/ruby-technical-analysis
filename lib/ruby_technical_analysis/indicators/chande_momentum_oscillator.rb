@@ -1,6 +1,7 @@
 module RubyTechnicalAnalysis
-  # Chaikin Money Flow indicator
-  # Returns a current singular value
+  # Chande Momentum Oscillator
+  #
+  # Find more information at: https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/cmo
   class ChandeMomentumOscillator < Indicator
     attr_reader :period
 

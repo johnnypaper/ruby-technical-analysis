@@ -1,6 +1,7 @@
 module RubyTechnicalAnalysis
-  # Bollinger Bands indicator
-  # Returns an array containing the current upper, middle, and lower bands of the series
+  # Bollinger Bands
+  #
+  # Find more information at: https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/bollinger-bands
   class BollingerBands < Indicator
     attr_reader :period
 

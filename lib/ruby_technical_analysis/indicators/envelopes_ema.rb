@@ -1,6 +1,9 @@
 module RubyTechnicalAnalysis
-  # Envelopes EMA indicator
-  # Returns an array of current high, middle and low eema values
+  # Envelopes EMA
+  #
+  # Find more information at: https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/mae
+  #
+  # Note that this indicator is similar but not the exact same as the one in the link above. This indicator is based on the EMA, not the SMA.
   class EnvelopesEma < Indicator
     attr_reader :period, :percent
 

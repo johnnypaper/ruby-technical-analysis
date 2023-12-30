@@ -1,2 +1,5 @@
 *.gem
 bin
+
+# Documentation
+.yardoc

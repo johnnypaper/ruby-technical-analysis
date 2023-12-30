@@ -1,6 +1,7 @@
 module RubyTechnicalAnalysis
-  # RateOfChange indicator
-  # Returns a single value
+  # Rate Of Change
+  #
+  # Find more information at: https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/roc
   class RateOfChange < Indicator
     attr_reader :period
 

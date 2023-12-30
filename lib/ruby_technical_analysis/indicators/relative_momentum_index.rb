@@ -1,6 +1,5 @@
 module RubyTechnicalAnalysis
-  # Relative Momentum Index indicator
-  # Returns a single value
+  # Relative Momentum Index
   class RelativeMomentumIndex < Indicator
     attr_reader :period_mom, :period_rmi
 

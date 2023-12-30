@@ -1,6 +1,7 @@
 module RubyTechnicalAnalysis
-  # Commodity Channel Index indicator
-  # Returns a current singular value
+  # Commodity Channel Index
+  #
+  # Find more information at: https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/cci
   class CommodityChannelIndex < Indicator
     attr_reader :period
 
