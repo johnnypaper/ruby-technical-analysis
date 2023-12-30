@@ -2,7 +2,7 @@ module RubyTechnicalAnalysis
   # Moving Average Convergence Divergence (MACD) indicator
   # Returns an array of current macd value and signal value
   class Macd < Indicator
-    attr_accessor :fast_period, :slow_period, :signal_period
+    attr_reader :fast_period, :slow_period, :signal_period
 
     def initialize(price_series, fast_period = 12, slow_period = 26, signal_period = 9)
       @fast_period = fast_period
@@ -27,9 +27,13 @@ module RubyTechnicalAnalysis
     end
 
     def period_array(percent)
-      price_series.each_with_index.reduce([]) do |arr, (i, index)|
-        arr << (index.zero? ? i : ((i * percent) + (arr.last * (1 - percent))).round(3))
+      period_values = Array(price_series.first)
+
+      price_series.drop(1).each_with_index do |value, index|
+        period_values << ((value * percent) + (period_values.last * (1 - percent))).round(3)
       end
+
+      period_values
     end
 
     def _fast_period_array
@@ -41,8 +45,10 @@ module RubyTechnicalAnalysis
     end
 
     def _signal_array
-      @_signal_array ||= (0..signal_period - 1).map do |i|
-        (_fast_period_array.at(slow_period + i - 1) - _slow_period_array.at(slow_period + i - 1)).round(3)
+      @_signal_array ||= (0..signal_period - 1).map do |index|
+        calculated_index = slow_period + index - 1
+
+        (_fast_period_array.at(calculated_index) - _slow_period_array.at(calculated_index)).round(3)
       end
     end
 
