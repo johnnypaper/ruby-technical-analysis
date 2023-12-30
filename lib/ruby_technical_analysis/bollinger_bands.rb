@@ -33,7 +33,7 @@ module RubyTechnicalAnalysis
     end
 
     def calculate_bollinger_bands
-      [upper_band, _middle_price, lower_band].map { |n| n.truncate(3) }
+      [upper_band, _middle_price, lower_band].map { |band| band.truncate(3) }
     end
   end
 end
