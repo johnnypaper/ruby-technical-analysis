@@ -5,12 +5,15 @@ module RubyTechnicalAnalysis
   class VolumeRateOfChange < Indicator
     attr_reader :period
 
-    def initialize(price_series, period)
+    # @param price_series [Array] An array of volume values
+    # @param period [Integer] The number of periods to use in the calculation, default is 5
+    def initialize(price_series, period = 5)
       @period = period
 
       super(price_series)
     end
 
+    # @return [Float] The current volume rate of change value
     def call
       calculate_volume_rate_of_change
     end

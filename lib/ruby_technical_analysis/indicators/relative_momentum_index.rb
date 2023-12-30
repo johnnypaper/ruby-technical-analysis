@@ -3,7 +3,10 @@ module RubyTechnicalAnalysis
   class RelativeMomentumIndex < Indicator
     attr_reader :period_mom, :period_rmi
 
-    def initialize(price_series, period_mom, period_rmi)
+    # @param price_series [Array] An array of prices, typically closing prices
+    # @param period_mom [Integer] The number of periods to use in the momentum calculation, default is 4
+    # @param period_rmi [Integer] The number of periods to use in the RMI calculation, default is 8
+    def initialize(price_series, period_mom = 4, period_rmi = 8)
       @period_mom = period_mom
       @period_rmi = period_rmi
       @rmi = []
@@ -15,6 +18,7 @@ module RubyTechnicalAnalysis
       super(price_series)
     end
 
+    # @return [Float] The current RMI value
     def call
       calculate_rmi
     end

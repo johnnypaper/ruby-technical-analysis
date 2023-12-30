@@ -5,6 +5,8 @@ module RubyTechnicalAnalysis
   class ChaikinMoneyFlow < Indicator
     attr_reader :period
 
+    # @param price_series [Array] An array of arrays containing high, low, close, and volume information, e.g. [[high, low, close, volume], [high, low, close, volume]]
+    # @param period [Integer] The number of periods to use in the calculation, default is 5
     def initialize(price_series, period)
       @period = period
       @cmf_sum = 0
@@ -13,6 +15,7 @@ module RubyTechnicalAnalysis
       super(price_series)
     end
 
+    # @return [Float] The current Chaikin Money Flow value
     def call
       calculate_cmf
     end

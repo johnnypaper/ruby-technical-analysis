@@ -5,13 +5,17 @@ module RubyTechnicalAnalysis
   class VolumeOscillator < Indicator
     attr_reader :short_ma_period, :long_ma_period
 
-    def initialize(price_series, short_ma_period, long_ma_period)
+    # @param price_series [Array] An array of volume values
+    # @param short_ma_period [Integer] The number of periods to use in the calculation of the short moving average, default is 2
+    # @param long_ma_period [Integer] The number of periods to use in the calculation of the long moving average, default is 5
+    def initialize(price_series, short_ma_period = 2, long_ma_period = 5)
       @short_ma_period = short_ma_period
       @long_ma_period = long_ma_period
 
       super(price_series)
     end
 
+    # @return [Float] The current volume oscillator value
     def call
       calculate_volume_oscillator
     end

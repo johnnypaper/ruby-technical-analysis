@@ -7,13 +7,17 @@ module RubyTechnicalAnalysis
   class EnvelopesEma < Indicator
     attr_reader :period, :percent
 
-    def initialize(price_series, period, percent)
+    # @param price_series [Array] An array of prices, typically closing prices
+    # @param period [Integer] The number of periods to use in the calculation, default is 5
+    # @param percent [Integer] The percent to use in the calculation, default is 20
+    def initialize(price_series, period = 5, percent = 20)
       @period = period
       @percent = percent
 
       super(price_series)
     end
 
+    # @return [Array] An array containing the current upper, middle, and lower bands of the series
     def call
       caluculate_envelopes_ema
     end

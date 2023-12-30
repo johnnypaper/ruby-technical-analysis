@@ -3,6 +3,12 @@ module RubyTechnicalAnalysis
   #
   # Find more information at: https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/pivot-points
   class PivotPoints < Indicator
+    # @param price_series [Array] An array of high, low, and closing prices for a single period
+    # def initialize(price_series)
+    #   super(price_series)
+    # end
+
+    # @return [Array] An array containing the current S3, S2, S1, pivot, R1, R2, and R3 values
     def call
       calculate_pivot_points
     end

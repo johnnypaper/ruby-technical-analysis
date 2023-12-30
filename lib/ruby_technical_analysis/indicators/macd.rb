@@ -5,6 +5,10 @@ module RubyTechnicalAnalysis
   class Macd < Indicator
     attr_reader :fast_period, :slow_period, :signal_period
 
+    # @param price_series [Array] An array of prices, typically closing prices
+    # @param fast_period [Integer] The number of periods to use in the fast calculation, default is 12
+    # @param slow_period [Integer] The number of periods to use in the slow calculation, default is 26
+    # @param signal_period [Integer] The number of periods to use in the signal calculation, default is 9
     def initialize(price_series, fast_period = 12, slow_period = 26, signal_period = 9)
       @fast_period = fast_period
       @slow_period = slow_period
@@ -13,6 +17,7 @@ module RubyTechnicalAnalysis
       super(price_series)
     end
 
+    # @return [Array] An array containing the current MACD line, signal line, and histogram values
     def call
       calculate_macd
     end

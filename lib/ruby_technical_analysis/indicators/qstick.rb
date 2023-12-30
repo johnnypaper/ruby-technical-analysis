@@ -5,12 +5,15 @@ module RubyTechnicalAnalysis
   class QStick < Indicator
     attr_reader :period
 
-    def initialize(price_series, period)
+    # @param price_series [Array] An array of arrays containing open, close prices, e.g. [[open, close], [open, close]]
+    # @param period [Integer] The number of periods to use in the calculation, default is 4
+    def initialize(price_series, period = 4)
       @period = period
 
       super(price_series)
     end
 
+    # @return [Float] The current Qstick value
     def call
       calculate_qstick
     end

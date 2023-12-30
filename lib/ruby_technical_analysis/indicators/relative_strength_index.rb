@@ -5,7 +5,9 @@ module RubyTechnicalAnalysis
   class RelativeStrengthIndex < Indicator
     attr_reader :period
 
-    def initialize(price_series, period)
+    # @param price_series [Array] An array of prices, typically closing prices
+    # @param period [Integer] The number of periods to use in the calculation, default is 5
+    def initialize(price_series, period = 5)
       @period = period
       @rsi = []
       @smooth_up = []
@@ -15,6 +17,7 @@ module RubyTechnicalAnalysis
       super(price_series)
     end
 
+    # @return [Float] The current RSI value
     def call
       calculate_rsi
     end

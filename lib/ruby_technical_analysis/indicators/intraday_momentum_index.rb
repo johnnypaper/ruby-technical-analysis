@@ -5,7 +5,9 @@ module RubyTechnicalAnalysis
   class IntradayMomentumIndex < Indicator
     attr_reader :period
 
-    def initialize(price_series, period)
+    # @param price_series [Array] An array of arrays containing open, close prices, e.g. [[open, close], [open, close]]
+    # @param period [Integer] The number of periods to use in the calculation, default is 7
+    def initialize(price_series, period = 7)
       @period = period
       @gsum = 0
       @lsum = 0
@@ -13,6 +15,7 @@ module RubyTechnicalAnalysis
       super(price_series)
     end
 
+    # @return [Float] The current Intraday Momentum Index value
     def call
       calculate_imi
     end
