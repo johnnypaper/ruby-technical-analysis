@@ -17,7 +17,15 @@ module RubyTechnicalAnalysis
     private
 
     def calculate_roc
-      (((price_series.last - price_series.last(period + 1).first).to_f / price_series.last(period + 1).first) * 100).round(2)
+      (((current_price - lookback_price).to_f / lookback_price) * 100).round(2)
+    end
+
+    def current_price
+      price_series.last
+    end
+
+    def lookback_price
+      price_series.last(period + 1).first
     end
   end
 end
