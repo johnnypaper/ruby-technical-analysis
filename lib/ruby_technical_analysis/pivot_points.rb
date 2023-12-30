@@ -24,39 +24,39 @@ module RubyTechnicalAnalysis
       @_pivot ||= ((_high + _low + _close) / 3.0).round(2)
     end
 
-    def support_1
+    def support_one
       ((2 * _pivot) - _high).round(2)
     end
 
-    def support_2
+    def support_two
       (_pivot - (_high - _low)).round(2)
     end
 
-    def support_3
+    def support_three
       (_low - (2 * (_high - _pivot))).round(2)
     end
 
-    def resistance_1
+    def resistance_one
       ((2 * _pivot) - _low).round(2)
     end
 
-    def resistance_2
+    def resistance_two
       (_pivot + (_high - _low)).round(2)
     end
 
-    def resistance_3
+    def resistance_three
       (_high + (2 * (_pivot - _low))).round(2)
     end
 
     def calculate_pivot_points
       [
-        support_3,
-        support_2,
-        support_1,
+        support_three,
+        support_two,
+        support_one,
         _pivot,
-        resistance_1,
-        resistance_2,
-        resistance_3
+        resistance_one,
+        resistance_two,
+        resistance_three
       ]
     end
   end
