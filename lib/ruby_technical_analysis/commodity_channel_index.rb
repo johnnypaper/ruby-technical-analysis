@@ -23,7 +23,7 @@ module RubyTechnicalAnalysis
     def calculate_typical_prices
       highs, lows, closes = extract_highs_lows_closes(min_size)
 
-      highs.zip(closes, lows).map { |h, c, l| (h + c + l) / 3 }
+      highs.zip(lows, closes).map { |high, low, close| (high + low + close) / 3 }
     end
 
     def _typical_prices
