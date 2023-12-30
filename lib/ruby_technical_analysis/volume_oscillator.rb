@@ -18,14 +18,14 @@ module RubyTechnicalAnalysis
     private
 
     def short_ma_a
-      (0..(price_series.length - short_ma_period)).map do |i|
-        RubyTechnicalAnalysis::MovingAverages.new(price_series[i..(i + short_ma_period - 1)], short_ma_period).sma
+      (0..(price_series.length - short_ma_period)).map do |index|
+        RubyTechnicalAnalysis::MovingAverages.new(price_series[index..(index + short_ma_period - 1)], short_ma_period).sma
       end
     end
 
     def _long_ma_a
-      @_long_ma_a ||= (0..(price_series.length - long_ma_period)).map do |i|
-        RubyTechnicalAnalysis::MovingAverages.new(price_series[i..(i + long_ma_period - 1)], long_ma_period).sma
+      @_long_ma_a ||= (0..(price_series.length - long_ma_period)).map do |index|
+        RubyTechnicalAnalysis::MovingAverages.new(price_series[index..(index + long_ma_period - 1)], long_ma_period).sma
       end
     end
 
