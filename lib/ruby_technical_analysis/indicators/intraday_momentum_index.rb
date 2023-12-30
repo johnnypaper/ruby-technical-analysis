@@ -21,7 +21,7 @@ module RubyTechnicalAnalysis
     def calculate_gsum_plus_lsum
       price_series.last(period).each do |open, close|
         cmo = (close - open).abs
-        close > open ? @gsum += cmo : @lsum += cmo
+        (close > open) ? @gsum += cmo : @lsum += cmo
       end
 
       @gsum + @lsum
