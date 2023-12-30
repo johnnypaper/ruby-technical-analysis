@@ -17,11 +17,11 @@ module RubyTechnicalAnalysis
     private
 
     def _highs
-      @_highs ||= price_series.last(period + 1).map { |i| i.at(0) }
+      @_highs ||= price_series.last(period + 1).map { |value| value.at(0) }
     end
 
     def _lows
-      @_lows ||= price_series.last(period + 1).map { |i| i.at(1) }
+      @_lows ||= price_series.last(period + 1).map { |value| value.at(1) }
     end
 
     def upper_price_channel
