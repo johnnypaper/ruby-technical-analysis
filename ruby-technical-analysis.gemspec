@@ -17,6 +17,6 @@ Gem::Specification.new do |spec|
   spec.metadata["allowed_push_host"]  = "https://rubygems.org"
 
   spec.add_development_dependency "bundler", "~> 2.0"
-  spec.add_development_dependency "minitest", "~> 5.0"
+  spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "yard", "~> 0.9"
 end

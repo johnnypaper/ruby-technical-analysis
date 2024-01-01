@@ -1,4 +1,4 @@
-name: Test Suite
+name: Run Specs
 
 on: [pull_request]
 jobs:
@@ -18,5 +18,5 @@ jobs:
         rubygems: latest
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
-    - name: Run tests
-      run: ruby test/test_ruby_technical_analysis.rb
+    - name: Run specs
+      run: bundle exec rspec
