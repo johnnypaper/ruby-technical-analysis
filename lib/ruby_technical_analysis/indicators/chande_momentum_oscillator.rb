@@ -5,14 +5,14 @@ module RubyTechnicalAnalysis
   class ChandeMomentumOscillator < Indicator
     attr_reader :period
 
-    # @param price_series [Array] An array of prices, typically closing prices
+    # @param series [Array] An array of prices, typically closing prices
     # @param period [Integer] The number of periods to use in the calculation
-    def initialize(price_series, period = 20)
+    def initialize(series: [], period: 20)
       @period = period
       @up_change_sum = 0
       @down_change_sum = 0
 
-      super(price_series)
+      super(series: series)
     end
 
     # @return [Float] The current Chande Momentum Oscillator value
@@ -23,7 +23,7 @@ module RubyTechnicalAnalysis
     private
 
     def _closes
-      @_closes ||= extract_series(period + 1)
+      @_closes ||= extract_series(subset_length: period + 1)
     end
 
     def calculate_change_sums

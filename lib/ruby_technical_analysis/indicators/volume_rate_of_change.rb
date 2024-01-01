@@ -5,12 +5,12 @@ module RubyTechnicalAnalysis
   class VolumeRateOfChange < Indicator
     attr_reader :period
 
-    # @param price_series [Array] An array of volume values
+    # @param series [Array] An array of volume values
     # @param period [Integer] The number of periods to use in the calculation
-    def initialize(price_series, period = 25)
+    def initialize(series: [], period: 25)
       @period = period
 
-      super(price_series)
+      super(series: series)
     end
 
     # @return [Float] The current volume rate of change value
@@ -21,18 +21,18 @@ module RubyTechnicalAnalysis
     private
 
     def _calculable_series_length
-      @_calculable_series_length ||= price_series.length - period
+      @_calculable_series_length ||= series.length - period
     end
 
     def _vol_shifted
       @_vol_shifted ||= _calculable_series_length.times.map do
-        price_series.at(_calculable_series_length - 1)
+        series.at(_calculable_series_length - 1)
       end
     end
 
     def delta_volume
       _calculable_series_length.times.map do
-        price_series.last - _vol_shifted.last
+        series.last - _vol_shifted.last
       end
     end
 

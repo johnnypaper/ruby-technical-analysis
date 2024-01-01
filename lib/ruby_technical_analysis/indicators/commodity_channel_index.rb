@@ -5,12 +5,12 @@ module RubyTechnicalAnalysis
   class CommodityChannelIndex < Indicator
     attr_reader :period
 
-    # @param price_series [Array] An array of arrays containing high, low, close information, e.g. [[high, low, close], [high, low, close]]
+    # @param series [Array] An array of arrays containing high, low, close information, e.g. [[high, low, close], [high, low, close]]
     # @param period [Integer] The number of periods to use in the calculation
-    def initialize(price_series, period = 20)
+    def initialize(series: [], period: 20)
       @period = period
 
-      super(price_series)
+      super(series: series)
     end
 
     # @return [Float] The current Commodity Channel Index value
@@ -25,7 +25,7 @@ module RubyTechnicalAnalysis
     end
 
     def calculate_typical_prices
-      highs, lows, closes = extract_highs_lows_closes(min_size)
+      highs, lows, closes = extract_highs_lows_closes(subset_length: min_size)
 
       highs.zip(lows, closes).map { |high, low, close| (high + low + close) / 3 }
     end
@@ -37,7 +37,7 @@ module RubyTechnicalAnalysis
     def _typical_prices_sma
       @_typical_prices_sma ||=
         _typical_prices.each_cons(period).map do |tp|
-          RubyTechnicalAnalysis::MovingAverages.new(tp, period).sma
+          RubyTechnicalAnalysis::MovingAverages.new(series: tp, period: period).sma
         end
     end
 

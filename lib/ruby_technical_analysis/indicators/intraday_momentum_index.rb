@@ -5,14 +5,14 @@ module RubyTechnicalAnalysis
   class IntradayMomentumIndex < Indicator
     attr_reader :period
 
-    # @param price_series [Array] An array of arrays containing open, close prices, e.g. [[open, close], [open, close]]
+    # @param series [Array] An array of arrays containing open, close prices, e.g. [[open, close], [open, close]]
     # @param period [Integer] The number of periods to use in the calculation
-    def initialize(price_series, period = 14)
+    def initialize(series: [], period: 14)
       @period = period
       @gsum = 0
       @lsum = 0
 
-      super(price_series)
+      super(series: series)
     end
 
     # @return [Float] The current Intraday Momentum Index value
@@ -23,7 +23,7 @@ module RubyTechnicalAnalysis
     private
 
     def calculate_gsum_plus_lsum
-      price_series.last(period).each do |open, close|
+      series.last(period).each do |open, close|
         cmo = (close - open).abs
         (close > open) ? @gsum += cmo : @lsum += cmo
       end

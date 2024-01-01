@@ -5,11 +5,11 @@ module RubyTechnicalAnalysis
   class StochasticOscillator < Indicator
     attr_reader :k_periods, :k_slow_periods, :d_periods
 
-    # @param price_series [Array] An array of arrays containing high, low, close prices, e.g. [[high, low, close], [high, low, close]]
+    # @param series [Array] An array of arrays containing high, low, close prices, e.g. [[high, low, close], [high, low, close]]
     # @param k_periods [Integer] The number of periods to use in the calculation
     # @param k_slow_periods [Integer] The number of periods to use in the calculation
     # @param d_periods [Integer] The number of periods to use in the calculation
-    def initialize(price_series, k_periods = 14, k_slow_periods = 3, d_periods = 3)
+    def initialize(series: [], k_periods: 14, k_slow_periods: 3, d_periods: 3)
       @k_periods = k_periods
       @k_slow_periods = k_slow_periods
       @d_periods = d_periods
@@ -22,7 +22,7 @@ module RubyTechnicalAnalysis
       @ks_sums_quotients_times_one_hundred = []
       @d_periods_sma = []
 
-      super(price_series)
+      super(series: series)
     end
 
     # @return [Float] The current Stochastic Oscillator value

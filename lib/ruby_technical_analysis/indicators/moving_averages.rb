@@ -11,26 +11,26 @@ module RubyTechnicalAnalysis
   class MovingAverages < Indicator
     attr_reader :period
 
-    # @param price_series [Array] An array of prices, typically closing prices
+    # @param series [Array] An array of prices, typically closing prices
     # @param period [Integer] The number of periods to use in the calculation
-    def initialize(price_series, period = 20)
+    def initialize(series: [], period: 20)
       @period = period
 
-      super(price_series)
+      super(series: series)
     end
 
     # Simple Moving Average
     # @return [Float] The current SMA value
     def sma
-      price_series.last(period).sum.to_f / period
+      series.last(period).sum.to_f / period
     end
 
     # Exponential Moving Average
     # @return [Float] The current EMA value
     def ema
-      return price_series.last if period == 1
+      return series.last if period == 1
 
-      price_series.last(period).each_with_object([]) do |num, result|
+      series.last(period).each_with_object([]) do |num, result|
         result << if result.empty?
           num
         else
@@ -44,7 +44,7 @@ module RubyTechnicalAnalysis
     def wma
       true_periods = (1..period).sum
 
-      sigma_periods = price_series.last(period).each_with_index.sum { |num, index| (index + 1) * num }
+      sigma_periods = series.last(period).each_with_index.sum { |num, index| (index + 1) * num }
 
       sigma_periods.to_f / true_periods
     end

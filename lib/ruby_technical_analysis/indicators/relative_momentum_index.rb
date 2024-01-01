@@ -3,10 +3,10 @@ module RubyTechnicalAnalysis
   class RelativeMomentumIndex < Indicator
     attr_reader :period_mom, :period_rmi
 
-    # @param price_series [Array] An array of prices, typically closing prices
+    # @param series [Array] An array of prices, typically closing prices
     # @param period_mom [Integer] The number of periods to use in the momentum calculation
     # @param period_rmi [Integer] The number of periods to use in the RMI calculation
-    def initialize(price_series, period_mom = 14, period_rmi = 20)
+    def initialize(series: [], period_mom: 14, period_rmi: 20)
       @period_mom = period_mom
       @period_rmi = period_rmi
       @rmi = []
@@ -15,7 +15,7 @@ module RubyTechnicalAnalysis
       @smooth_down = []
       @wilders_is_set = false
 
-      super(price_series)
+      super(series: series)
     end
 
     # @return [Float] The current RMI value
@@ -45,8 +45,8 @@ module RubyTechnicalAnalysis
     end
 
     def calculate_initial_smoothing(up_ch, down_ch)
-      @smooth_up << RubyTechnicalAnalysis::WildersSmoothing.new(up_ch, period_rmi).call
-      @smooth_down << RubyTechnicalAnalysis::WildersSmoothing.new(down_ch, period_rmi).call
+      @smooth_up << RubyTechnicalAnalysis::WildersSmoothing.call(series: up_ch, period: period_rmi)
+      @smooth_down << RubyTechnicalAnalysis::WildersSmoothing.call(series: down_ch, period: period_rmi)
       @wilders_is_set = true
     end
 
@@ -60,8 +60,8 @@ module RubyTechnicalAnalysis
     end
 
     def calculate_rmi
-      (0..(price_series.size - _pmpr)).flat_map do |index|
-        cla = price_series[index..(index + _pmpr - 1)]
+      (0..(series.size - _pmpr)).flat_map do |index|
+        cla = series[index..(index + _pmpr - 1)]
         up_ch, down_ch = calculate_channels(cla)
 
         calculate_smoothing(up_ch, down_ch)

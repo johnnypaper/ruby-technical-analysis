@@ -3,12 +3,12 @@ module RubyTechnicalAnalysis
   class WildersSmoothing < Indicator
     attr_reader :period
 
-    # @param price_series [Array] An array of prices
+    # @param series [Array] An array of prices
     # @param period [Integer] The number of periods to use in the calculation
-    def initialize(price_series, period = 5)
+    def initialize(series: [], period: 5)
       @period = period
 
-      super(price_series)
+      super(series: series)
     end
 
     # @return [Float] The current Wilders Smoothing value
@@ -20,11 +20,11 @@ module RubyTechnicalAnalysis
 
     def _sma_first_period
       @_sma_first_period ||=
-        Array(RubyTechnicalAnalysis::MovingAverages.new(price_series.first(period), period).sma)
+        Array(RubyTechnicalAnalysis::MovingAverages.new(series: series.first(period), period: period).sma)
     end
 
     def smoothing_length
-      (price_series.size - period - 1)
+      (series.size - period - 1)
     end
 
     def calculate_wilders_smoothing
@@ -33,7 +33,7 @@ module RubyTechnicalAnalysis
       (0..smoothing_length).each do |index|
         current_smoothing = ws.at(index)
 
-        ws << ((price_series.at(index + period) - current_smoothing) * (1.0 / period)) + current_smoothing
+        ws << ((series.at(index + period) - current_smoothing) * (1.0 / period)) + current_smoothing
       end
 
       ws.last
