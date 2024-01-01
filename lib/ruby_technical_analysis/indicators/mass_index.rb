@@ -5,12 +5,12 @@ module RubyTechnicalAnalysis
   class MassIndex < Indicator
     attr_reader :period
 
-    # @param price_series [Array] An array of arrays containing high and low prices, e.g. [[high, low], [high, low]]
+    # @param series [Array] An array of arrays containing high and low prices, e.g. [[high, low], [high, low]]
     # @param period [Integer] The number of periods to use in the calculation
-    def initialize(price_series, period = 9)
+    def initialize(series: [], period: 9)
       @period = period
 
-      super(price_series)
+      super(series: series)
     end
 
     # @return [Float] The current Mass Index value
@@ -21,11 +21,11 @@ module RubyTechnicalAnalysis
     private
 
     def _highs
-      @_highs ||= price_series.map(&:first).last(_full_period)
+      @_highs ||= series.map(&:first).last(_full_period)
     end
 
     def lows
-      price_series.map(&:last).last(_full_period)
+      series.map(&:last).last(_full_period)
     end
 
     def _full_period

@@ -5,12 +5,12 @@ module RubyTechnicalAnalysis
   class QStick < Indicator
     attr_reader :period
 
-    # @param price_series [Array] An array of arrays containing open, close prices, e.g. [[open, close], [open, close]]
+    # @param series [Array] An array of arrays containing open, close prices, e.g. [[open, close], [open, close]]
     # @param period [Integer] The number of periods to use in the calculation
-    def initialize(price_series, period = 20)
+    def initialize(series: [], period: 20)
       @period = period
 
-      super(price_series)
+      super(series: series)
     end
 
     # @return [Float] The current Qstick value
@@ -21,11 +21,11 @@ module RubyTechnicalAnalysis
     private
 
     def _opens
-      @_opens ||= price_series.last(period).map { |value| value.at(0) }
+      @_opens ||= series.last(period).map { |value| value.at(0) }
     end
 
     def _closes
-      @_closes ||= price_series.last(period).map { |value| value.at(1) }
+      @_closes ||= series.last(period).map { |value| value.at(1) }
     end
 
     def cmo_sum

@@ -5,16 +5,16 @@ module RubyTechnicalAnalysis
   class RelativeStrengthIndex < Indicator
     attr_reader :period
 
-    # @param price_series [Array] An array of prices, typically closing prices
+    # @param series [Array] An array of prices, typically closing prices
     # @param period [Integer] The number of periods to use in the calculation
-    def initialize(price_series, period = 14)
+    def initialize(series: [], period: 14)
       @period = period
       @rsi = []
       @smooth_up = []
       @smooth_down = []
       @wilders_is_set = false
 
-      super(price_series)
+      super(series: series)
     end
 
     # @return [Float] The current RSI value
@@ -41,8 +41,8 @@ module RubyTechnicalAnalysis
     end
 
     def calculate_initial_smoothing(up_ch, down_ch)
-      @smooth_up << RubyTechnicalAnalysis::WildersSmoothing.new(up_ch, period).call
-      @smooth_down << RubyTechnicalAnalysis::WildersSmoothing.new(down_ch, period).call
+      @smooth_up << RubyTechnicalAnalysis::WildersSmoothing.call(series: up_ch, period: period)
+      @smooth_down << RubyTechnicalAnalysis::WildersSmoothing.call(series: down_ch, period: period)
 
       @wilders_is_set = true
     end
@@ -57,8 +57,8 @@ module RubyTechnicalAnalysis
     end
 
     def calculate_rsi
-      (0..(price_series.size - period - 1)).flat_map do |index|
-        cla = price_series[index..index + period]
+      (0..(series.size - period - 1)).flat_map do |index|
+        cla = series[index..index + period]
         up_ch, down_ch = calculate_channels(cla)
 
         calculate_smoothing(up_ch, down_ch)

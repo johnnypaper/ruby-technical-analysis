@@ -5,9 +5,9 @@ module RubyTechnicalAnalysis
   class WilliamsPercentR < Indicator
     attr_reader :period
 
-    # @param price_series [Array] An array of arrays containing high, low, close prices, e.g. [[high, low, close], [high, low, close]]
+    # @param series [Array] An array of arrays containing high, low, close prices, e.g. [[high, low, close], [high, low, close]]
     # @param period [Integer] The number of periods to use in the calculation
-    def initialize(price_series, period = 14)
+    def initialize(series: [], period: 14)
       @period = period
       @highest_highs = []
       @lowest_lows = []
@@ -15,7 +15,7 @@ module RubyTechnicalAnalysis
       @highest_highs_minus_lowest_lows = []
       @pct_r = []
 
-      super(price_series)
+      super(series: series)
     end
 
     # @return [Float] The current Williams %R value

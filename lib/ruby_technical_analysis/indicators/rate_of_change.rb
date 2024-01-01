@@ -5,12 +5,12 @@ module RubyTechnicalAnalysis
   class RateOfChange < Indicator
     attr_reader :period
 
-    # @param price_series [Array] An array of prices, typically closing prices
+    # @param series [Array] An array of prices, typically closing prices
     # @param period [Integer] The number of periods to use in the calculation
-    def initialize(price_series, period = 30)
+    def initialize(series: [], period: 30)
       @period = period
 
-      super(price_series)
+      super(series: series)
     end
 
     # @return [Float] The current ROC value
@@ -25,11 +25,11 @@ module RubyTechnicalAnalysis
     end
 
     def current_price
-      price_series.last
+      series.last
     end
 
     def lookback_price
-      price_series.last(period + 1).first
+      series.last(period + 1).first
     end
   end
 end

@@ -5,14 +5,14 @@ module RubyTechnicalAnalysis
   class VolumeOscillator < Indicator
     attr_reader :short_ma_period, :long_ma_period
 
-    # @param price_series [Array] An array of volume values
+    # @param series [Array] An array of volume values
     # @param short_ma_period [Integer] The number of periods to use in the calculation of the short moving average
     # @param long_ma_period [Integer] The number of periods to use in the calculation of the long moving average
-    def initialize(price_series, short_ma_period = 20, long_ma_period = 60)
+    def initialize(series: [], short_ma_period: 20, long_ma_period: 60)
       @short_ma_period = short_ma_period
       @long_ma_period = long_ma_period
 
-      super(price_series)
+      super(series: series)
     end
 
     # @return [Float] The current volume oscillator value
@@ -23,14 +23,14 @@ module RubyTechnicalAnalysis
     private
 
     def short_ma_a
-      (0..(price_series.length - short_ma_period)).map do |index|
-        RubyTechnicalAnalysis::MovingAverages.new(price_series[index..(index + short_ma_period - 1)], short_ma_period).sma
+      (0..(series.length - short_ma_period)).map do |index|
+        RubyTechnicalAnalysis::MovingAverages.new(series: series[index..(index + short_ma_period - 1)], period: short_ma_period).sma
       end
     end
 
     def _long_ma_a
-      @_long_ma_a ||= (0..(price_series.length - long_ma_period)).map do |index|
-        RubyTechnicalAnalysis::MovingAverages.new(price_series[index..(index + long_ma_period - 1)], long_ma_period).sma
+      @_long_ma_a ||= (0..(series.length - long_ma_period)).map do |index|
+        RubyTechnicalAnalysis::MovingAverages.new(series: series[index..(index + long_ma_period - 1)], period: long_ma_period).sma
       end
     end
 

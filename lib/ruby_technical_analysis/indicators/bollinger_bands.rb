@@ -5,14 +5,14 @@ module RubyTechnicalAnalysis
   class BollingerBands < Indicator
     attr_reader :period
 
-    # @param price_series [Array] An array of prices, typically closing prices
+    # @param series [Array] An array of prices, typically closing prices
     # @param period [Integer] The number of periods to use in the calculation
     # @param standard_deviations [Integer] The number of standard deviations to use in the calculation
-    def initialize(price_series, period = 20, standard_deviations = 2)
+    def initialize(series: [], period: 20, standard_deviations: 2)
       @period = period
       @standard_deviations = standard_deviations
 
-      super(price_series)
+      super(series: series)
     end
 
     # @return [Array] An array containing the current upper, middle, and lower bands of the series

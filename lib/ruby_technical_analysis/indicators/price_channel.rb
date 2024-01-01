@@ -5,12 +5,12 @@ module RubyTechnicalAnalysis
   class PriceChannel < Indicator
     attr_reader :period
 
-    # @param price_series [Array] An array of arrays containing high, low prices, e.g. [[high, low], [high, low]]
+    # @param series [Array] An array of arrays containing high, low prices, e.g. [[high, low], [high, low]]
     # @param period [Integer] The number of periods to use in the calculation
-    def initialize(price_series, period = 20)
+    def initialize(series: [], period: 20)
       @period = period
 
-      super(price_series)
+      super(series: series)
     end
 
     # @return [Array] An array containing the current upper and lower price channel values
@@ -21,11 +21,11 @@ module RubyTechnicalAnalysis
     private
 
     def _highs
-      @_highs ||= price_series.last(period + 1).map { |value| value.at(0) }
+      @_highs ||= series.last(period + 1).map { |value| value.at(0) }
     end
 
     def _lows
-      @_lows ||= price_series.last(period + 1).map { |value| value.at(1) }
+      @_lows ||= series.last(period + 1).map { |value| value.at(1) }
     end
 
     def upper_price_channel

@@ -5,16 +5,16 @@ module RubyTechnicalAnalysis
   class Macd < Indicator
     attr_reader :fast_period, :slow_period, :signal_period
 
-    # @param price_series [Array] An array of prices, typically closing prices
+    # @param series [Array] An array of prices, typically closing prices
     # @param fast_period [Integer] The number of periods to use in the fast calculation
     # @param slow_period [Integer] The number of periods to use in the slow calculation
     # @param signal_period [Integer] The number of periods to use in the signal calculation
-    def initialize(price_series, fast_period = 12, slow_period = 26, signal_period = 9)
+    def initialize(series: [], fast_period: 12, slow_period: 26, signal_period: 9)
       @fast_period = fast_period
       @slow_period = slow_period
       @signal_period = signal_period
 
-      super(price_series)
+      super(series: series)
     end
 
     # @return [Array] An array containing the current MACD line, signal line, and histogram values
@@ -33,9 +33,9 @@ module RubyTechnicalAnalysis
     end
 
     def period_array(percent)
-      period_values = Array(price_series.first)
+      period_values = Array(series.first)
 
-      price_series.drop(1).each_with_index do |value, index|
+      series.drop(1).each_with_index do |value, index|
         period_values << ((value * percent) + (period_values.last * (1 - percent))).round(3)
       end
 
