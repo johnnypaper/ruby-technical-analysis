@@ -3,7 +3,7 @@ module RubyTechnicalAnalysis
   #
   # Find more information at: https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/bollinger-bands
   class BollingerBands < Indicator
-    attr_reader :period
+    attr_reader :period, :standard_deviations
 
     # @param series [Array] An array of prices, typically closing prices
     # @param period [Integer] The number of periods to use in the calculation
@@ -27,7 +27,7 @@ module RubyTechnicalAnalysis
     end
 
     def _twice_sd
-      @_twice_sd ||= @standard_deviations * statistical_methods.standard_deviation
+      @_twice_sd ||= standard_deviations * statistical_methods.standard_deviation
     end
 
     def upper_band
