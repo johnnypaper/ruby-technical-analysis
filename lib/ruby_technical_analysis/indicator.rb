@@ -3,8 +3,8 @@ module RubyTechnicalAnalysis
   class Indicator
     attr_reader :series
 
-    def self.call(**kwargs)
-      new(**kwargs).call
+    def self.call(**kwargs) # standard:disable Style/ArgumentsForwarding
+      new(**kwargs).call # standard:disable Style/ArgumentsForwarding
     end
 
     # @param series [Array] An array of prices
@@ -15,7 +15,7 @@ module RubyTechnicalAnalysis
     private
 
     def extract_series(subset_length: nil)
-      subset_length.nil? ? series : series.last(subset_length) 
+      subset_length.nil? ? series : series.last(subset_length)
     end
 
     def extract_highs_lows_closes_volumes(subset_length: nil)
