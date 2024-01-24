@@ -6,7 +6,7 @@ module RubyTechnicalAnalysis
   # Simple Moving Average (SMA): https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/sma
   #
   # Exponential Moving Average (EMA): https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/ema
-  # 
+  #
   # Weighted Moving Average (WMA): https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/wma
   class MovingAverages < Indicator
     attr_reader :period
@@ -47,6 +47,11 @@ module RubyTechnicalAnalysis
       sigma_periods = series.last(period).each_with_index.sum { |num, index| (index + 1) * num }
 
       sigma_periods.to_f / true_periods
+    end
+
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      period <= series.length
     end
 
     private
