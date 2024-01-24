@@ -37,6 +37,20 @@ module RubyTechnicalAnalysis
           expect(bollinger_bands.call).to eq([32.397, 32.062, 31.727])
         end
       end
+
+      describe "#valid?" do
+        it "returns true when the period is less than or equal to the series length" do
+          expect(bollinger_bands.valid?).to be(true)
+        end
+
+        it "returns false when the period is greater than the series length" do
+          expect(described_class.new(series: series, period: 6).valid?).to be(false)
+        end
+
+        it "returns false when the standard deviations is less than or equal to 0" do
+          expect(described_class.new(series: series, standard_deviations: 0).valid?).to be(false)
+        end
+      end
     end
 
     describe "secondary series" do

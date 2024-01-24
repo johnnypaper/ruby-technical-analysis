@@ -20,6 +20,11 @@ module RubyTechnicalAnalysis
       calculate_bollinger_bands
     end
 
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      period <= series.length && standard_deviations > 0
+    end
+
     private
 
     def _middle_price
