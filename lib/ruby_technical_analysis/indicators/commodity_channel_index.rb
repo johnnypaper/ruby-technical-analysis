@@ -18,6 +18,11 @@ module RubyTechnicalAnalysis
       calculate_cci
     end
 
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      min_size <= series.length
+    end
+
     private
 
     def min_size

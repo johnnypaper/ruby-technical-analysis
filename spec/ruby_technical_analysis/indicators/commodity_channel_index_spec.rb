@@ -37,6 +37,16 @@ module RubyTechnicalAnalysis
           expect(cci.call.truncate(4)).to eq(18.089)
         end
       end
+
+      describe "#valid?" do
+        it "returns true when the series is valid" do
+          expect(cci.valid?).to be_truthy
+        end
+
+        it "returns false when the series is not valid" do
+          expect(described_class.new(series: [], period: period).valid?).to be(false)
+        end
+      end
     end
 
     describe "secondary series" do
