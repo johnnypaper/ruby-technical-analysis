@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.homepage = "https://github.com/johnnypaper/ruby-technical-analysis"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0"
-  spec.files = Dir["{test,lib}/**/*.*"]
+  spec.files = Dir["{spec,lib}/**/*.*"]
   spec.require_path = "lib"
 
   spec.metadata["homepage_uri"] = spec.homepage

@@ -1,8 +1,25 @@
 # Base class
-require "ruby_technical_analysis/indicator"
+require "rta/indicator"
 
 # Indicators
-# This will require all files in the indicators directory
-Dir.glob("lib/ruby_technical_analysis/indicators/*.rb") do |file|
-  require file.partition("lib/").last
-end
+require "rta/indicators/bollinger_bands"
+require "rta/indicators/chaikin_money_flow"
+require "rta/indicators/chande_momentum_oscillator"
+require "rta/indicators/commodity_channel_index"
+require "rta/indicators/envelopes_ema"
+require "rta/indicators/intraday_momentum_index"
+require "rta/indicators/macd"
+require "rta/indicators/mass_index"
+require "rta/indicators/moving_averages"
+require "rta/indicators/pivot_points"
+require "rta/indicators/price_channel"
+require "rta/indicators/qstick"
+require "rta/indicators/rate_of_change"
+require "rta/indicators/relative_momentum_index"
+require "rta/indicators/relative_strength_index"
+require "rta/indicators/statistical_methods"
+require "rta/indicators/stochastic_oscillator"
+require "rta/indicators/volume_oscillator"
+require "rta/indicators/volume_rate_of_change"
+require "rta/indicators/wilders_smoothing"
+require "rta/indicators/williams_percent_r"
