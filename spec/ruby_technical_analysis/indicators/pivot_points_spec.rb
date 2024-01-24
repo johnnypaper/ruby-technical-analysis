@@ -28,6 +28,16 @@ module RubyTechnicalAnalysis
           expect(pivot_points.call).to eq([127.88, 139.94, 152.53, 164.59, 177.18, 189.24, 201.83])
         end
       end
+
+      describe "#valid?" do
+        it "returns true if the object is valid" do
+          expect(pivot_points.valid?).to eq(true)
+        end
+
+        it "returns false if the object is invalid" do
+          expect(described_class.new(series: []).valid?).to eq(false)
+        end
+      end
     end
   end
 end
