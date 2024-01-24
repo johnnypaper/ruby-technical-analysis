@@ -20,6 +20,11 @@ module RubyTechnicalAnalysis
       calculate_cmo
     end
 
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      period + 1 <= series.length
+    end
+
     private
 
     def _closes
