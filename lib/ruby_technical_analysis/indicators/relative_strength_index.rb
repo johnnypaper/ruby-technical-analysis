@@ -22,6 +22,11 @@ module RubyTechnicalAnalysis
       calculate_rsi
     end
 
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      period < series.length
+    end
+
     private
 
     def _smooth_coef_one
