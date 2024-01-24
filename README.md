@@ -57,7 +57,7 @@ Examples:
 # Closing prices
 series = [31.875, 32.125, 32.3125, 32.125, 31.875]
 
-bb = RubyTechnicalAnalysis::BollingerBands.new(series: series_one, period: 5)
+bb = RubyTechnicalAnalysis::BollingerBands.new(series: series, period: 5)
 
 bb.valid?
 # => true
@@ -72,7 +72,7 @@ bb.call
 # [Open, Close]
 oc_series = [[18.4833, 18.5], [18.5417, 18.4167], [18.4167, 18.1667], [18.1667, 18.125], [18.1667, 17.9583], [18.0417, 18], [18, 17.9583], [17.9167, 17.8333], [17.7917, 17.9583]]
 
-imi = RubyTechnicalAnalysis::IntradayMomentumIndex.new(series: oc_series_one, period: 7)
+imi = RubyTechnicalAnalysis::IntradayMomentumIndex.new(series: oc_series, period: 7)
 
 imi.valid?
 # => true
