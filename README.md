@@ -1,10 +1,10 @@
 # Ruby Technical Analysis
 
-Technical analysis toolkit for stocks, commodities, and other time series written in Ruby.
+Ruby technical analysis toolkit for stocks, commodities, and other time series.
 
 Codebase derived from Steven B. Achelis' *Technical Analysis from A to Z* (2nd Edition).
 
-Test suite uses examples from the book to verify accuracy.
+Specs use examples from the book to verify accuracy.
 
 ## Library
 - Statistical Methods
@@ -49,7 +49,7 @@ Then run `bundle install`.
 
 ## Usage
 
-The test suite is a great place to look at usage as well as the individual classes themselves.  Here are a couple of use cases:
+Examples:
 
 ```
 # Bollinger Bands
@@ -57,8 +57,12 @@ The test suite is a great place to look at usage as well as the individual class
 # Closing prices
 series_one = [31.8750, 32.1250, 32.3125, 32.1250, 31.8750]
 
-RubyTechnicalAnalysis::BollingerBands.call(series: series_one, period: 5)
+bb = RubyTechnicalAnalysis::BollingerBands.new(series: series_one, period: 5)
 
+bb.valid?
+# => true
+
+bb.call
 # => [32.397, 32.062, 31.727]
 ```
 
@@ -68,17 +72,27 @@ RubyTechnicalAnalysis::BollingerBands.call(series: series_one, period: 5)
 # [Open, Close]
 oc_series_one = [[18.4833, 18.5000], [18.5417, 18.4167], [18.4167, 18.1667], [18.1667, 18.1250], [18.1667, 17.9583], [18.0417, 18.0000], [18.0000, 17.9583], [17.9167, 17.8333], [17.7917, 17.9583]]
 
-RubyTechnicalAnalysis::IntradayMomentumIndex.call(series: oc_series_one, period: 7)
+imi = RubyTechnicalAnalysis::IntradayMomentumIndex.new(series: oc_series_one, period: 7)
 
+imi.valid?
+# => true
+
+imi.call
 # => 19.988
 ```
 
+All indicators have the `#valid?` instance method to validate the indicator prior to calling `#call`.
+
+## Docs
+
+Yard documentation available.
+
 ## Testing
 
-The test suite is run in Github workflows, but you can run them yourself with:
+Specs are run in Github workflows. You can run them yourself with:
 
-`ruby test/test_ruby_technical_analysis.rb`
+`rspec spec`
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The gem is available open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
