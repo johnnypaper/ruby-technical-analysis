@@ -50,6 +50,31 @@ module RubyTechnicalAnalysis
           expect(oscillator.call).to eq(-24.88)
         end
       end
+
+      describe "#valid?" do
+        context "when the short_ma_period is greater than the long_ma_period" do
+          let(:short_ma_period) { 60 }
+          let(:long_ma_period) { 20 }
+
+          it "returns false" do
+            expect(oscillator.valid?).to eq(false)
+          end
+        end
+
+        context "when the long_ma_period is greater than the series length" do
+          let(:long_ma_period) { 100 }
+
+          it "returns false" do
+            expect(oscillator.valid?).to eq(false)
+          end
+        end
+
+        context "when the short_ma_period is less than the long_ma_period and the long_ma_period is less than the series length" do
+          it "returns true" do
+            expect(oscillator.valid?).to eq(true)
+          end
+        end
+      end
     end
 
     describe "secondary series" do

@@ -20,6 +20,11 @@ module RubyTechnicalAnalysis
       calculate_volume_oscillator
     end
 
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      short_ma_period < long_ma_period && long_ma_period <= series.length
+    end
+
     private
 
     def short_ma_a
