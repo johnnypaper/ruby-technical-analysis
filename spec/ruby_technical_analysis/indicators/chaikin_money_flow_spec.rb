@@ -36,6 +36,16 @@ module RubyTechnicalAnalysis
           expect(cmf.call.truncate(5)).to eq(0.50786)
         end
       end
+
+      describe "#valid?" do
+        it "returns true when the period is less than or equal to the series length" do
+          expect(cmf.valid?).to be(true)
+        end
+
+        it "returns false when the period is greater than the series length" do
+          expect(described_class.new(series: series, period: 6).valid?).to be(false)
+        end
+      end
     end
 
     describe "secondary series" do

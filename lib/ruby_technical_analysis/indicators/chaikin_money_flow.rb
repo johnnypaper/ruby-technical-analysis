@@ -20,6 +20,11 @@ module RubyTechnicalAnalysis
       calculate_cmf
     end
 
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      period <= series.length
+    end
+
     private
 
     def calculate_cmf_sum
