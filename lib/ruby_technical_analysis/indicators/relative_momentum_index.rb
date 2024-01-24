@@ -23,6 +23,11 @@ module RubyTechnicalAnalysis
       calculate_rmi
     end
 
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      period_mom + period_rmi <= series.length
+    end
+
     private
 
     def _pmpr
