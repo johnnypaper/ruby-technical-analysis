@@ -33,6 +33,16 @@ module RubyTechnicalAnalysis
           expect(rsi.call).to eq(76.6667)
         end
       end
+
+      describe "#valid?" do
+        it "returns true when the series is valid" do
+          expect(rsi.valid?).to be(true)
+        end
+
+        it "returns false when the series is not valid" do
+          expect(described_class.new(series: [*1..5], period: period).valid?).to be(false)
+        end
+      end
     end
 
     describe "secondary series" do

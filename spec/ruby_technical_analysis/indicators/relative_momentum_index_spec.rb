@@ -40,6 +40,16 @@ module RubyTechnicalAnalysis
           expect(rmi.call).to eq(13.1179)
         end
       end
+
+      describe "#valid?" do
+        it "returns true when the series is valid" do
+          expect(rmi.valid?).to be(true)
+        end
+
+        it "returns false when the series is not valid" do
+          expect(described_class.new(series: [*1..11], period_mom: period_mom, period_rmi: period_rmi).valid?).to be(false)
+        end
+      end
     end
 
     describe "secondary series" do

@@ -13,6 +13,11 @@ module RubyTechnicalAnalysis
       calculate_pivot_points
     end
 
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      series.length == 3
+    end
+
     private
 
     def _high

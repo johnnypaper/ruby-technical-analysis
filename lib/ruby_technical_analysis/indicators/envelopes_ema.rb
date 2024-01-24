@@ -22,6 +22,11 @@ module RubyTechnicalAnalysis
       caluculate_envelopes_ema
     end
 
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      period <= series.length && percent <= 100
+    end
+
     private
 
     def _eema

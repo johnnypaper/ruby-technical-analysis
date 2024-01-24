@@ -46,6 +46,16 @@ module RubyTechnicalAnalysis
           expect(macd.call).to eq([-1.934, -1.664, -0.27])
         end
       end
+
+      describe "#valid?" do
+        it "returns true when the series is valid" do
+          expect(macd.valid?).to be(true)
+        end
+
+        it "returns false when the series is not valid" do
+          expect(described_class.new(series: [], fast_period: 12, slow_period: 26, signal_period: 9).valid?).to be(false)
+        end
+      end
     end
   end
 end

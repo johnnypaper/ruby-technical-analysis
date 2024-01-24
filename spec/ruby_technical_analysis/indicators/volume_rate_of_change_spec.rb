@@ -33,6 +33,24 @@ module RubyTechnicalAnalysis
           expect(vroc.call).to eq(113.1253)
         end
       end
+
+      describe "#valid?" do
+        context "when the period is greater than or equal to the series length" do
+          let(:period) { 6 }
+
+          it "returns false" do
+            expect(vroc.valid?).to eq(false)
+          end
+        end
+
+        context "when the period is less than the series length" do
+          let(:period) { 5 }
+
+          it "returns true" do
+            expect(vroc.valid?).to eq(true)
+          end
+        end
+      end
     end
 
     describe "secondary series" do

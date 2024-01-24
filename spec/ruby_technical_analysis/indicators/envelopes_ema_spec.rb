@@ -38,6 +38,20 @@ module RubyTechnicalAnalysis
           expect(envelopes_ema.call).to eq([29.637, 24.698, 19.758])
         end
       end
+
+      describe "#valid?" do
+        it "returns true when the series is valid" do
+          expect(envelopes_ema.valid?).to be(true)
+        end
+
+        it "returns false when the series is not valid" do
+          expect(described_class.new(series: [], period: period, percent: percent).valid?).to be(false)
+        end
+
+        it "returns false when the percent is greater than 100" do
+          expect(described_class.new(series: series, period: period, percent: 101).valid?).to be(false)
+        end
+      end
     end
 
     describe "secondary series" do

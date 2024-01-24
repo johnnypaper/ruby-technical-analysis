@@ -18,6 +18,11 @@ module RubyTechnicalAnalysis
       calculate_volume_rate_of_change
     end
 
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      period < series.length
+    end
+
     private
 
     def _calculable_series_length

@@ -20,6 +20,11 @@ module RubyTechnicalAnalysis
       calculate_imi
     end
 
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      period <= series.length
+    end
+
     private
 
     def calculate_gsum_plus_lsum

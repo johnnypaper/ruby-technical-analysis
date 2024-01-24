@@ -16,6 +16,11 @@ module RubyTechnicalAnalysis
       calculate_wilders_smoothing
     end
 
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      period < series.length
+    end
+
     private
 
     def _sma_first_period

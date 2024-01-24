@@ -18,6 +18,11 @@ module RubyTechnicalAnalysis
       calculate_mass_index
     end
 
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      series.length >= _full_period
+    end
+
     private
 
     def _highs

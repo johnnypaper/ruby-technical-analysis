@@ -61,6 +61,23 @@ module RubyTechnicalAnalysis
           expect(oscillator.call).to eq(55.41)
         end
       end
+
+      describe "#valid?" do
+        it "returns true when the series is valid" do
+          expect(oscillator.valid?).to be(true)
+        end
+
+        it "returns false when the series is not valid" do
+          expect(
+            described_class.new(
+              series: [*1..(k_periods + d_periods - 1)],
+              k_periods: k_periods,
+              k_slow_periods: k_slow_periods,
+              d_periods: d_periods
+            ).valid?
+          ).to be(false)
+        end
+      end
     end
 
     describe "secondary series" do
