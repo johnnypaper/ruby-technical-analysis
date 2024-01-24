@@ -22,6 +22,11 @@ module RubyTechnicalAnalysis
       calculate_macd
     end
 
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      series.length >= slow_period + signal_period
+    end
+
     private
 
     def fast_pct
