@@ -33,6 +33,16 @@ module RubyTechnicalAnalysis
           expect(q_stick.call).to eq(0.7969)
         end
       end
+
+      describe "#valid?" do
+        it "returns true when the series is valid" do
+          expect(q_stick.valid?).to be(true)
+        end
+
+        it "returns false when the series is not valid" do
+          expect(described_class.new(series: [], period: period).valid?).to be(false)
+        end
+      end
     end
 
     describe "secondary series" do
