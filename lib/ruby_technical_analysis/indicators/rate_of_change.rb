@@ -18,6 +18,11 @@ module RubyTechnicalAnalysis
       calculate_roc
     end
 
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      period + 1 <= series.length
+    end
+
     private
 
     def calculate_roc
