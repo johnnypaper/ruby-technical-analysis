@@ -30,6 +30,11 @@ module RubyTechnicalAnalysis
       calculate_stochastic_oscillator
     end
 
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      k_periods + d_periods <= series.length
+    end
+
     private
 
     def calculate_lowest_lows(lows, window_start)
