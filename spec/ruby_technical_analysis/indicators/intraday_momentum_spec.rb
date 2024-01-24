@@ -3,8 +3,8 @@ require "spec_helper"
 module RubyTechnicalAnalysis
   RSpec.describe IntradayMomentumIndex do
     let(:series) {
-      [[18.4833, 18.5000], [18.5417, 18.4167], [18.4167, 18.1667], [18.1667, 18.1250], [18.1667, 17.9583],
-        [18.0417, 18.0000], [18.0000, 17.9583], [17.9167, 17.8333], [17.7917, 17.9583]]
+      [[18.4833, 18.5], [18.5417, 18.4167], [18.4167, 18.1667], [18.1667, 18.125], [18.1667, 17.9583],
+        [18.0417, 18], [18, 17.9583], [17.9167, 17.8333], [17.7917, 17.9583]]
     }
     let(:period) { 7 }
 
@@ -35,6 +35,18 @@ module RubyTechnicalAnalysis
         it "returns the IntradayMomentumIndex value" do
           expect(imi.call).to eq(19.988)
         end
+      end
+    end
+
+    describe "secondary series" do
+      series = [[18.4833, 18.5], [18.5417, 18.4167], [18.4167, 18.1667], [18.1667, 18.125], [18.1667, 17.9583],
+        [18.0417, 18], [18, 17.9583], [17.9167, 17.8333], [17.7917, 17.9583], [18.0417, 18.5417]]
+      period = 7
+
+      expected_value = 61.5228
+
+      it "returns the expected value" do
+        expect(described_class.new(series: series, period: period).call).to eq(expected_value)
       end
     end
   end

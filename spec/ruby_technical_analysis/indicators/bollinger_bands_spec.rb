@@ -2,7 +2,7 @@ require "spec_helper"
 
 module RubyTechnicalAnalysis
   RSpec.describe BollingerBands do
-    let(:series) { [31.8750, 32.1250, 32.3125, 32.1250, 31.8750] }
+    let(:series) { [31.875, 32.125, 32.3125, 32.125, 31.875] }
     let(:period) { 5 }
 
     let(:bollinger_bands) { described_class.new(series: series, period: period) }
@@ -36,6 +36,17 @@ module RubyTechnicalAnalysis
         it "returns an array containing the current upper, middle, and lower bands of the series" do
           expect(bollinger_bands.call).to eq([32.397, 32.062, 31.727])
         end
+      end
+    end
+
+    describe "secondary series" do
+      series = [31.875, 32.125, 32.3125, 32.125, 31.875, 32.3125]
+      period = 5
+
+      expected_values = [32.508, 32.15, 31.791]
+
+      it "returns the expected values" do
+        expect(described_class.new(series: series, period: period).call).to eq(expected_values)
       end
     end
   end

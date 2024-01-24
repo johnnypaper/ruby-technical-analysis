@@ -3,7 +3,7 @@ require "spec_helper"
 module RubyTechnicalAnalysis
   RSpec.describe RelativeMomentumIndex do
     let(:series) {
-      [6.8750, 6.9375, 6.8125, 6.6095, 6.7345, 6.6720, 6.6250, 6.6875, 6.5470, 6.6563, 6.6720, 6.6563]
+      [6.875, 6.9375, 6.8125, 6.6095, 6.7345, 6.672, 6.625, 6.6875, 6.547, 6.6563, 6.672, 6.6563]
     }
     let(:period_mom) { 4 }
     let(:period_rmi) { 8 }
@@ -39,6 +39,18 @@ module RubyTechnicalAnalysis
         it "returns the RelativeMomentumIndex value" do
           expect(rmi.call).to eq(13.1179)
         end
+      end
+    end
+
+    describe "secondary series" do
+      series = [6.875, 6.9375, 6.8125, 6.6095, 6.7345, 6.672, 6.625, 6.6875, 6.547, 6.6563, 6.672, 6.6563, 6.5938]
+      period_mom = 4
+      period_rmi = 8
+
+      expected_value = 17.7112
+
+      it "returns the expected value" do
+        expect(described_class.new(series: series, period_mom: period_mom, period_rmi: period_rmi).call).to eq(expected_value)
       end
     end
   end

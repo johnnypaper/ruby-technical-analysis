@@ -34,5 +34,16 @@ module RubyTechnicalAnalysis
         end
       end
     end
+
+    describe "secondary series" do
+      series = [9_996, 12_940, 37_524, 21_032, 14_880, 21_304, 15_776]
+      period = 5
+
+      expected_value = 21.9165
+
+      it "returns the expected value" do
+        expect(described_class.new(series: series, period: period).call).to eq(expected_value)
+      end
+    end
   end
 end

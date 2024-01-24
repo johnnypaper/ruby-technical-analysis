@@ -2,7 +2,7 @@ require "spec_helper"
 
 module RubyTechnicalAnalysis
   RSpec.describe ChandeMomentumOscillator do
-    let(:series) { [51.0625, 50.1250, 52.3125, 52.1875, 53.1875, 53.0625] }
+    let(:series) { [51.0625, 50.125, 52.3125, 52.1875, 53.1875, 53.0625] }
     let(:period) { 5 }
 
     let(:oscillator) { described_class.new(series: series, period: period) }
@@ -32,6 +32,17 @@ module RubyTechnicalAnalysis
         it "returns the ChandeMomentumOscillator value" do
           expect(oscillator.call.truncate(4)).to eq(45.7143)
         end
+      end
+    end
+
+    describe "secondary series" do
+      series = [51.0625, 50.125, 52.3125, 52.1875, 53.1875, 53.0625, 54.0625]
+      period = 5
+
+      expected_value = 88.7324
+
+      it "returns the expected value" do
+        expect(described_class.new(series: series, period: period).call.truncate(4)).to eq(expected_value)
       end
     end
   end

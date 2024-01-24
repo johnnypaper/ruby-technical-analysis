@@ -2,7 +2,7 @@ require "spec_helper"
 
 module RubyTechnicalAnalysis
   RSpec.describe QStick do
-    let(:series) { [[62.5625, 64.5625], [64.6250, 64.1250], [63.5625, 64.3125], [63.9375, 64.8750]] }
+    let(:series) { [[62.5625, 64.5625], [64.625, 64.125], [63.5625, 64.3125], [63.9375, 64.875]] }
     let(:period) { 4 }
 
     let(:q_stick) { described_class.new(series: series, period: period) }
@@ -32,6 +32,17 @@ module RubyTechnicalAnalysis
         it "returns the QStick value" do
           expect(q_stick.call).to eq(0.7969)
         end
+      end
+    end
+
+    describe "secondary series" do
+      series = [[62.5625, 64.5625], [64.625, 64.125], [63.5625, 64.3125], [63.9375, 64.875], [64.5, 65.1875]]
+      period = 4
+
+      expected_value = 0.4688
+
+      it "returns the expected value" do
+        expect(described_class.new(series: series, period: period).call).to eq(expected_value)
       end
     end
   end

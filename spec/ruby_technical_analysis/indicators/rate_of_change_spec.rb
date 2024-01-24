@@ -2,7 +2,7 @@ require "spec_helper"
 
 module RubyTechnicalAnalysis
   RSpec.describe RateOfChange do
-    let(:series) { [5.5625, 5.3750, 5.3750, 5.0625] }
+    let(:series) { [5.5625, 5.375, 5.375, 5.0625] }
     let(:period) { 3 }
 
     let(:roc) { described_class.new(series: series, period: period) }
@@ -32,6 +32,17 @@ module RubyTechnicalAnalysis
         it "returns the RateOfChange value" do
           expect(roc.call).to eq(-8.99)
         end
+      end
+    end
+
+    describe "secondary series" do
+      series = [5.5625, 5.375, 5.375, 5.0625, 5.1094]
+      period = 3
+
+      expected_value = -4.94
+
+      it "returns the expected value" do
+        expect(described_class.new(series: series, period: period).call).to eq(expected_value)
       end
     end
   end

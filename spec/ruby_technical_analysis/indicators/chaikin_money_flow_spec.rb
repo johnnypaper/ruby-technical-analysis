@@ -3,8 +3,8 @@ require "spec_helper"
 module RubyTechnicalAnalysis
   RSpec.describe ChaikinMoneyFlow do
     let(:series) {
-      [[8.6250, 8.3125, 8.6250, 4494], [8.6250, 8.4375, 8.5000, 2090], [8.6250, 8.4375, 8.6250, 1306],
-        [8.7500, 8.6250, 8.7500, 4242], [8.7500, 8.4375, 8.5000, 2874]]
+      [[8.625, 8.3125, 8.625, 4494], [8.625, 8.4375, 8.5, 2090], [8.625, 8.4375, 8.625, 1306],
+        [8.75, 8.625, 8.75, 4242], [8.75, 8.4375, 8.5, 2874]]
     }
     let(:period) { 5 }
 
@@ -35,6 +35,18 @@ module RubyTechnicalAnalysis
         it "returns the ChaikinMoneyFlow value" do
           expect(cmf.call.truncate(5)).to eq(0.50786)
         end
+      end
+    end
+
+    describe "secondary series" do
+      series = [[8.625, 8.3125, 8.625, 4494], [8.625, 8.4375, 8.5, 2090], [8.625, 8.4375, 8.625, 1306],
+        [8.75, 8.625, 8.75, 4242], [8.75, 8.4375, 8.5, 2874], [8.5625, 8.5, 8.5, 598]]
+      period = 5
+
+      expected_value = 0.22763
+
+      it "returns the expected value" do
+        expect(described_class.new(series: series, period: period).call.truncate(5)).to eq(expected_value)
       end
     end
   end

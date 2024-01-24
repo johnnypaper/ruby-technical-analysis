@@ -51,5 +51,23 @@ module RubyTechnicalAnalysis
         end
       end
     end
+
+    describe "secondary series" do
+      series = [17_604, 18_918, 21_030, 13_854, 10_866, 14_580]
+      short_ma_period = 2
+      long_ma_period = 5
+
+      expected_value = -19.73
+
+      it "returns the expected value" do
+        expect(
+          described_class.new(
+            series: series,
+            short_ma_period: short_ma_period,
+            long_ma_period: long_ma_period
+          ).call
+        ).to eq(expected_value)
+      end
+    end
   end
 end

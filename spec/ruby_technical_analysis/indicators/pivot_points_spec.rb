@@ -2,7 +2,7 @@ require "spec_helper"
 
 module RubyTechnicalAnalysis
   RSpec.describe PivotPoints do
-    let(:series) { [176.65, 152.00, 165.12] }
+    let(:series) { [176.65, 152, 165.12] }
 
     let(:pivot_points) { described_class.new(series: series) }
 

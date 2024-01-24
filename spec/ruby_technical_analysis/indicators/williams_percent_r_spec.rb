@@ -3,8 +3,8 @@ require "spec_helper"
 module RubyTechnicalAnalysis
   RSpec.describe WilliamsPercentR do
     let(:series) {
-      [[631.34, 624.81, 626.01], [627.11, 623.59, 626.44], [628.49, 621.33, 622.20],
-        [630.89, 622.20, 630.80], [632.85, 630.21, 632.85], [633.26, 629.64, 633.06]]
+      [[631.34, 624.81, 626.01], [627.11, 623.59, 626.44], [628.49, 621.33, 622.2],
+        [630.89, 622.2, 630.8], [632.85, 630.21, 632.85], [633.26, 629.64, 633.06]]
     }
     let(:period) { 5 }
 
@@ -35,6 +35,18 @@ module RubyTechnicalAnalysis
         it "returns the WilliamsPercentR value" do
           expect(williams_percent_r.call).to eq(-1.68)
         end
+      end
+    end
+
+    describe "secondary series" do
+      series = [[631.34, 624.81, 626.01], [627.11, 623.59, 626.44], [628.49, 621.33, 622.2],
+        [630.89, 622.2, 630.8], [632.85, 630.21, 632.85], [633.26, 629.64, 633.06]]
+      period = 5
+
+      expected_value = -1.68
+
+      it "returns the expected value" do
+        expect(described_class.new(series: series, period: period).call).to eq(expected_value)
       end
     end
   end
