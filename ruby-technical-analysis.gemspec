@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name = "ruby-technical-analysis"
-  spec.version = "1.0.0"
+  spec.version = "1.0.1"
   spec.authors = ["Brad Saterfiel"]
   spec.email = ["brad.saterfiel@gmail.com"]
   spec.description = "Technical analysis toolkit for stocks, commodities, and other time series written in Ruby."
