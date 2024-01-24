@@ -57,7 +57,7 @@ The test suite is a great place to look at usage as well as the individual class
 # Closing prices
 series_one = [31.8750, 32.1250, 32.3125, 32.1250, 31.8750]
 
-Rta::BollingerBands.call(series: series_one, period: 5)
+RubyTechnicalAnalysis::BollingerBands.call(series: series_one, period: 5)
 
 # => [32.397, 32.062, 31.727]
 ```
@@ -68,7 +68,7 @@ Rta::BollingerBands.call(series: series_one, period: 5)
 # [Open, Close]
 oc_series_one = [[18.4833, 18.5000], [18.5417, 18.4167], [18.4167, 18.1667], [18.1667, 18.1250], [18.1667, 17.9583], [18.0417, 18.0000], [18.0000, 17.9583], [17.9167, 17.8333], [17.7917, 17.9583]]
 
-Rta::IntradayMomentumIndex.call(series: oc_series_one, period: 7)
+RubyTechnicalAnalysis::IntradayMomentumIndex.call(series: oc_series_one, period: 7)
 
 # => 19.988
 ```
