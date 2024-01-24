@@ -77,5 +77,15 @@ module RubyTechnicalAnalysis
         end
       end
     end
+
+    describe "#valid?" do
+      it "returns true when the series is valid" do
+        expect(stats.valid?).to be(true)
+      end
+
+      it "returns false when the series is not valid" do
+        expect(described_class.new(series: []).valid?).to be(false)
+      end
+    end
   end
 end

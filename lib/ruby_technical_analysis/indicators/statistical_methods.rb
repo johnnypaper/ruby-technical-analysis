@@ -26,6 +26,11 @@ module RubyTechnicalAnalysis
       squared_differences.reduce(:+) / series.length.to_f
     end
 
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      series.length > 0
+    end
+
     private
 
     def squared_differences
