@@ -45,7 +45,7 @@ Then run `bundle install`.
 
 #### OR
 
-`gem install 'ruby-technical-analysis'` from the command line.
+`gem install ruby-technical-analysis` from the command line.
 
 ## Usage
 
