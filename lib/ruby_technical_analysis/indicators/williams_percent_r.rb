@@ -23,6 +23,11 @@ module RubyTechnicalAnalysis
       calculate_williams_percent_r
     end
 
+    # @return [Boolean] Whether or not the object is valid
+    def valid?
+      period < series.length
+    end
+
     private
 
     def calculate_lowest_lows(lows, window_start)

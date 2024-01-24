@@ -36,6 +36,24 @@ module RubyTechnicalAnalysis
           expect(williams_percent_r.call).to eq(-1.68)
         end
       end
+
+      describe "#valid?" do
+        context "when the period is greater than or equal to the series length" do
+          let(:period) { 6 }
+
+          it "returns false" do
+            expect(williams_percent_r.valid?).to eq(false)
+          end
+        end
+
+        context "when the period is less than the series length" do
+          let(:period) { 5 }
+
+          it "returns true" do
+            expect(williams_percent_r.valid?).to eq(true)
+          end
+        end
+      end
     end
 
     describe "secondary series" do
