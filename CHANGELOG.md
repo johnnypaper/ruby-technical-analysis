@@ -1,6 +1,6 @@
 # Ruby Technical Analysis
 
-## 1.0.2 (2024-01-24)
+## 1.0.3 (2024-01-24)
 
 ### Breaking Changes
 - Previously an indicator was called on an array, e.g. `[0,1,2,3].mean`
