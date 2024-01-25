@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ruby-technical-analysis (1.0.0)
+    ruby-technical-analysis (1.0.1)
 
 GEM
   remote: https://rubygems.org/
