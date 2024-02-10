@@ -1,5 +1,8 @@
 # Ruby Technical Analysis
 
+## 1.0.4 (2024-02-10)
+- Update PriceChannel to include #valid?
+
 ## 1.0.3 (2024-01-24)
 
 ### Breaking Changes

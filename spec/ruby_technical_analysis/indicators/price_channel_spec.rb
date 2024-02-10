@@ -37,6 +37,16 @@ module RubyTechnicalAnalysis
           expect(price_channel.call).to eq([2.974, 2.8127])
         end
       end
+
+      describe "#valid?" do
+        it "returns true if the object is valid" do
+          expect(price_channel.valid?).to eq(true)
+        end
+
+        it "returns false if the object is invalid" do
+          expect(described_class.new(series: []).valid?).to eq(false)
+        end
+      end
     end
 
     describe "secondary series" do
