@@ -18,6 +18,11 @@ module RubyTechnicalAnalysis
       calculate_price_channel
     end
 
+    # @return [Boolean] Whether the object is valid
+    def valid?
+      series.length >= period
+    end
+
     private
 
     def _highs
